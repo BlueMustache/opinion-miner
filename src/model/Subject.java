@@ -10,5 +10,5 @@ public interface Subject {
 
 	public void notifyObservers();
 	
-	//public Subject getSubject();
+	public String description();
 }
