@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="D:/Workspace/Opinion Miner/External_Jars/twitter4j-examples-4.0.2.jar"/>
 	<classpathentry kind="lib" path="D:/Workspace/Opinion Miner/External_Jars/twitter4j-media-support-4.0.2.jar"/>
 	<classpathentry kind="lib" path="D:/Workspace/Opinion Miner/External_Jars/twitter4j-stream-4.0.2.jar"/>
+	<classpathentry kind="lib" path="D:/Workspace/Opinion Miner/External_Jars/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

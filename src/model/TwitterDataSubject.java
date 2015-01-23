@@ -23,6 +23,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private FileWriter fileWriter = null;
 	private final String fileName = "fetchedTweets.csv";
 	private String topic;
+	//private TweetManager tweetManager;
 	
 	public TwitterDataSubject(Subject subjectReference) {
 		super(subjectReference);
@@ -39,6 +40,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	}
 	
 	public ArrayList<String> getTweets(String topic) {
+		//ArrayList<String> tweets = this.tweetManager.getTweets(topic);
 		this.topic = topic;
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setIncludeMyRetweetEnabled(false);
@@ -86,7 +88,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 			// Write the CSV file header
 			//fileWriter.append(FILE_HEADER.toString());
 			// Add a new line separator after the header
-			fileWriter.append("\n");
+			//fileWriter.append("\n");
 			// Write a new tweet list to the CSV file
 			for (String tweet : tweets) {
 				tweet = tweet.replace(","," ");

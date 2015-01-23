@@ -1,5 +1,6 @@
 import view.TestObserver;
 import model.ConcreteSubject;
+import model.DatumBoxSubject;
 import model.Subject;
 import model.TwitterDataSubject;
 
@@ -10,14 +11,17 @@ public class Main {
 		// TODO Auto-generated method stub
 		System.out.println("Driver running");
 		
-		Subject subject = new ConcreteSubject();
+		Subject twitterSubject = new ConcreteSubject();
+		Subject datumSubject = new ConcreteSubject();
 		//System.out.println("Concrete subject created");
-		System.out.println(subject.description());
-		subject = new TwitterDataSubject(subject);
+		System.out.println(twitterSubject.description());
+		twitterSubject = new TwitterDataSubject(twitterSubject);
+		datumSubject = new DatumBoxSubject(datumSubject);
 		///System.out.println("Concrete Subject decorated to TwitterData Subject");
-		System.out.println(subject.description());
-		TestObserver temp = new TestObserver(subject);
-		((TwitterDataSubject) subject).setTweetStore("#ISIS exclude:retweets");
+		System.out.println(twitterSubject.description());
+		TestObserver temp = new TestObserver(twitterSubject);
+		((TwitterDataSubject) twitterSubject).setTweetStore("#ISIS exclude:retweets");
+		((DatumBoxSubject) datumSubject).setDatumAnalysisFile();
 		
 		
 		
