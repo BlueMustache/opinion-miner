@@ -1,3 +1,5 @@
+import strategy.RapidMinerSentimentAnalysis;
+import view.MainUI;
 import view.TestObserver;
 import model.ConcreteSubject;
 import model.DatumBoxSubject;
@@ -11,6 +13,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		System.out.println("Driver running");
 		
+		MainUI ui = new MainUI();
+		
 		Subject twitterSubject = new ConcreteSubject();
 		Subject datumSubject = new ConcreteSubject();
 		//System.out.println("Concrete subject created");
@@ -22,8 +26,13 @@ public class Main {
 		TestObserver temp = new TestObserver(twitterSubject);
 		((TwitterDataSubject) twitterSubject).setTweetStore("#ISIS exclude:retweets");
 		((DatumBoxSubject) datumSubject).setDatumAnalysisFile();
-		
-		
+		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();
+		try {
+			analysis.runSentimentAnalysis(twitterSubject);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}

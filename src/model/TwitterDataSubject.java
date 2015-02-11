@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private FileWriter fileWriter = null;
 	private final String fileName = "fetchedTweets.csv";
 	private String topic;
+	private String tweetDataStore = "D:/Workspace/Opinion Miner/fetchedTweets.csv";
 	//private TweetManager tweetManager;
 	
 	public TwitterDataSubject(Subject subjectReference) {
@@ -137,6 +139,10 @@ public class TwitterDataSubject extends SubjectDecorator {
 		// For testing to check if subjects are been decorated
 		return "twitter data state added to " + super.description();
 		
+	}
+	
+	public String getTweetDataStore(){
+		return this.tweetDataStore;
 	}
 	
 	//Temp in subject should be located in subject package
