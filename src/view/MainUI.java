@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -12,12 +13,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 
+import strategy.RapidMinerSentimentAnalysis;
+import model.ConcreteSubject;
+import model.Subject;
 import model.TwitterDataSubject;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -31,20 +41,22 @@ public class MainUI extends JFrame {
 //	private JMenu menu;
 //	private JMenuItem menuItem;
 	private RapidMinerView rapidView;
+	private ControlPanelView ctrlView;
 	private TwitterDataSubject subject;
+	private JPanel Btn_Panel = new JPanel();
 
-	public MainUI(TwitterDataSubject subject) {
+	public MainUI(TwitterDataSubject subject) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		this.setTitle("Twitter Data Sentiment Analysis");
+		IconSetUP();
 		// Setup menu
 		//menuSetUp();
 		this.subject = subject;
 		rapidView = new RapidMinerView(subject);
-		
-		JPanel Btn_Panel = new JPanel();
-		Btn_Panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		getContentPane().add(Btn_Panel, BorderLayout.WEST);
-		Btn_Panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		ctrlView = new ControlPanelView(subject);
 
+
+		getContentPane().add(ctrlView, BorderLayout.WEST);
+		
 		JSplitPane Btn_splitPane = new JSplitPane();
 		Btn_splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		Btn_Panel.add(Btn_splitPane);
@@ -62,9 +74,27 @@ public class MainUI extends JFrame {
 				System.exit(0);
 			}
 		});
+		
+		this.setSize(1000, 600);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
 
 	}// end CTor
 
+	
+	public void IconSetUP(){
+				 //Start the application
+		Image img;
+			try {
+				img = ImageIO.read(new File("D:\\Workspace\\TattoDemo\\pics\\Twitter_logo_blue.png"));
+				this.setIconImage(img);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+	
+	
 //	public void menuSetUp() {
 //		menuBar = new JMenuBar();
 //		menu = new JMenu("File");
