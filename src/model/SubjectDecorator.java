@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.Controller.CommandListner;
 import view.Observer;
 
 public class SubjectDecorator implements Subject {
@@ -39,6 +40,17 @@ public class SubjectDecorator implements Subject {
 		// For testing to check if subjects are been decorated
 		return subjectReference.description();
 	}
+
+	public void addCommandListner(CommandListner commandListner) {
+		// TODO Auto-generated method stub
+		for(Observer o: observers){
+			o.addActionListener(commandListner);
+		}
+	}
+//	public void addSearchListner(SearchListner listner) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 
 }

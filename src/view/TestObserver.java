@@ -1,5 +1,7 @@
 package view;
 
+import controller.Controller.CommandListner;
+
 import model.Subject;
 
 public class TestObserver implements Observer {
@@ -18,6 +20,17 @@ public class TestObserver implements Observer {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void addActionListener(CommandListner commandListner) {
+		// TODO Auto-generated method stub
+		
+	}
+//	@Override
+//	public void addActionListener(SearchListner listner) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+
 
 	
 

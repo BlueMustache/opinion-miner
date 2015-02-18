@@ -7,6 +7,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import controller.Controller;
 import strategy.RapidMinerSentimentAnalysis;
 import view.MainUI;
 import view.TestObserver;
@@ -32,17 +33,19 @@ public class Main {
 
 		Subject twitterSubject = new ConcreteSubject();
 		twitterSubject = new TwitterDataSubject(twitterSubject);
-		((TwitterDataSubject) twitterSubject).setTweetStore("#ISIS exclude:retweets");
+		//((TwitterDataSubject) twitterSubject).setTopic("#ISIS exclude:retweets");
+		
 		MainUI app = new MainUI((TwitterDataSubject) twitterSubject);
 		// ((DatumBoxSubject) datumSubject).setDatumAnalysisFile();
+//		Controller controller = new Controller((TwitterDataSubject) twitterSubject);
 		
-		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();
-		try {
-			analysis.runSentimentAnalysis(twitterSubject);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();
+//		try {
+//			analysis.runSentimentAnalysis(twitterSubject);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		
 		// System.out.println("Concrete subject created");

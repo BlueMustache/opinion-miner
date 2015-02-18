@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import controller.Controller.CommandListner;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
@@ -25,11 +26,14 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private final String fileName = "fetchedTweets.csv";
 	private String topic;
 	private String tweetDataStore = "D:/Workspace/Opinion Miner/fetchedTweets.csv";
+	private Twitter twitterAcc;
+	private ArrayList<String> tweetList = new ArrayList<String>();
 	//private TweetManager tweetManager;
 	
 	public TwitterDataSubject(Subject subjectReference) {
 		super(subjectReference);
 		observers = new ArrayList();
+		buildConfiguration();
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -39,52 +43,82 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setTopic(String topic) {
 		this.topic = topic;
+		//notifyObservers();
 	}
 	
-	public ArrayList<String> getTweets(String topic) {
-		//ArrayList<String> tweets = this.tweetManager.getTweets(topic);
-		this.topic = topic;
+	//THIS IS FOR TESTING IF THE OBSERVERS ARE GETTIN UPDATED
+	public void setObservers(){
+		
+	}
+	
+	public void buildConfiguration() {
+		// TODO Auto-generated method stub
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setIncludeMyRetweetEnabled(false);
 		cb.setOAuthConsumerKey("lAUjsLcVsEYDfyoyVz8ZLGJEn");
 		cb.setOAuthConsumerSecret("1yMPEgEduQnTOR9Vhic8K4DDIr0e4jGDAgHV1vfRNZrVy7wuOJ");
 		cb.setOAuthAccessToken("1132014068-3por1LAq9kljhAgotaxwEpPJu6xRYaRRFfKXD3O");
 		cb.setOAuthAccessTokenSecret("bohSoky6eklbPsdjpYMDotqYSI5oZB4bpoHeeYpUf8jmM");
-		System.out.println("OAuth Success");//TEST
-		Twitter twitter = new TwitterFactory(cb.build()).getInstance();
-		ArrayList<String> tweetList = new ArrayList<String>();
 		
-		int tweetCount = 0;
-		try {
-			Query query = new Query(topic);
-			//query.lang("en");
-			//query.setCount(10);
-			//query.count(20);
-			//query.setSince("2015-01-10");
-			//query.getGeocode();
-			query.setResultType(Query.POPULAR);
-			QueryResult result;
-			do {
-				result = twitter.search(query);
-				List<Status> tweets = result.getTweets();
-				
-				for (Status tweet : tweets) {
-					tweetList.add(tweet.getText());
-					tweetCount++;
-					//System.out.println(tweet.getGeoLocation());
-				}
-			} while ((query = result.nextQuery()) != null /*&& tweetCount < 2*/);///MIGHT NEED TO REMOVE THIS LIMITS TWEETS DISPLAYED TO 20 SOMEHOW
-		} catch (TwitterException te) {
-			te.printStackTrace();
-			System.out.println("Failed to search tweets: " + te.getMessage());
-		}
-		System.out.println("The Tweets Fetched count is : " + tweetCount);
-		return tweetList;		
+		this.twitterAcc = new TwitterFactory(cb.build()).getInstance();
+		
+	}
+	
+	public Twitter getTwitterAcc(){
+		return this.twitterAcc;
+	}
+	
+	public ArrayList<String> getTweets(/*String topic*/) {
+		//ArrayList<String> tweets = this.tweetManager.getTweets(topic);
+		//this.topic = topic;
+//		ConfigurationBuilder cb = new ConfigurationBuilder();
+//		cb.setIncludeMyRetweetEnabled(false);
+//		cb.setOAuthConsumerKey("lAUjsLcVsEYDfyoyVz8ZLGJEn");
+//		cb.setOAuthConsumerSecret("1yMPEgEduQnTOR9Vhic8K4DDIr0e4jGDAgHV1vfRNZrVy7wuOJ");
+//		cb.setOAuthAccessToken("1132014068-3por1LAq9kljhAgotaxwEpPJu6xRYaRRFfKXD3O");
+//		cb.setOAuthAccessTokenSecret("bohSoky6eklbPsdjpYMDotqYSI5oZB4bpoHeeYpUf8jmM");
+//		System.out.println("OAuth Success");//TEST
+//		Twitter twitter = new TwitterFactory(cb.build()).getInstance();
+//		ArrayList<String> tweetList = new ArrayList<String>();
+//		
+//		int tweetCount = 0;
+//		try {
+//			Query query = new Query(topic);
+//			//query.lang("en");
+//			//query.setCount(10);
+//			//query.count(20);
+//			//query.setSince("2015-01-10");
+//			//query.getGeocode();
+//			query.setResultType(Query.POPULAR);
+//			QueryResult result;
+//			do {
+//				result = twitter.search(query);
+//				List<Status> tweets = result.getTweets();
+//				
+//				for (Status tweet : tweets) {
+//					tweetList.add(tweet.getText());
+//					tweetCount++;
+//					//System.out.println(tweet.getGeoLocation());
+//				}
+//			} while ((query = result.nextQuery()) != null /*&& tweetCount < 2*/);///MIGHT NEED TO REMOVE THIS LIMITS TWEETS DISPLAYED TO 20 SOMEHOW
+//		} catch (TwitterException te) {
+//			te.printStackTrace();
+//			System.out.println("Failed to search tweets: " + te.getMessage());
+//		}
+//		System.out.println("The Tweets Fetched count is : " + tweetCount);
+//		return tweetList;		
+		
+		return this.tweetList;
+	}
+	
+	public void setTweetLits(ArrayList<String> tweets){
+		this.tweetList = tweets;
+		notifyObservers();
 	}
 	
 
-	public void setTweetStore(String topic){
-		ArrayList<String> tweets = getTweets(topic);
+	public void setTweetStore(ArrayList<String> tweets){
+		//ArrayList<String> tweets = getTweets();
 		try {
 			fileWriter = new FileWriter(fileName);
 			// Write the CSV file header
@@ -115,25 +149,25 @@ public class TwitterDataSubject extends SubjectDecorator {
 		System.out.println("Observers notified");//TEST
 	}
 		//CAN BE REMOVED
-//	@Override
-//	public void registerObserver(Observer observer) {
-//		// Add observers to subject
-//				observers.add(observer);
-//	}
-//
-//	@Override
-//	public void removeObserver(Observer observer) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void notifyObservers() {
-//		// notify all observers on update
-//				for(Observer o: observers){
-//					o.update(this);
-//				}	
-//	}
+	@Override
+	public void registerObserver(Observer observer) {
+		// Add observers to subject
+				observers.add(observer);
+	}
+
+	@Override
+	public void removeObserver(Observer observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyObservers() {
+		// notify all observers on update
+				for(Observer o: observers){
+					o.update(this);
+				}	
+	}
 	
 	public String description(){
 		// For testing to check if subjects are been decorated
@@ -163,4 +197,19 @@ public class TwitterDataSubject extends SubjectDecorator {
         
         return commentstr;
     }
+	@Override
+	public void addCommandListner(CommandListner commandListner) {
+		// TODO Auto-generated method stub
+		for(Observer o: observers){
+			o.addActionListener(commandListner);
+		}
+	}
+	
+//	@Override
+//	public void addSearchListner(SearchListner listner) {
+//		// TODO Auto-generated method stub
+//		for(Observer o: observers){
+//			o.addActionListener(listner);
+//		}
+//	}
 }

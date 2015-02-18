@@ -18,6 +18,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.LineBorder;
 
+import controller.Controller;
 import strategy.RapidMinerSentimentAnalysis;
 import model.ConcreteSubject;
 import model.Subject;
@@ -40,10 +41,12 @@ public class MainUI extends JFrame {
 //	private JMenuBar menuBar;
 //	private JMenu menu;
 //	private JMenuItem menuItem;
-	private RapidMinerView rapidView;
+	private FetchedTweetsView tweetView;
 	private ControlPanelView ctrlView;
 	private TwitterDataSubject subject;
 	private JPanel Btn_Panel = new JPanel();
+	//private SetSearchTopicCmd searchCmd;
+	private Controller controller;
 
 	public MainUI(TwitterDataSubject subject) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		this.setTitle("Twitter Data Sentiment Analysis");
@@ -51,9 +54,11 @@ public class MainUI extends JFrame {
 		// Setup menu
 		//menuSetUp();
 		this.subject = subject;
-		rapidView = new RapidMinerView(subject);
+		
 		ctrlView = new ControlPanelView(subject);
-
+		//searchCmd = new SetSearchTopicCmd(subject,ctrlView);
+		controller = new Controller(subject,ctrlView);
+		tweetView = new FetchedTweetsView(subject);
 
 		getContentPane().add(ctrlView, BorderLayout.WEST);
 		
@@ -64,7 +69,7 @@ public class MainUI extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
-		tabbedPane.addTab("Rapid Miner Analysis", null, rapidView,null);
+		tabbedPane.addTab("Searched Tweets", null, tweetView,null);
 
 		// Add listeners
 		addWindowListener(new WindowAdapter() {
