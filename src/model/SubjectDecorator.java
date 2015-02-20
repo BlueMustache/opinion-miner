@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import controller.Controller.CommandListner;
+import controller.Controller.TextListner;
 import view.Observer;
 
 public class SubjectDecorator implements Subject {
@@ -47,10 +48,5 @@ public class SubjectDecorator implements Subject {
 			o.addActionListener(commandListner);
 		}
 	}
-//	public void addSearchListner(SearchListner listner) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
 
 }

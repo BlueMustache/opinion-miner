@@ -48,7 +48,7 @@ public class MainUI extends JFrame {
 	//private SetSearchTopicCmd searchCmd;
 	private Controller controller;
 
-	public MainUI(TwitterDataSubject subject) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+	public MainUI(TwitterDataSubject subject) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException {
 		this.setTitle("Twitter Data Sentiment Analysis");
 		IconSetUP();
 		// Setup menu

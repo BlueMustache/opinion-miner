@@ -1,5 +1,5 @@
 package model;
-
+//This whole class may not be required
 import java.util.ArrayList;
 import java.util.List;
 

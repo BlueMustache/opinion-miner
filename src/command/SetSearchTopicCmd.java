@@ -1,4 +1,4 @@
-//package command;
+//package command; MIGHT NOT NEED THIS CALSS AT ALL, WAS TRYING TO GET THE TEXT FROM TEXT FIELD FROM THIS
 //
 //import view.ControlPanelView;
 //import model.TwitterDataSubject;

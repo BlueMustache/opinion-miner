@@ -116,7 +116,7 @@ public class DatumboxManager implements IDatumBoxManager {
 
 		return stringToJSONObject(str);
 	}
-
+	//Create a JSON Object from a JSON style string. Allows for easier processing in the future
 	private static JSONObject stringToJSONObject(String jString) {
 
 		String outputKey = jString.substring(2, 8);

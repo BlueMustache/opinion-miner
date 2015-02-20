@@ -18,24 +18,23 @@ import model.TwitterDataSubject;
 
 public class Main {
 
-	public static void main(String[] args) throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException,
-			UnsupportedLookAndFeelException {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws ClassNotFoundException,InstantiationException, IllegalAccessException,UnsupportedLookAndFeelException, IOException {
+
 		System.out.println("Driver running");
 
 		Subject datumSubject = new ConcreteSubject();
-
 		datumSubject = new DatumBoxSubject(datumSubject);
 
-		// Select the Look and Feel
+		// Select the Look and Feel need a backup to go to the default look and feel maybe a try catch
 		UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
 
 		Subject twitterSubject = new ConcreteSubject();
 		twitterSubject = new TwitterDataSubject(twitterSubject);
-		//((TwitterDataSubject) twitterSubject).setTopic("#ISIS exclude:retweets");
+		//((TwitterDataSubject) twitterSubject).setTopic("#ISIS exclude:retweets"); FOR TESTING TO CHECK TWEETS HAVE A QUERY
 		
 		MainUI app = new MainUI((TwitterDataSubject) twitterSubject);
+		
+		System.out.println("tweet Count = " + ((TwitterDataSubject) twitterSubject).getTweetCount());
 		// ((DatumBoxSubject) datumSubject).setDatumAnalysisFile();
 //		Controller controller = new Controller((TwitterDataSubject) twitterSubject);
 		
@@ -47,13 +46,6 @@ public class Main {
 //			e.printStackTrace();
 //		}
 
-		
-		// System.out.println("Concrete subject created");
-		// System.out.println(twitterSubject.description());
-
-		// /System.out.println("Concrete Subject decorated to TwitterData Subject");
-		// System.out.println(twitterSubject.description());
-		// TestObserver temp = new TestObserver(twitterSubject);
 
 	}
 
