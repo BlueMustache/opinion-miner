@@ -35,7 +35,6 @@ public class Controller {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			action = (Command) e.getSource();
-			String str =  e.getSource().toString();
 			action.execute();
 		}
 	}

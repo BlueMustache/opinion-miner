@@ -66,7 +66,7 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 		mainPanel.setLayout(gbl_panel);
 		
 		
-		gridSetUp();
+		//gridSetUp();
 		setLableLayout();	
 		this.setViewportView(mainPanel);
 	}

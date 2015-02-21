@@ -19,8 +19,11 @@ public class DatumBoxSubject extends SubjectDecorator {
 	private final String fileName = "DatumAnalysis.csv";
 	private IDatumBoxManager datumBoxManager;
 	private FileWriter fileWriter = null;
+	private String tweetDataStore = "D:/Workspace/Opinion Miner/fetchedTweets.csv";
 	
 	
+	
+
 	public DatumBoxSubject(Subject subjectReference) {
 		super(subjectReference);
 		observers = new ArrayList();
@@ -28,38 +31,46 @@ public class DatumBoxSubject extends SubjectDecorator {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public IDatumBoxManager getDatumBoxManager() {
+		return datumBoxManager;
+	}
+
+	public void setDatumBoxManager(IDatumBoxManager datumBoxManager) {
+		this.datumBoxManager = datumBoxManager;
+	}
+	
 	public void setDatumAnalysisFile(){
-		ArrayList<String> tweets = getFetchedTweets();
-		JSONObject sentimentPrediction = new JSONObject();
-		
-		try {
-			fileWriter = new FileWriter(fileName);
-			// Write the CSV file header
-			//fileWriter.append(FILE_HEADER.toString());
-			// Add a new line separator after the header
-			//fileWriter.append("\n");
-			// Write a new tweet list to the CSV file
-			for (String tweet : tweets) {
-				sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(tweet);
-				tweet = tweet.replace(","," ");
-				fileWriter.append(String.valueOf(tweet));
-				fileWriter.append(",");
-				fileWriter.append(sentimentPrediction.get("result").toString());
-				fileWriter.append("\n");
-			}
-			System.out.println("DatumBox results CSV file was created successfully !!!");
-		} catch (Exception e) {
-			System.out.println("Error in CsvFileWriter DatumBox results not written !!!");
-			e.printStackTrace();
-		} finally {
-			try {
-				fileWriter.flush();
-				fileWriter.close();
-			} catch (IOException e) {
-				System.out.println("Error while flushing/closing fileWriter !!!");
-				e.printStackTrace();
-			}
-		}
+//		ArrayList<String> tweets = getFetchedTweets();
+//		JSONObject sentimentPrediction = new JSONObject();
+//		
+//		try {
+//			fileWriter = new FileWriter(fileName);
+//			// Write the CSV file header
+//			//fileWriter.append(FILE_HEADER.toString());
+//			// Add a new line separator after the header
+//			//fileWriter.append("\n");
+//			// Write a new tweet list to the CSV file
+//			for (String tweet : tweets) {
+//				sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(tweet);
+//				tweet = tweet.replace(","," ");
+//				fileWriter.append(String.valueOf(tweet));
+//				fileWriter.append(",");
+//				fileWriter.append(sentimentPrediction.get("result").toString());
+//				fileWriter.append("\n");
+//			}
+//			System.out.println("DatumBox results CSV file was created successfully !!!");
+//		} catch (Exception e) {
+//			System.out.println("Error in CsvFileWriter DatumBox results not written !!!");
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				fileWriter.flush();
+//				fileWriter.close();
+//			} catch (IOException e) {
+//				System.out.println("Error while flushing/closing fileWriter !!!");
+//				e.printStackTrace();
+//			}
+//		}
 		notifyObservers();
 	}
 	

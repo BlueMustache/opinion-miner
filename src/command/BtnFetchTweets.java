@@ -21,7 +21,7 @@ public class BtnFetchTweets extends JButton implements Command {
 	public BtnFetchTweets(String caption, TwitterDataSubject subject ) {
 		// Constructor for this btn
 		super(caption);
-		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		this.tweetSubject = subject;
 		this.twitterAcc = subject.getTwitterAcc();
 	}
@@ -61,6 +61,7 @@ ArrayList<String> tweetList = new ArrayList<String>();
 		
 		this.tweetSubject.setTweetLits(tweetList);	//Set the arraylist of tweets contained in the subject
 		this.tweetSubject.setTweetStore(tweetList); //Set the CSV file with the fetched Tweets
+		this.tweetSubject.setPreProcessedTweetList();
 		System.out.println("tweet Count = " + tweetSubject.getTweetCount());
 	}
 

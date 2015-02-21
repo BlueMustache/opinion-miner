@@ -12,19 +12,22 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import command.BtnAnalyseTweets;
 import command.BtnFetchTweets;
 import controller.Controller.CommandListner;
 //import controller.Controller.IDocumentListener;
 import controller.Controller.TextListner;
 import model.Subject;
 import model.TwitterDataSubject;
+
 import java.awt.Font;
 
 public class ControlPanelView extends JPanel implements Observer {
 	
 	private TwitterDataSubject subject;
 	private BtnFetchTweets btnFetchTweets;
-	private JButton btnAnalyze = new JButton("Analyze");
+	private BtnAnalyseTweets btnAnalyze;
+	//private JButton btnAnalyze = new JButton("Analyze");
 	private JTextField textField = new JTextField();
 	private JSplitPane splitPane = new JSplitPane();
 	
@@ -34,7 +37,7 @@ public class ControlPanelView extends JPanel implements Observer {
 		this.subject = subject;
 		
 		btnFetchTweets = new BtnFetchTweets("Search", subject);
-		
+		btnAnalyze = new BtnAnalyseTweets("Analyze", subject);
 		setBtnLayout(); //Call set layout method to layout the buttons
 		textFieldListner();// Need to try put this in the controller
 	}
@@ -108,6 +111,7 @@ public class ControlPanelView extends JPanel implements Observer {
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 		btnFetchTweets.addActionListener(commandListner);
+		btnAnalyze.addActionListener(commandListner);
 	}
 
 }

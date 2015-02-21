@@ -9,6 +9,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import controller.Controller.CommandListner;
+import strategy.DatumBoxAnalysis;
+import strategy.RapidMinerSentimentAnalysis;
+import strategy.SentimentStrategy;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
@@ -28,7 +31,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private String tweetDataStore = "D:/Workspace/Opinion Miner/fetchedTweets.csv";
 	private Twitter twitterAcc;
 	private ArrayList<String> tweetList = new ArrayList<String>();
+	private ArrayList<String> preProcessedTweetList = new ArrayList<String>();
 	private int tweetCount;
+	private  ArrayList<SentimentStrategy> AnalysisStrategys = new ArrayList<SentimentStrategy>();
 
 	// private TweetManager tweetManager;
 
@@ -37,6 +42,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		super(subjectReference);
 		observers = new ArrayList();
 		buildConfiguration(); // Create build to create a twitter access account
+		setAnalysisStrategys();
 
 	}
 
@@ -117,6 +123,31 @@ public class TwitterDataSubject extends SubjectDecorator {
 		}
 		notifyObservers();
 		System.out.println("Observers notified");// TEST
+	}
+	
+	public ArrayList<String> getPreProcessedTweetList() {
+		return preProcessedTweetList;
+	}
+
+	public void setPreProcessedTweetList() {
+		this.preProcessedTweetList = this.tweetList;
+		for(int i = 0; i<this.tweetList.size();i++){
+		preProcessedTweetList.set(i, removeUrl(this.tweetList.get(i)));
+		}
+		System.out.println("setPreProcessedTweetList activated");// TEST
+	}
+	
+
+	public ArrayList<SentimentStrategy> getAnalysisStrategys() {
+		return AnalysisStrategys;
+	}
+
+	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
+		
+		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();
+		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
+		AnalysisStrategys.add(analysis);
+		AnalysisStrategys.add(datumAnalysis);
 	}
 
 	// CAN BE REMOVED
