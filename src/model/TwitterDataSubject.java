@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +36,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private ArrayList<String> preProcessedTweetList = new ArrayList<String>();
 	private int tweetCount;
 	private  ArrayList<SentimentStrategy> AnalysisStrategys = new ArrayList<SentimentStrategy>();
+	private Map<String, String> datumBoxResults = new HashMap<String, String>();
 
 	// private TweetManager tweetManager;
 
@@ -148,6 +151,17 @@ public class TwitterDataSubject extends SubjectDecorator {
 		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
 		AnalysisStrategys.add(analysis);
 		AnalysisStrategys.add(datumAnalysis);
+	}
+	
+
+	public Map getDatumBoxResults() {
+		return datumBoxResults;
+	}
+
+	public void setDatumBoxResults(Map<String, String> datumBoxResults) {
+		this.datumBoxResults = datumBoxResults;
+		notifyObservers();
+		System.out.println("Map results created");
 	}
 
 	// CAN BE REMOVED

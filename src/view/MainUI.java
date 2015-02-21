@@ -43,6 +43,7 @@ public class MainUI extends JFrame {
 //	private JMenuItem menuItem;
 	private FetchedTweetsView tweetView;
 	private ControlPanelView ctrlView;
+	private DatumBoxView datumView;
 	private TwitterDataSubject subject;
 	private JPanel Btn_Panel = new JPanel();
 	//private SetSearchTopicCmd searchCmd;
@@ -59,6 +60,7 @@ public class MainUI extends JFrame {
 		//searchCmd = new SetSearchTopicCmd(subject,ctrlView);
 		controller = new Controller(subject,ctrlView);
 		tweetView = new FetchedTweetsView(subject);
+		datumView = new DatumBoxView(subject);
 
 		getContentPane().add(ctrlView, BorderLayout.WEST);
 		
@@ -70,6 +72,7 @@ public class MainUI extends JFrame {
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		tabbedPane.addTab("Searched Tweets", null, tweetView,null);
+		tabbedPane.addTab("DatumBox Results", null, datumView,null);
 
 		// Add listeners
 		addWindowListener(new WindowAdapter() {

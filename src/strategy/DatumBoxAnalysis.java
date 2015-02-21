@@ -3,6 +3,8 @@ package strategy;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 
@@ -29,7 +31,9 @@ public class DatumBoxAnalysis implements SentimentStrategy {
 				.getPreProcessedTweetList();
 		String csvFile = ((TwitterDataSubject) subject).getTweetDataStore();
 		JSONObject sentimentPrediction = new JSONObject();
-
+		Map<String, String> results = new HashMap<String, String>();
+		
+		
 		try {
 			fileWriter = new FileWriter(csvFile);
 			// Write the CSV file header
@@ -44,6 +48,7 @@ public class DatumBoxAnalysis implements SentimentStrategy {
 				fileWriter.append(",");
 				fileWriter.append(sentimentPrediction.get("result").toString());
 				fileWriter.append("\n");
+				results.put(String.valueOf(tweet), sentimentPrediction.get("result").toString());
 			}
 			System.out
 					.println("DatumBox results CSV file was created successfully !!!");
@@ -61,7 +66,12 @@ public class DatumBoxAnalysis implements SentimentStrategy {
 				e.printStackTrace();
 			}
 		}
+		((TwitterDataSubject) subject).setDatumBoxResults(results);
 
+	}
+	
+	public void filMapResults(){
+		
 	}
 
 }

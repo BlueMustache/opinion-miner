@@ -35,16 +35,7 @@ public class Main {
 		MainUI app = new MainUI((TwitterDataSubject) twitterSubject);
 		
 		System.out.println("tweet Count = " + ((TwitterDataSubject) twitterSubject).getTweetCount());
-		// ((DatumBoxSubject) datumSubject).setDatumAnalysisFile();
-//		Controller controller = new Controller((TwitterDataSubject) twitterSubject);
-		
-//		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();
-//		try {
-//			analysis.runSentimentAnalysis(twitterSubject);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+
 
 
 	}

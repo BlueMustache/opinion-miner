@@ -47,7 +47,7 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 	
 	public FetchedTweetsView(TwitterDataSubject subjectReference) throws IOException  {
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		setBorder(new LineBorder(new Color(0, 0, 0)));
+		//setBorder(new LineBorder(new Color(0, 0, 0)));
 		// TODO Auto-generated constructor stub
 		this.subject = subjectReference;
 		subjectReference.registerObserver(this);
@@ -124,24 +124,9 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 	public void update(Subject subject) {
 		// TODO Auto-generated method stub
 		this.subject = (TwitterDataSubject) subject;
-//		String tweetStr = "";
+		String tweetStr = "";
 		ArrayList<String> tweetList = this.subject.getTweets();
-//		for(int i=0;i<tweetList.size();i++){
-//			tweetStr = tweetStr + "\n " + tweetList.get(i).toString();
-//			
-//		}
-//		 String html1 = "<html><body style='width: ";
-//	     String html2 = "px'>";
-		
-		
-//		tweetLable_1.setText(html1+"200"+html2+tweetList.get(0).toString());
-//		tweetLable_2.setText(html1+"200"+html2+tweetList.get(1).toString());
-//		tweetLable_3.setText(html1+"200"+html2+tweetList.get(2).toString());
-//		tweetLable_4.setText(html1+"200"+html2+tweetList.get(3).toString());
-//		tweetLable_5.setText(html1+"200"+html2+tweetList.get(4).toString());
-		//this.textField.setText(tweetStr);
-//		System.out.println("tweets added to view");
-//		gridSetUp();
+
 		
 		int tweetCount = ((TwitterDataSubject) subject).getTweetCount(); 
 		
