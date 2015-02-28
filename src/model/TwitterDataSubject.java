@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.simple.JSONObject;
+
 import controller.Controller.CommandListner;
 import strategy.DatumBoxAnalysis;
 import strategy.RapidMinerSentimentAnalysis;
@@ -31,12 +33,13 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private final String fileName = "fetchedTweets.csv";
 	private String topic;
 	private String tweetDataStore = "D:/Workspace/Opinion Miner/fetchedTweets.csv";
+	private String datumBoxCSV = "D:/Workspace/Opinion Miner/DatumAnalysis.csv";
 	private Twitter twitterAcc;
 	private ArrayList<String> tweetList = new ArrayList<String>();
 	private ArrayList<String> preProcessedTweetList = new ArrayList<String>();
 	private int tweetCount;
 	private  ArrayList<SentimentStrategy> AnalysisStrategys = new ArrayList<SentimentStrategy>();
-	private Map<String, String> datumBoxResults = new HashMap<String, String>();
+	private ArrayList<JSONObject> datumResultsJSON = new ArrayList<JSONObject>();
 
 	// private TweetManager tweetManager;
 
@@ -149,20 +152,27 @@ public class TwitterDataSubject extends SubjectDecorator {
 		
 		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();
 		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
-		AnalysisStrategys.add(analysis);
+		//AnalysisStrategys.add(analysis);
 		AnalysisStrategys.add(datumAnalysis);
 	}
 	
-
-	public Map getDatumBoxResults() {
-		return datumBoxResults;
+	public String getDatumBoxCSV() {
+		return datumBoxCSV;
 	}
 
-	public void setDatumBoxResults(Map<String, String> datumBoxResults) {
-		this.datumBoxResults = datumBoxResults;
+	public void setDatumBoxCSV(String datumBoxCSV) {
+		this.datumBoxCSV = datumBoxCSV;
+	}
+	
+	public ArrayList<JSONObject> getDatumResultsJSON() {
+		return datumResultsJSON;
+	}
+
+	public void setDatumResultsJSON(ArrayList<JSONObject> datumResultsJSON) {
+		this.datumResultsJSON = datumResultsJSON;
 		notifyObservers();
-		System.out.println("Map results created");
 	}
+	
 
 	// CAN BE REMOVED
 	@Override

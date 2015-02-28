@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.GroupLayout;
@@ -17,6 +18,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.LineBorder;
+
+import org.json.simple.JSONObject;
 
 import model.DatumBoxSubject;
 import model.Subject;
@@ -59,10 +62,8 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		// TODO Auto-generated method stub
 		this.subjectRef = (TwitterDataSubject) subject;
 		String tweetStr = "";
-		Map<String, String> results = new HashMap<String, String>();
-		results = this.subjectRef.getDatumBoxResults();
-		ArrayList<String> tweetList = this.subjectRef.getTweets();
 
+		ArrayList<JSONObject> datumResults = this.subjectRef.getDatumResultsJSON();
 		
 		int tweetCount = ((TwitterDataSubject) subject).getTweetCount(); 
 		
@@ -72,7 +73,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		gbc_panel_3.gridx = 0;
 		
 		
-		for(int i=0; i<tweetCount;i++){		
+		for(int i=0; i<datumResults.size();i++){	
 		panelList.add(new JPanel());
 		panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
 		textAreaList.add(new JTextArea());
@@ -85,7 +86,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		
 		textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		textAreaList.get(i).setWrapStyleWord(true);
-		textAreaList.get(i).setText(results.toString());
+		textAreaList.get(i).setText(datumResults.get(i).get("result").toString()+ " = " +datumResults.get(i).get("tweet"));	
 		textAreaList.get(i).setLineWrap(true);
 		textAreaList.get(i).setEnabled(true);
 		textAreaList.get(i).setEditable(false);
@@ -104,6 +105,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		panelList.get(i).setLayout(gl_panel_3);
 
 		}
+
 		System.out.println("THe text area is running and made "+ tweetCount +" panels & Views");
 	}
 

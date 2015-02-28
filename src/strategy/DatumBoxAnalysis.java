@@ -29,9 +29,9 @@ public class DatumBoxAnalysis implements SentimentStrategy {
 		
 		ArrayList<String> tweets = ((TwitterDataSubject) subject)
 				.getPreProcessedTweetList();
-		String csvFile = ((TwitterDataSubject) subject).getTweetDataStore();
+		String csvFile = ((TwitterDataSubject) subject).getDatumBoxCSV();
 		JSONObject sentimentPrediction = new JSONObject();
-		Map<String, String> results = new HashMap<String, String>();
+		ArrayList<JSONObject> datumResults = new ArrayList<JSONObject>();
 		
 		
 		try {
@@ -48,10 +48,12 @@ public class DatumBoxAnalysis implements SentimentStrategy {
 				fileWriter.append(",");
 				fileWriter.append(sentimentPrediction.get("result").toString());
 				fileWriter.append("\n");
-				results.put(String.valueOf(tweet), sentimentPrediction.get("result").toString());
+				sentimentPrediction.put("tweet", tweet);
+				datumResults.add(sentimentPrediction);
+		
 			}
-			System.out
-					.println("DatumBox results CSV file was created successfully !!!");
+			System.out.println("DatumBox results CSV file was created successfully !!!");
+			
 		} catch (Exception e) {
 			System.out
 					.println("Error in CsvFileWriter DatumBox results not written !!!");
@@ -66,12 +68,9 @@ public class DatumBoxAnalysis implements SentimentStrategy {
 				e.printStackTrace();
 			}
 		}
-		((TwitterDataSubject) subject).setDatumBoxResults(results);
+		((TwitterDataSubject) subject).setDatumResultsJSON(datumResults);
 
 	}
 	
-	public void filMapResults(){
-		
-	}
 
 }
