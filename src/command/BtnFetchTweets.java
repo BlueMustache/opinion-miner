@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.swing.JButton;
 
+import strategy.ProcessStrategy;
+import strategy.ProcessTweetsStrategy;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
@@ -17,6 +19,7 @@ public class BtnFetchTweets extends JButton implements Command {
 	
 	private TwitterDataSubject tweetSubject;
 	private Twitter twitterAcc;
+	private ProcessStrategy processStrategy;
 
 	public BtnFetchTweets(String caption, TwitterDataSubject subject ) {
 		// Constructor for this btn
@@ -60,8 +63,12 @@ ArrayList<String> tweetList = new ArrayList<String>();
 		System.out.println("The Tweets Fetched count is : " + tweetCount); //For testing
 		
 		this.tweetSubject.setTweetLits(tweetList);	//Set the arraylist of tweets contained in the subject
-		this.tweetSubject.setTweetStore(tweetList); //Set the CSV file with the fetched Tweets
-		this.tweetSubject.setPreProcessedTweetList();
+		//this.tweetSubject.setTweetStore(tweetList); //Set the CSV file with the fetched Tweets
+		//this.tweetSubject.setPreProcessedTweetList();
+		//processStrategy = new ProcessTweetsStrategy();
+		processStrategy = tweetSubject.getProcessStrategy(); // this needsd work
+		processStrategy.runProcess(tweetSubject);
+		this.tweetSubject.setTweetStore();
 		System.out.println("tweet Count = " + tweetSubject.getTweetCount());
 	}
 
