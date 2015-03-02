@@ -153,9 +153,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 	}
 	
 
-//	public SentimentStrategy getAnalysisStrategys() {
-//		return this.sentimentStrategy;
-//	}
+	public ArrayList<SentimentStrategy> getAnalysisStrategys() {
+		return this.AnalysisStrategys;
+	}
 
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		

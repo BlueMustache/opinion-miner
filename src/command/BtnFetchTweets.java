@@ -23,12 +23,12 @@ public class BtnFetchTweets extends JButton implements Command {
 	private ProcessStrategy processStrategy;
 	private Subject subjectRef;
 
-	public BtnFetchTweets(String caption, Subject subject ) {
+	public BtnFetchTweets(String caption, TwitterDataSubject subject ) {
 		// Constructor for this btn
 		super(caption);
 		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		this.subjectRef = subject;
-		this.twitterAcc = ((TwitterDataSubject) subject).getTwitterAcc();
+		this.tweetSubject = subject;
+		this.twitterAcc =  subject.getTwitterAcc();
 	}
 
 	@Override
@@ -40,7 +40,7 @@ ArrayList<String> tweetList = new ArrayList<String>();
 		
 		int tweetCount = 0;
 		try {
-			Query query = new Query(((TwitterDataSubject) this.subjectRef).getTopic());
+			Query query = new Query(this.tweetSubject.getTopic());
 			//query.lang("en");
 			//query.setCount(10);
 			//query.count(20);
@@ -64,12 +64,12 @@ ArrayList<String> tweetList = new ArrayList<String>();
 		}
 		System.out.println("The Tweets Fetched count is : " + tweetCount); //For testing
 		
-		((TwitterDataSubject) this.subjectRef).setTweetLits(tweetList);	//Set the arraylist of tweets contained in the subject
+		this.tweetSubject.setTweetLits(tweetList);	//Set the arraylist of tweets contained in the subject
 		//this.tweetSubject.setTweetStore(tweetList); //Set the CSV file with the fetched Tweets
 		//this.tweetSubject.setPreProcessedTweetList();
-		//processStrategy = new ProcessTweetsStrategy();
-		//processStrategy = subjectRef.getProcessStrategy(); // this needsd work
-		//processStrategy.runProcess(tweetSubject);
+		processStrategy = new ProcessTweetsStrategy();
+		processStrategy = tweetSubject.getProcessStrategy(); // this needsd work
+		processStrategy.runProcess(tweetSubject);
 		this.tweetSubject.setTweetStore();
 		System.out.println("tweet Count = " + tweetSubject.getTweetCount());
 	}

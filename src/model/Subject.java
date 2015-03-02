@@ -14,7 +14,6 @@ public interface Subject {
 	
 	public String description();//this may be deleted at some stage only here for proff of concept
 
-	public SentimentStrategy getAnalysisStrategys();
 
 	public void addCommandListner(CommandListner commandListner);
 }

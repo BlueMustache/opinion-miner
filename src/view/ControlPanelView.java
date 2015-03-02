@@ -37,8 +37,8 @@ public class ControlPanelView extends JPanel implements Observer {
 		subjectRef.registerObserver(this);
 		this.subject = subject;
 		
-		btnFetchTweets = new BtnFetchTweets("Search", subjectRef);
-		btnAnalyze = new BtnAnalyseTweets("Analyze", subjectRef);
+		btnFetchTweets = new BtnFetchTweets("Search", subject);
+		btnAnalyze = new BtnAnalyseTweets("Analyze", subject);
 		setBtnLayout(); //Call set layout method to layout the buttons
 		textFieldListner();// Need to try put this in the controller
 	}

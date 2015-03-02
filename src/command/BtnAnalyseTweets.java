@@ -18,30 +18,25 @@ public class BtnAnalyseTweets extends JButton implements Command {
 	private SentimentStrategy analysis;
 	private Subject subjectRef;
 	
-	public BtnAnalyseTweets(String caption, Subject subject) {
+	public BtnAnalyseTweets(String caption, TwitterDataSubject subject) {
 		// TODO Auto-generated constructor stub
 		super(caption);
 		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-		this.subjectRef = subject;
+		this.tweetSubject = subject;
 		
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		//try {
-			/*for(SentimentStrategy analysis : */subjectRef.getAnalysisStrategys();/*){*/
-			try {
-				analysis.runSentimentAnalysis(subjectRef);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try {
+			for(SentimentStrategy analysis : tweetSubject.getAnalysisStrategys()){
+						analysis.runSentimentAnalysis(tweetSubject);
 			}
-			//}
-		//} catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		//}
+			e.printStackTrace();
+		}
 		System.out.println("Analyse btn Pressed");
 	}
 

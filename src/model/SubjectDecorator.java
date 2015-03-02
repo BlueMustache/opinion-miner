@@ -49,10 +49,5 @@ public class SubjectDecorator implements Subject {
 			o.addActionListener(commandListner);
 		}
 	}
-	@Override
-	public SentimentStrategy getAnalysisStrategys() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

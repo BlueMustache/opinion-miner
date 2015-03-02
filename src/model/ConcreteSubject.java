@@ -39,11 +39,6 @@ public class ConcreteSubject implements Subject {
 		return "concrete subject created";
 	}
 
-	@Override
-	public SentimentStrategy getAnalysisStrategys() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void addCommandListner(CommandListner commandListner) {

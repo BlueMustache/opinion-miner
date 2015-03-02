@@ -56,15 +56,15 @@ public class MainUI extends JFrame {
 		// Setup menu
 		//menuSetUp();
 		this.subject = subject;
-		Subject datumSubject = new ConcreteSubject();
-		datumSubject = new DatumBoxSubject(datumSubject);
-		((DatumBoxSubject) datumSubject).setAnalysisStrategys();
+//		Subject datumSubject = new ConcreteSubject();
+//		datumSubject = new DatumBoxSubject(datumSubject);
+//		((DatumBoxSubject) datumSubject).setAnalysisStrategys();
 		
 		ctrlView = new ControlPanelView(subject);
 		//searchCmd = new SetSearchTopicCmd(subject,ctrlView);
 		controller = new Controller(subject,ctrlView);
 		tweetView = new FetchedTweetsView(subject);
-		datumView = new DatumBoxView(datumSubject);
+		datumView = new DatumBoxView(subject);
 
 		getContentPane().add(ctrlView, BorderLayout.WEST);
 		
