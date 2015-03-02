@@ -28,13 +28,13 @@ import controller.Controller.CommandListner;
 
 public class DatumBoxView extends JScrollPane implements Observer {
 
-	private TwitterDataSubject subjectRef;
+	private Subject subjectRef;
 	private ArrayList<JPanel> panelList; //= new ArrayList<JPanel>();
 	private ArrayList<JTextArea> textAreaList; // = new ArrayList<JTextArea>();
 	private ArrayList<GridBagConstraints> gridConstraintsList = new ArrayList<GridBagConstraints>();
 	private JPanel mainPanel = new JPanel();
 
-	public DatumBoxView(TwitterDataSubject subjectRef) {
+	public DatumBoxView(Subject subjectRef) {
 		// TODO Auto-generated constructor stub
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
@@ -60,10 +60,10 @@ public class DatumBoxView extends JScrollPane implements Observer {
 	@Override
 	public void update(Subject subject) {
 		// TODO Auto-generated method stub
-		this.subjectRef = (TwitterDataSubject) subject;
+		this.subjectRef = /*(TwitterDataSubject)*/ subject;
 		String tweetStr = "";
 
-		ArrayList<JSONObject> datumResults = this.subjectRef.getDatumResultsJSON();
+		ArrayList<JSONObject> datumResults = ((DatumBoxSubject) this.subjectRef).getDatumResultsJSON();
 		
 		int tweetCount = ((TwitterDataSubject) subject).getTweetCount(); 
 		

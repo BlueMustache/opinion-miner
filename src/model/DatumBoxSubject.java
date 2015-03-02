@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 
+import strategy.DatumBoxAnalysis;
+import strategy.RapidMinerSentimentAnalysis;
+import strategy.SentimentStrategy;
 import view.Observer;
 
 public class DatumBoxSubject extends SubjectDecorator {
@@ -20,14 +23,16 @@ public class DatumBoxSubject extends SubjectDecorator {
 	private IDatumBoxManager datumBoxManager;
 	private FileWriter fileWriter = null;
 	private String tweetDataStore = "D:/Workspace/Opinion Miner/fetchedTweets.csv";
-	
+	private String datumBoxCSV = "D:/Workspace/Opinion Miner/DatumAnalysis.csv";
+	private ArrayList<JSONObject> datumResultsJSON = new ArrayList<JSONObject>();
+	private SentimentStrategy sentimentStrategy;
 	
 	
 
 	public DatumBoxSubject(Subject subjectReference) {
 		super(subjectReference);
 		observers = new ArrayList();
-		this.datumBoxManager = new DatumboxManager("2ddfadb2561f2a6273b801dc35d4ab09");
+		this.datumBoxManager = new DatumboxManager("2ddfadb2561f2a6273b801dc35d4ab09"); // this is in the strategy
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -37,6 +42,20 @@ public class DatumBoxSubject extends SubjectDecorator {
 
 	public void setDatumBoxManager(IDatumBoxManager datumBoxManager) {
 		this.datumBoxManager = datumBoxManager;
+	}
+	
+	public SentimentStrategy getAnalysisStrategys() {
+		return this.sentimentStrategy;
+	}
+	
+	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
+		
+		//RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
+		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
+		//AnalysisStrategys.add(analysis);
+		//AnalysisStrategys.add(datumAnalysis);
+		this.sentimentStrategy = datumAnalysis;
+		System.out.println("Datumbox analysis set in datumbox subject");
 	}
 	
 	public void setDatumAnalysisFile(){
@@ -107,6 +126,15 @@ public class DatumBoxSubject extends SubjectDecorator {
 		System.out.println("Done");
 
 		return tweets;
+	}
+	
+	public ArrayList<JSONObject> getDatumResultsJSON() {
+		return datumResultsJSON;
+	}
+
+	public void setDatumResultsJSON(ArrayList<JSONObject> datumResultsJSON) {
+		this.datumResultsJSON = datumResultsJSON;
+		notifyObservers();
 	}
 	
 //	public void registerObserver(Observer observer) {

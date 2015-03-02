@@ -12,15 +12,16 @@ import javax.swing.text.BadLocationException;
 
 import command.Command;
 import view.ControlPanelView;
+import model.Subject;
 import model.TwitterDataSubject;
 
 public class Controller {
 
-	public TwitterDataSubject subject;
+	public Subject subject;
 	private ControlPanelView ctrlView;
 	private Command action;
 
-	public Controller(TwitterDataSubject subject, ControlPanelView ctrlView) {
+	public Controller(Subject subject, ControlPanelView ctrlView) {
 		// Constructor for the controller, take the control view and the twitter data subject as params
 		this.subject = subject;
 		this.ctrlView = ctrlView;

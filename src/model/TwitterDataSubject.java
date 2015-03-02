@@ -43,6 +43,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private  ArrayList<SentimentStrategy> AnalysisStrategys = new ArrayList<SentimentStrategy>();
 	private ArrayList<JSONObject> datumResultsJSON = new ArrayList<JSONObject>();
 	private ProcessStrategy processStrategy;
+	private SentimentStrategy sentimentStrategy;
 
 	// private TweetManager tweetManager;
 
@@ -152,9 +153,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 	}
 	
 
-	public ArrayList<SentimentStrategy> getAnalysisStrategys() {
-		return AnalysisStrategys;
-	}
+//	public SentimentStrategy getAnalysisStrategys() {
+//		return this.sentimentStrategy;
+//	}
 
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		

@@ -30,14 +30,15 @@ public class ControlPanelView extends JPanel implements Observer {
 	//private JButton btnAnalyze = new JButton("Analyze");
 	private JTextField textField = new JTextField();
 	private JSplitPane splitPane = new JSplitPane();
+	private Subject subjectRef; 
 	
-	public ControlPanelView(final TwitterDataSubject subject) {
+	public ControlPanelView(final Subject subjectRef) {
 		// Constructor
-		subject.registerObserver(this);
+		subjectRef.registerObserver(this);
 		this.subject = subject;
 		
-		btnFetchTweets = new BtnFetchTweets("Search", subject);
-		btnAnalyze = new BtnAnalyseTweets("Analyze", subject);
+		btnFetchTweets = new BtnFetchTweets("Search", subjectRef);
+		btnAnalyze = new BtnAnalyseTweets("Analyze", subjectRef);
 		setBtnLayout(); //Call set layout method to layout the buttons
 		textFieldListner();// Need to try put this in the controller
 	}
@@ -64,7 +65,7 @@ public class ControlPanelView extends JPanel implements Observer {
 			@Override
 			public void insertUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
-				subject.setTopic(textField.getText());
+				((TwitterDataSubject)subject).setTopic(textField.getText());
 				System.out.println("Topic set. Topic = "+ textField.getText());
 			}
 
