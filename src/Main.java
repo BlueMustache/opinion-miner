@@ -12,7 +12,6 @@ import strategy.RapidMinerSentimentAnalysis;
 import view.MainUI;
 import view.TestObserver;
 import model.ConcreteSubject;
-import model.DatumBoxSubject;
 import model.Subject;
 import model.TwitterDataSubject;
 

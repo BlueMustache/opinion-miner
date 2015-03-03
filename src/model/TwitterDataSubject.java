@@ -161,7 +161,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		
 		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
 		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
-		//AnalysisStrategys.add(analysis);
+		AnalysisStrategys.add(analysis);
 		AnalysisStrategys.add(datumAnalysis);
 	}
 	

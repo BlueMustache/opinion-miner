@@ -7,13 +7,12 @@ import javax.swing.JButton;
 import strategy.DatumBoxAnalysis;
 import strategy.RapidMinerSentimentAnalysis;
 import strategy.SentimentStrategy;
-import model.DatumBoxSubject;
 import model.Subject;
 import model.TwitterDataSubject;
 
 public class BtnAnalyseTweets extends JButton implements Command {
 	
-	private DatumBoxSubject datumSubject;
+	//private DatumBoxSubject datumSubject;
 	private TwitterDataSubject tweetSubject;
 	private SentimentStrategy analysis;
 	private Subject subjectRef;
