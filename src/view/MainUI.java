@@ -44,6 +44,7 @@ public class MainUI extends JFrame {
 	private FetchedTweetsView tweetView;
 	private ControlPanelView ctrlView;
 	private DatumBoxView datumView;
+	private RapidMinerView rapidView;
 	private TwitterDataSubject subject;
 	private JPanel Btn_Panel = new JPanel();
 	//private SetSearchTopicCmd searchCmd;
@@ -55,12 +56,16 @@ public class MainUI extends JFrame {
 		// Setup menu
 		//menuSetUp();
 		this.subject = subject;
+//		Subject datumSubject = new ConcreteSubject();
+//		datumSubject = new DatumBoxSubject(datumSubject);
+//		((DatumBoxSubject) datumSubject).setAnalysisStrategys();
 		
 		ctrlView = new ControlPanelView(subject);
 		//searchCmd = new SetSearchTopicCmd(subject,ctrlView);
 		controller = new Controller(subject,ctrlView);
 		tweetView = new FetchedTweetsView(subject);
 		datumView = new DatumBoxView(subject);
+		rapidView = new RapidMinerView(subject);
 
 		getContentPane().add(ctrlView, BorderLayout.WEST);
 		
@@ -73,6 +78,7 @@ public class MainUI extends JFrame {
 		
 		tabbedPane.addTab("Searched Tweets", null, tweetView,null);
 		tabbedPane.addTab("DatumBox Results", null, datumView,null);
+		tabbedPane.addTab("Rapidminer Results", null, rapidView,null);
 
 		// Add listeners
 		addWindowListener(new WindowAdapter() {

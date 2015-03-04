@@ -6,24 +6,29 @@ import java.util.List;
 
 import javax.swing.JButton;
 
+import strategy.ProcessStrategy;
+import strategy.ProcessTweetsStrategy;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import model.Subject;
 import model.TwitterDataSubject;
 
 public class BtnFetchTweets extends JButton implements Command {
 	
 	private TwitterDataSubject tweetSubject;
 	private Twitter twitterAcc;
+	private ProcessStrategy processStrategy;
+	private Subject subjectRef;
 
 	public BtnFetchTweets(String caption, TwitterDataSubject subject ) {
 		// Constructor for this btn
 		super(caption);
 		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		this.tweetSubject = subject;
-		this.twitterAcc = subject.getTwitterAcc();
+		this.twitterAcc =  subject.getTwitterAcc();
 	}
 
 	@Override
@@ -60,8 +65,12 @@ ArrayList<String> tweetList = new ArrayList<String>();
 		System.out.println("The Tweets Fetched count is : " + tweetCount); //For testing
 		
 		this.tweetSubject.setTweetLits(tweetList);	//Set the arraylist of tweets contained in the subject
-		this.tweetSubject.setTweetStore(tweetList); //Set the CSV file with the fetched Tweets
-		this.tweetSubject.setPreProcessedTweetList();
+		//this.tweetSubject.setTweetStore(tweetList); //Set the CSV file with the fetched Tweets
+		//this.tweetSubject.setPreProcessedTweetList();
+		processStrategy = new ProcessTweetsStrategy();
+		processStrategy = tweetSubject.getProcessStrategy(); // this needsd work
+		processStrategy.runProcess(tweetSubject);
+		this.tweetSubject.setTweetStore();
 		System.out.println("tweet Count = " + tweetSubject.getTweetCount());
 	}
 

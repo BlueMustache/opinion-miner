@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import controller.Controller.CommandListner;
 import controller.Controller.TextListner;
+import strategy.SentimentStrategy;
 import view.Observer;
 
 public class SubjectDecorator implements Subject {

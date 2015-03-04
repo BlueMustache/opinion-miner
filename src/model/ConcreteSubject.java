@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.Controller.CommandListner;
+import strategy.SentimentStrategy;
 import view.Observer;
 
 public class ConcreteSubject implements Subject {
@@ -35,6 +37,13 @@ public class ConcreteSubject implements Subject {
 	public String description() {
 		// TODO Auto-generated method stub
 		return "concrete subject created";
+	}
+
+
+	@Override
+	public void addCommandListner(CommandListner commandListner) {
+		// TODO Auto-generated method stub
+		
 	}
 
 //	@Override

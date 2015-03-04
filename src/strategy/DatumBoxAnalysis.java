@@ -13,10 +13,12 @@ import model.IDatumBoxManager;
 import model.Subject;
 import model.TwitterDataSubject;
 
-public class DatumBoxAnalysis implements SentimentStrategy {
+public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 
 	private FileWriter fileWriter = null;
 	private IDatumBoxManager datumBoxManager;
+	private Thread datumThread;
+	private Subject subject;
 
 	public DatumBoxAnalysis() {
 		// TODO Auto-generated constructor stub
@@ -25,7 +27,16 @@ public class DatumBoxAnalysis implements SentimentStrategy {
 	@Override
 	public void runSentimentAnalysis(Subject subject) throws Exception {
 		// TODO Auto-generated method stub
-		this.datumBoxManager = new DatumboxManager("2ddfadb2561f2a6273b801dc35d4ab09");
+		this.subject = subject;
+		datumThread = new Thread(this);
+		datumThread.start();
+		System.out.println("Rapid miner thread started");
+	
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+	this.datumBoxManager = new DatumboxManager("2ddfadb2561f2a6273b801dc35d4ab09");
 		
 		ArrayList<String> tweets = ((TwitterDataSubject) subject)
 				.getPreProcessedTweetList();
@@ -70,7 +81,8 @@ public class DatumBoxAnalysis implements SentimentStrategy {
 		}
 		((TwitterDataSubject) subject).setDatumResultsJSON(datumResults);
 
+		}
 	}
 	
 
-}
+

@@ -12,7 +12,6 @@ import strategy.RapidMinerSentimentAnalysis;
 import view.MainUI;
 import view.TestObserver;
 import model.ConcreteSubject;
-import model.DatumBoxSubject;
 import model.Subject;
 import model.TwitterDataSubject;
 
@@ -22,8 +21,8 @@ public class Main {
 
 		System.out.println("Driver running");
 
-		Subject datumSubject = new ConcreteSubject();
-		datumSubject = new DatumBoxSubject(datumSubject);
+//		Subject datumSubject = new ConcreteSubject();
+//		datumSubject = new DatumBoxSubject(datumSubject);
 
 		// Select the Look and Feel need a backup to go to the default look and feel maybe a try catch
 		UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
@@ -31,7 +30,7 @@ public class Main {
 		Subject twitterSubject = new ConcreteSubject();
 		twitterSubject = new TwitterDataSubject(twitterSubject);
 		//((TwitterDataSubject) twitterSubject).setTopic("#ISIS exclude:retweets"); //FOR TESTING TO CHECK TWEETS HAVE A QUERY
-		
+		((TwitterDataSubject) twitterSubject).setProcessStrategy(); //THis needs WORK
 		MainUI app = new MainUI((TwitterDataSubject) twitterSubject);
 		
 		System.out.println("tweet Count = " + ((TwitterDataSubject) twitterSubject).getTweetCount());

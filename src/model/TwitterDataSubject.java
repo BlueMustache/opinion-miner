@@ -14,6 +14,8 @@ import org.json.simple.JSONObject;
 
 import controller.Controller.CommandListner;
 import strategy.DatumBoxAnalysis;
+import strategy.ProcessStrategy;
+import strategy.ProcessTweetsStrategy;
 import strategy.RapidMinerSentimentAnalysis;
 import strategy.SentimentStrategy;
 import twitter4j.Query;
@@ -40,13 +42,15 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private int tweetCount;
 	private  ArrayList<SentimentStrategy> AnalysisStrategys = new ArrayList<SentimentStrategy>();
 	private ArrayList<JSONObject> datumResultsJSON = new ArrayList<JSONObject>();
+	private ProcessStrategy processStrategy;
+	private SentimentStrategy sentimentStrategy;
 
 	// private TweetManager tweetManager;
 
 	public TwitterDataSubject(Subject subjectReference) {
 		// Constructor
 		super(subjectReference);
-		observers = new ArrayList();
+		observers = new ArrayList<Observer>();
 		buildConfiguration(); // Create build to create a twitter access account
 		setAnalysisStrategys();
 
@@ -85,12 +89,13 @@ public class TwitterDataSubject extends SubjectDecorator {
 	
 	public int getTweetCount(){
 		
-		int count = 0;
-		
-		for(String tweet : tweetList){
-			count++;
-		}
-		return count;
+//		int count = 0;
+//		
+//		for(String tweet : tweetList){
+//			count++;
+//		}
+//		return count;
+		return this.tweetList.size();
 	}
 
 	public void setTweetLits(ArrayList<String> tweets) {
@@ -98,7 +103,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		notifyObservers();
 	}
 
-	public void setTweetStore(ArrayList<String> tweets) {
+	public void setTweetStore(/*ArrayList<String> tweets*/) {
 
 		try {
 			fileWriter = new FileWriter(fileName);
@@ -107,9 +112,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 			// Add a new line separator after the header
 			// fileWriter.append("\n");
 			// Write a new tweet list to the CSV file
-			for (String tweet : tweets) {
+			for (String tweet : this.preProcessedTweetList) {
 				tweet = tweet.replace(",", " ");
-				fileWriter.append(String.valueOf(removeUrl(tweet)));
+				fileWriter.append(/*String.valueOf(removeUrl(*/tweet/*))*/);
 				fileWriter.append(",");
 				fileWriter.append("\n");
 			}
@@ -127,7 +132,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 				e.printStackTrace();
 			}
 		}
-		notifyObservers();
+		//notifyObservers();
 		System.out.println("Observers notified");// TEST
 	}
 	
@@ -135,24 +140,28 @@ public class TwitterDataSubject extends SubjectDecorator {
 		return preProcessedTweetList;
 	}
 
-	public void setPreProcessedTweetList() {
-		this.preProcessedTweetList = this.tweetList;
-		for(int i = 0; i<this.tweetList.size();i++){
-		preProcessedTweetList.set(i, removeUrl(this.tweetList.get(i)));
-		}
+	public void setPreProcessedTweetList(ArrayList<String> processedTweetList) {
+		this.preProcessedTweetList = processedTweetList;
+//		for(int i = 0; i<this.preProcessedTweetList.size();i++){
+//		preProcessedTweetList.set(i, removeUrl(this.tweetList.get(i)));
+//		}
 		System.out.println("setPreProcessedTweetList activated");// TEST
+		System.out.println(processedTweetList.size());// TEST
+		for(int i = 0; i<this.preProcessedTweetList.size();i++){
+			System.out.println(preProcessedTweetList.get(i).toString());
+		}
 	}
 	
 
 	public ArrayList<SentimentStrategy> getAnalysisStrategys() {
-		return AnalysisStrategys;
+		return this.AnalysisStrategys;
 	}
 
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		
-		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();
+		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
 		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
-		//AnalysisStrategys.add(analysis);
+		AnalysisStrategys.add(analysis);
 		AnalysisStrategys.add(datumAnalysis);
 	}
 	
@@ -207,24 +216,33 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public String getTweetDataStore() {
 		return this.tweetDataStore;
 	}
+	
+
+	public ProcessStrategy getProcessStrategy() {
+		return processStrategy;
+	}
+
+	public void setProcessStrategy(/*ProcessStrategy processStrategy*/) {
+		this.processStrategy = new ProcessTweetsStrategy();//move this to main
+	}
 
 	// Temp in subject should be located in strategy package
-	private static String removeUrl(String commentstr) {
-		String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
-		Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
-		Matcher m = p.matcher(commentstr);
-		int i = 0;
-		while (m.find()) {
-			commentstr = commentstr.replaceAll(m.group(i), "").trim();
-			i++;
-		}
-		commentstr = commentstr.replaceAll("@\\w+|#\\w+|\\bRT\\b", "");
-		commentstr = commentstr.replaceAll("\n", " ");
-		commentstr = commentstr.replaceAll("[^\\p{L}\\p{N} ]+", "");
-		commentstr = commentstr.replaceAll(" +", " ").trim();
-
-		return commentstr;
-	}
+//	private static String removeUrl(String commentstr) {
+//		String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
+//		Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
+//		Matcher m = p.matcher(commentstr);
+//		int i = 0;
+//		while (m.find()) {
+//			commentstr = commentstr.replaceAll(m.group(i), "").trim();
+//			i++;
+//		}
+//		commentstr = commentstr.replaceAll("@\\w+|#\\w+|\\bRT\\b", "");
+//		commentstr = commentstr.replaceAll("\n", " ");
+//		commentstr = commentstr.replaceAll("[^\\p{L}\\p{N} ]+", "");
+//		commentstr = commentstr.replaceAll(" +", " ").trim();
+//
+//		return commentstr;
+//	}
 
 	@Override
 	public void addCommandListner(CommandListner commandListner) {
