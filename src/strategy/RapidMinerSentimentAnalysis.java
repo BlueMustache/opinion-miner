@@ -1,6 +1,12 @@
 package strategy;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import com.csvreader.CsvReader;
+import org.json.simple.JSONObject;
 
 import model.Subject;
 import model.TwitterDataSubject;
@@ -23,6 +29,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 	private Subject subject;
 	String csvFilsName;
 	private Thread rapidThread;
+	private BufferedReader fileReader = null;
 	
 	public RapidMinerSentimentAnalysis() {
 		// TODO Auto-generated constructor stub
@@ -61,6 +68,51 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 //			System.out.println("the element @ i = " + ioObject.toString()
 //					+ "\n");
 //		}
+		
+		ArrayList<String> tweets = ((TwitterDataSubject) subject).getPreProcessedTweetList();
+		String csvFile = ((TwitterDataSubject) subject).getDatumBoxCSV();
+		//JSONObject sentimentPrediction = new JSONObject();
+		ArrayList<JSONObject> rapidResults = new ArrayList<JSONObject>();
+		String row = "";
+		
+		try {
+			CsvReader fileReader = new CsvReader("D:/Workspace/Opinion Miner/output.csv");	
+			fileReader.readHeaders();
+
+			//fileReader = new BufferedReader(new FileReader("D:/Workspace/Opinion Miner/output.csv"));
+			// Write the CSV file header
+			// fileWriter.append(FILE_HEADER.toString());
+			// Add a new line separator after the header
+			// fileWriter.append("\n");
+			// Write a new tweet list to the CSV file
+			while (fileReader.readRecord()) {
+//				String [] output = row.split(",");
+//				System.out.println(output[1]+"LOOOK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				String result = fileReader.get("prediction(Sentiment)");
+				String tweet = fileReader.get("text");
+				JSONObject sentimentPrediction = new JSONObject();
+				sentimentPrediction.put("result", result);
+				sentimentPrediction.put("tweet", tweet);
+				rapidResults.add(sentimentPrediction);
+		
+			}
+			System.out.println("DatumBox results CSV file was created successfully !!!");
+			
+		} catch (Exception e) {
+			System.out
+					.println("Error in CsvFileWriter DatumBox results not written !!!");
+			e.printStackTrace();
+		} finally {
+			if (fileReader != null) {
+				try {
+					fileReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		((TwitterDataSubject) subject).setRapidResultsJSON(rapidResults);
+
+		}
 	}
 
 	@Override
@@ -86,7 +138,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 		Operator op = myProcess.getOperator("Read CSV");
 		op.setParameter(com.rapidminer.operator.nio.CSVExampleSource.PARAMETER_CSV_FILE,((TwitterDataSubject) subject).getTweetDataStore());
 		// C:\Users\Admin\Documents\College_Year_4\FYP\Project\Normalised_Data
-
+		Operator csvOutput = myProcess.getOperator("Write CSV");
 		IOContainer container = myProcess.run();
 		for (int i = 0; i < container.size(); i++) {
 			IOObject ioObject = container.getElementAt(i);

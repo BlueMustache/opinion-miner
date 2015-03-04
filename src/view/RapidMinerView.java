@@ -66,7 +66,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		this.subjectRef = /*(TwitterDataSubject)*/ subject;
 		String tweetStr = "";
 
-		ArrayList<JSONObject> datumResults = ((TwitterDataSubject) this.subjectRef).getDatumResultsJSON();
+		ArrayList<JSONObject> rapidResults = ((TwitterDataSubject) this.subjectRef).getRapidResultsJSON();
 		
 		int tweetCount = ((TwitterDataSubject) subject).getTweetCount(); 
 		
@@ -76,7 +76,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		gbc_panel_3.gridx = 0;
 		String lableName = "lable_";
 		
-		for(int i=0; i<datumResults.size();i++){	
+		for(int i=0; i<rapidResults.size();i++){	
 		panelList.add(new JPanel());
 		panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
 		textAreaList.add(new JTextArea());
@@ -100,14 +100,14 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		
 		textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		textAreaList.get(i).setWrapStyleWord(true);
-		textAreaList.get(i).setText(datumResults.get(i).get("tweet").toString());	
+		textAreaList.get(i).setText(((TwitterDataSubject) subject).getPreProcessedTweetList().get(i).toString());	//THIS IS A BUG
 		
-		btnList.get(i).setText(datumResults.get(i).get("result").toString());
-		Color btnColor = datumResults.get(i).get("result").equals("positive") ? Color.GREEN : Color.RED;
+		btnList.get(i).setText(rapidResults.get(i).get("result").toString());
+		Color btnColor = rapidResults.get(i).get("result").equals("positive") ? Color.GREEN : Color.RED;
 		
-		if(datumResults.get(i).get("result").equals("neutral\"")){
-			btnColor = Color.GRAY;
-		}
+//		if(rapidResults.get(i).get("result").equals("neutral\"")){
+//			btnColor = Color.GRAY;
+//		}
 		btnList.get(i).setBackground(btnColor);
 		
 		textAreaList.get(i).setLineWrap(true);

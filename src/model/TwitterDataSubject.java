@@ -42,6 +42,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private int tweetCount;
 	private  ArrayList<SentimentStrategy> AnalysisStrategys = new ArrayList<SentimentStrategy>();
 	private ArrayList<JSONObject> datumResultsJSON = new ArrayList<JSONObject>();
+	private ArrayList<JSONObject> rapidResultsJSON = new ArrayList<JSONObject>();
 	private ProcessStrategy processStrategy;
 	private SentimentStrategy sentimentStrategy;
 
@@ -225,6 +226,8 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public void setProcessStrategy(/*ProcessStrategy processStrategy*/) {
 		this.processStrategy = new ProcessTweetsStrategy();//move this to main
 	}
+	
+	
 
 	// Temp in subject should be located in strategy package
 //	private static String removeUrl(String commentstr) {
@@ -243,6 +246,15 @@ public class TwitterDataSubject extends SubjectDecorator {
 //
 //		return commentstr;
 //	}
+
+	public ArrayList<JSONObject> getRapidResultsJSON() {
+		return rapidResultsJSON;
+	}
+
+	public void setRapidResultsJSON(ArrayList<JSONObject> rapidResultsJSON) {
+		this.rapidResultsJSON = rapidResultsJSON;
+		notifyObservers();
+	}
 
 	@Override
 	public void addCommandListner(CommandListner commandListner) {
