@@ -1,14 +1,9 @@
 package model;
 
-import java.io.File;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.json.simple.JSONObject;
 
@@ -18,18 +13,13 @@ import strategy.ProcessStrategy;
 import strategy.ProcessTweetsStrategy;
 import strategy.RapidMinerSentimentAnalysis;
 import strategy.SentimentStrategy;
-import twitter4j.Query;
-import twitter4j.QueryResult;
-import twitter4j.Status;
 import twitter4j.Twitter;
-import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 import view.Observer;
 
 public class TwitterDataSubject extends SubjectDecorator {
 
-	private Subject subject;
 	private ArrayList<Observer> observers;
 	private FileWriter fileWriter = null;
 	private final String fileName = "fetchedTweets.csv";
@@ -44,9 +34,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private ArrayList<JSONObject> datumResultsJSON = new ArrayList<JSONObject>();
 	private ArrayList<JSONObject> rapidResultsJSON = new ArrayList<JSONObject>();
 	private ProcessStrategy processStrategy;
-	private SentimentStrategy sentimentStrategy;
 
-	// private TweetManager tweetManager;
 
 	public TwitterDataSubject(Subject subjectReference) {
 		// Constructor
@@ -89,13 +77,6 @@ public class TwitterDataSubject extends SubjectDecorator {
 	}
 	
 	public int getTweetCount(){
-		
-//		int count = 0;
-//		
-//		for(String tweet : tweetList){
-//			count++;
-//		}
-//		return count;
 		return this.tweetList.size();
 	}
 
@@ -108,14 +89,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 		try {
 			fileWriter = new FileWriter(fileName);
-			// Write the CSV file header
-			// fileWriter.append(FILE_HEADER.toString());
-			// Add a new line separator after the header
-			// fileWriter.append("\n");
-			// Write a new tweet list to the CSV file
 			for (String tweet : this.preProcessedTweetList) {
 				tweet = tweet.replace(",", " ");
-				fileWriter.append(/*String.valueOf(removeUrl(*/tweet/*))*/);
+				fileWriter.append(tweet);
 				fileWriter.append(",");
 				fileWriter.append("\n");
 			}
@@ -133,7 +109,6 @@ public class TwitterDataSubject extends SubjectDecorator {
 				e.printStackTrace();
 			}
 		}
-		//notifyObservers();
 		System.out.println("Observers notified");// TEST
 	}
 	
@@ -143,9 +118,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setPreProcessedTweetList(ArrayList<String> processedTweetList) {
 		this.preProcessedTweetList = processedTweetList;
-//		for(int i = 0; i<this.preProcessedTweetList.size();i++){
-//		preProcessedTweetList.set(i, removeUrl(this.tweetList.get(i)));
-//		}
+		
 		System.out.println("setPreProcessedTweetList activated");// TEST
 		System.out.println(processedTweetList.size());// TEST
 		for(int i = 0; i<this.preProcessedTweetList.size();i++){
@@ -160,9 +133,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		
-		//RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
+		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
 		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
-		//AnalysisStrategys.add(analysis);
+		AnalysisStrategys.add(analysis);
 		AnalysisStrategys.add(datumAnalysis);
 	}
 	
@@ -226,26 +199,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public void setProcessStrategy(/*ProcessStrategy processStrategy*/) {
 		this.processStrategy = new ProcessTweetsStrategy();//move this to main
 	}
-	
-	
 
-	// Temp in subject should be located in strategy package
-//	private static String removeUrl(String commentstr) {
-//		String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
-//		Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
-//		Matcher m = p.matcher(commentstr);
-//		int i = 0;
-//		while (m.find()) {
-//			commentstr = commentstr.replaceAll(m.group(i), "").trim();
-//			i++;
-//		}
-//		commentstr = commentstr.replaceAll("@\\w+|#\\w+|\\bRT\\b", "");
-//		commentstr = commentstr.replaceAll("\n", " ");
-//		commentstr = commentstr.replaceAll("[^\\p{L}\\p{N} ]+", "");
-//		commentstr = commentstr.replaceAll(" +", " ").trim();
-//
-//		return commentstr;
-//	}
 
 	public ArrayList<JSONObject> getRapidResultsJSON() {
 		return rapidResultsJSON;

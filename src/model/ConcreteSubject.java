@@ -45,11 +45,4 @@ public class ConcreteSubject implements Subject {
 		// TODO Auto-generated method stub
 		
 	}
-
-//	@Override
-//	public Subject getSubject() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
 }

@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.ScrollPaneLayout;
 import javax.swing.border.LineBorder;
 
 import org.json.simple.JSONObject;
@@ -27,11 +26,9 @@ import controller.Controller.CommandListner;
 public class RapidMinerView extends JScrollPane implements Observer{
 
 	private Subject subjectRef;
-	private ArrayList<JPanel> panelList; //= new ArrayList<JPanel>();
-	private ArrayList<JTextArea> textAreaList; // = new ArrayList<JTextArea>();
-//	private ArrayList<JLabel> lableList;
+	private ArrayList<JPanel> panelList;
+	private ArrayList<JTextArea> textAreaList; 
 	private ArrayList<JButton> btnList;
-	private ArrayList<GridBagConstraints> gridConstraintsList = new ArrayList<GridBagConstraints>();
 	private JPanel mainPanel = new JPanel();
 
 	public RapidMinerView(Subject subjectRef) {
@@ -40,13 +37,12 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		this.subjectRef = subjectRef;
 		subjectRef.registerObserver(this);
 		Dimension d = new Dimension(600,800);
-		//this.setLayout(new ScrollPaneLayout());
 		this.setPreferredSize(d);
+		
 		panelList = new ArrayList<JPanel>();
 		textAreaList = new ArrayList<JTextArea>();
-//		lableList = new ArrayList<JLabel>();
 		btnList = new ArrayList<JButton>();
-		// JPanel panel = new JPanel();
+	
 		setViewportView(mainPanel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 0 };
@@ -54,19 +50,15 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-		//mainPanel.setBounds(getViewportBorderBounds());
 		mainPanel.setLayout(gbl_panel);
 		
-		this.setViewportView(mainPanel);
-		
-		
+		this.setViewportView(mainPanel);		
 	}
 
 	@Override
 	public void update(Subject subject) {
 		// TODO Auto-generated method stub
-		this.subjectRef = /*(TwitterDataSubject)*/ subject;
-		String tweetStr = "";
+		this.subjectRef =  subject;
 
 		ArrayList<JSONObject> rapidResults = ((TwitterDataSubject) this.subjectRef).getRapidResultsJSON();
 		
@@ -76,23 +68,18 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.gridx = 0;
-		String lableName = "lable_";
 		
 		for(int i=0; i<rapidResults.size();i++){	
 		panelList.add(new JPanel());
 		panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
 		textAreaList.add(new JTextArea());
-//		lableList.add(new JLabel());
 		btnList.add(new JButton());
 		
-//		lableList.get(i).setName("lable_"/*+Integer.toString(i)*/);
 		btnList.get(i).setName("btn_"+Integer.toString(i));
 		btnList.get(i).setBackground(Color.red);
 		btnList.get(i).setSize(20, 20);
 		
 		btnList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-//		lableList.get(i).setText("LABLE");
-//		lableList.get(i).setForeground(Color.RED);
 		panelList.get(i).setName("panel_"+Integer.toString(i));
 		textAreaList.get(i).setName("txtArea_"+Integer.toString(i));
 		
@@ -106,10 +93,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		
 		btnList.get(i).setText(rapidResults.get(i).get("result").toString());
 		Color btnColor = rapidResults.get(i).get("result").equals("positive") ? Color.GREEN : Color.RED;
-		
-//		if(rapidResults.get(i).get("result").equals("neutral\"")){
-//			btnColor = Color.GRAY;
-//		}
+
 		btnList.get(i).setBackground(btnColor);
 		
 		textAreaList.get(i).setLineWrap(true);

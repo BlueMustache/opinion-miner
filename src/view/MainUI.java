@@ -48,7 +48,6 @@ public class MainUI extends JFrame {
 	private WordCloudView wordCloudView;
 	private TwitterDataSubject subject;
 	private JPanel Btn_Panel = new JPanel();
-	//private SetSearchTopicCmd searchCmd;
 	private Controller controller;
 
 	public MainUI(TwitterDataSubject subject) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException {
@@ -57,9 +56,7 @@ public class MainUI extends JFrame {
 		// Setup menu
 		//menuSetUp();
 		this.subject = subject;
-//		Subject datumSubject = new ConcreteSubject();
-//		datumSubject = new DatumBoxSubject(datumSubject);
-//		((DatumBoxSubject) datumSubject).setAnalysisStrategys();
+
 		
 		ctrlView = new ControlPanelView(subject);
 		//searchCmd = new SetSearchTopicCmd(subject,ctrlView);

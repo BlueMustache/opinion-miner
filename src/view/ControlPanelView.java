@@ -27,7 +27,6 @@ public class ControlPanelView extends JPanel implements Observer {
 	private TwitterDataSubject subject;
 	private BtnFetchTweets btnFetchTweets;
 	private BtnAnalyseTweets btnAnalyze;
-	//private JButton btnAnalyze = new JButton("Analyze");
 	private JTextField textField = new JTextField();
 	private JSplitPane splitPane = new JSplitPane();
 	private Subject subjectRef; 
@@ -46,10 +45,6 @@ public class ControlPanelView extends JPanel implements Observer {
 	@Override
 	public void update(Subject subject) {
 		// TODO Auto-generated method stub	
-	}
-	
-	public String getTextFieldStr() {
-		return this.textField.toString();
 	}
 	
 	//This is not good practice but works much better
@@ -78,7 +73,7 @@ public class ControlPanelView extends JPanel implements Observer {
 		});
 	}
 	
-	public void setBtnLayout(/*JSplitPane pane,JButton btnAnalyze*/){	
+	public void setBtnLayout(){	
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
         splitPane.setLeftComponent(textField);
         textField.setColumns(10);

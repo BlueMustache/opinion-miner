@@ -1,16 +1,7 @@
-import java.awt.Image;
-import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import controller.Controller;
-import strategy.RapidMinerSentimentAnalysis;
 import view.MainUI;
-import view.TestObserver;
 import model.ConcreteSubject;
 import model.Subject;
 import model.TwitterDataSubject;

@@ -26,8 +26,7 @@ public class Controller {
 		this.subject = subject;
 		this.ctrlView = ctrlView;
 		this.subject.addCommandListner(new CommandListner());
-		//this.ctrlView.addDocumentListener(new IDocumentListener());
-		//this.subject.addCommandListner(new TextListner());
+
 
 	}
 
@@ -50,36 +49,4 @@ public class Controller {
 		
 	}
 	
-
-//	public class IDocumentListener implements DocumentListener {	
-//		@Override
-//		public void changedUpdate(DocumentEvent e) {
-//			// implemented automatically, but not required
-//		}
-//		@Override
-//		public void insertUpdate(DocumentEvent e) {
-//			// TODO Auto-generated method stub
-//			//subject.setTopic(e.getDocument().toString());
-//
-//			StringBuilder sb = new StringBuilder();
-//			String inputStr = "";
-//			//for(int i=0; i < 50 ;i++ ){
-//			try {	
-//				sb.append((e.getDocument().getText(i,e.getLength())));
-//				
-//			} catch (BadLocationException e2) {
-//				// TODO Auto-generated catch block
-//				e2.printStackTrace();
-//			}
-//			System.out.println("new topic string = " + sb.toString());
-//			subject.setTopic(sb.toString());
-//			System.out.println("model topic value = " + subject.getTopic());
-//			//}		
-//		}
-	//	@Override
-//		public void removeUpdate(DocumentEvent e) {
-//			//implemented automatically, but not required
-//		}
-	//}
-
 }
