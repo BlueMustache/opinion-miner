@@ -69,50 +69,51 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 //					+ "\n");
 //		}
 		
-		ArrayList<String> tweets = ((TwitterDataSubject) subject).getPreProcessedTweetList();
-		String csvFile = ((TwitterDataSubject) subject).getDatumBoxCSV();
-		//JSONObject sentimentPrediction = new JSONObject();
-		ArrayList<JSONObject> rapidResults = new ArrayList<JSONObject>();
-		String row = "";
-		
-		try {
-			CsvReader fileReader = new CsvReader("D:/Workspace/Opinion Miner/output.csv");	
-			fileReader.readHeaders();
-
-			//fileReader = new BufferedReader(new FileReader("D:/Workspace/Opinion Miner/output.csv"));
-			// Write the CSV file header
-			// fileWriter.append(FILE_HEADER.toString());
-			// Add a new line separator after the header
-			// fileWriter.append("\n");
-			// Write a new tweet list to the CSV file
-			while (fileReader.readRecord()) {
-//				String [] output = row.split(",");
-//				System.out.println(output[1]+"LOOOK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-				String result = fileReader.get("prediction(Sentiment)");
-				String tweet = fileReader.get("text");
-				JSONObject sentimentPrediction = new JSONObject();
-				sentimentPrediction.put("result", result);
-				sentimentPrediction.put("tweet", tweet);
-				rapidResults.add(sentimentPrediction);
-		
-			}
-			System.out.println("DatumBox results CSV file was created successfully !!!");
-			
-		} catch (Exception e) {
-			System.out
-					.println("Error in CsvFileWriter DatumBox results not written !!!");
-			e.printStackTrace();
-		} finally {
-			if (fileReader != null) {
-				try {
-					fileReader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		((TwitterDataSubject) subject).setRapidResultsJSON(rapidResults);
-
-		}
+//		ArrayList<String> tweets = ((TwitterDataSubject) subject).getPreProcessedTweetList();
+//		String csvFile = ((TwitterDataSubject) subject).getDatumBoxCSV();
+//		//JSONObject sentimentPrediction = new JSONObject();
+//		ArrayList<JSONObject> rapidResults = new ArrayList<JSONObject>();
+//		String row = "";
+//		
+//		try {
+//			CsvReader fileReader = new CsvReader("D:/Workspace/Opinion Miner/output.csv");	
+//			fileReader.readHeaders();
+//
+//			//fileReader = new BufferedReader(new FileReader("D:/Workspace/Opinion Miner/output.csv"));
+//			// Write the CSV file header
+//			// fileWriter.append(FILE_HEADER.toString());
+//			// Add a new line separator after the header
+//			// fileWriter.append("\n");
+//			// Write a new tweet list to the CSV file
+//			int count =0;
+//			while (fileReader.readRecord()) {
+////				String [] output = row.split(",");
+////				System.out.println(output[1]+"LOOOK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//				String result = fileReader.get("prediction(Sentiment)");
+//				String tweet = fileReader.get("text");
+//				JSONObject sentimentPrediction = new JSONObject();
+//				sentimentPrediction.put("result", result);
+//				sentimentPrediction.put("tweet", tweet);
+//				rapidResults.add(sentimentPrediction);
+//				count++;
+//			}
+//			System.out.println("Rapidminer results CSV file was created successfully !!!");
+//			
+//		} catch (Exception e) {
+//			System.out
+//					.println("Error in CsvFileWriter DatumBox results not written !!!");
+//			e.printStackTrace();
+//		} finally {
+//			if (fileReader != null) {
+//				try {
+//					fileReader.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		((TwitterDataSubject) subject).setRapidResultsJSON(rapidResults);
+//
+//		}
 	}
 
 	@Override
@@ -151,6 +152,52 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 			e.printStackTrace();
 		}
 		System.out.println("Running rapid miner thread");
+		
+		ArrayList<String> tweets = ((TwitterDataSubject) subject).getPreProcessedTweetList();
+		String csvFile = ((TwitterDataSubject) subject).getDatumBoxCSV();
+		//JSONObject sentimentPrediction = new JSONObject();
+		ArrayList<JSONObject> rapidResults = new ArrayList<JSONObject>();
+		String row = "";
+		
+		try {
+			CsvReader fileReader = new CsvReader("D:/Workspace/Opinion Miner/output.csv");	
+			fileReader.readHeaders();
+
+			//fileReader = new BufferedReader(new FileReader("D:/Workspace/Opinion Miner/output.csv"));
+			// Write the CSV file header
+			// fileWriter.append(FILE_HEADER.toString());
+			// Add a new line separator after the header
+			// fileWriter.append("\n");
+			// Write a new tweet list to the CSV file
+			int count =0;
+			while (fileReader.readRecord()) {
+//				String [] output = row.split(",");
+//				System.out.println(output[1]+"LOOOK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				String result = fileReader.get("prediction(Sentiment)");
+				String tweet = fileReader.get("text");
+				JSONObject sentimentPrediction = new JSONObject();
+				sentimentPrediction.put("result", result);
+				sentimentPrediction.put("tweet", tweet);
+				rapidResults.add(sentimentPrediction);
+				count++;
+			}
+			System.out.println("Rapidminer results CSV file was created successfully !!!");
+			
+		} catch (Exception e) {
+			System.out
+					.println("Error in CsvFileWriter DatumBox results not written !!!");
+			e.printStackTrace();
+		} finally {
+			if (fileReader != null) {
+				try {
+					fileReader.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		((TwitterDataSubject) subject).setRapidResultsJSON(rapidResults);
+
+		}
 	}
 	
 

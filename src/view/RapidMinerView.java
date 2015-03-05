@@ -53,6 +53,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		//mainPanel.setBounds(getViewportBorderBounds());
 		mainPanel.setLayout(gbl_panel);
 		
 		this.setViewportView(mainPanel);
@@ -119,13 +120,13 @@ public class RapidMinerView extends JScrollPane implements Observer{
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(textAreaList.get(i), GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
-					.addComponent(btnList.get(i)/*,GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE*/)
+					.addComponent(btnList.get(i),GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addComponent(textAreaList.get(i), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-				.addComponent(btnList.get(i)/*, GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE*/)
+				.addComponent(btnList.get(i), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
 		);
 		panelList.get(i).setLayout(gl_panel_3);
 

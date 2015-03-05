@@ -30,7 +30,7 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 		this.subject = subject;
 		datumThread = new Thread(this);
 		datumThread.start();
-		System.out.println("Rapid miner thread started");
+		System.out.println("Datum miner thread started");
 	
 	}
 	@Override
