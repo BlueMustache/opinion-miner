@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -44,8 +45,10 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		this.subjectRef = subjectRef;
 		subjectRef.registerObserver(this);
 
-		this.setLayout(new ScrollPaneLayout());
-
+		//this.setLayout(new ScrollPaneLayout());
+		Dimension d = new Dimension(15,15);
+		//this.setLayout(new ScrollPaneLayout());
+		this.setPreferredSize(d);
 		panelList = new ArrayList<JPanel>();
 		textAreaList = new ArrayList<JTextArea>();
 //		lableList = new ArrayList<JLabel>();

@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -38,9 +39,9 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
 		subjectRef.registerObserver(this);
-
-		this.setLayout(new ScrollPaneLayout());
-
+		Dimension d = new Dimension(600,800);
+		//this.setLayout(new ScrollPaneLayout());
+		this.setPreferredSize(d);
 		panelList = new ArrayList<JPanel>();
 		textAreaList = new ArrayList<JTextArea>();
 //		lableList = new ArrayList<JLabel>();
@@ -119,14 +120,14 @@ public class RapidMinerView extends JScrollPane implements Observer{
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(textAreaList.get(i), GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
-					.addComponent(btnList.get(i),GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+					.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 428, Short.MAX_VALUE)
+					.addComponent(btnList.get(i),GroupLayout.PREFERRED_SIZE, 428, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addComponent(textAreaList.get(i), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-				.addComponent(btnList.get(i), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+				.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+				.addComponent(btnList.get(i), GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
 		);
 		panelList.get(i).setLayout(gl_panel_3);
 
