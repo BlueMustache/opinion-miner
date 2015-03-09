@@ -5,7 +5,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import com.csvreader.CsvReader;
+
 import org.json.simple.JSONObject;
 
 import model.Subject;
@@ -127,59 +129,50 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 
 		RepositoryLocation pLoc;
 		try {
-			pLoc = new RepositoryLocation(
-					"//FYP_Model/ClassificationModelProcess");
+			pLoc = new RepositoryLocation("//FYP_Model/ClassificationModelProcess");
 		
-		ProcessEntry pEntry = (ProcessEntry) pLoc.locateEntry();
-		String processXML = pEntry.retrieveXML();
-		Process myProcess = new Process(processXML);
-		myProcess.setProcessLocation(new RepositoryProcessLocation(pLoc));
-		// myProcess.run();
+			ProcessEntry pEntry = (ProcessEntry) pLoc.locateEntry();
+			String processXML = pEntry.retrieveXML();
+			Process myProcess = new Process(processXML);
+			myProcess.setProcessLocation(new RepositoryProcessLocation(pLoc));
+			// myProcess.run();
 
-		Operator op = myProcess.getOperator("Read CSV");
-		op.setParameter(com.rapidminer.operator.nio.CSVExampleSource.PARAMETER_CSV_FILE,((TwitterDataSubject) subject).getTweetDataStore());
-		// C:\Users\Admin\Documents\College_Year_4\FYP\Project\Normalised_Data
-		Operator csvOutput = myProcess.getOperator("Write CSV");
-		IOContainer container = myProcess.run();
-		for (int i = 0; i < container.size(); i++) {
-			IOObject ioObject = container.getElementAt(i);
-			// do something
-			System.out.println("the element @ i = " + ioObject.toString()
-					+ "\n");		
-		}
+			Operator op = myProcess.getOperator("Read CSV");
+			op.setParameter(com.rapidminer.operator.nio.CSVExampleSource.PARAMETER_CSV_FILE,((TwitterDataSubject) subject).getTweetDataStore());
+				Operator csvOutput = myProcess.getOperator("Write CSV");
+			IOContainer container = myProcess.run();
+//			for (int i = 0; i < container.size(); i++) {
+//				IOObject ioObject = container.getElementAt(i);
+//				// do something
+//				System.out.println("the element @ i = " + ioObject.toString()
+//					+ "\n");		
+//			}
 		} catch (RepositoryException | IOException | XMLException | OperatorException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("Running rapid miner thread");
+		updateTwitterData();
+	}
+	
+	public void updateTwitterData(){
 		
 		ArrayList<String> tweets = ((TwitterDataSubject) subject).getPreProcessedTweetList();
 		String csvFile = ((TwitterDataSubject) subject).getDatumBoxCSV();
 		//JSONObject sentimentPrediction = new JSONObject();
 		ArrayList<JSONObject> rapidResults = new ArrayList<JSONObject>();
-		String row = "";
 		
 		try {
 			CsvReader fileReader = new CsvReader("D:/Workspace/Opinion Miner/output.csv");	
 			fileReader.readHeaders();
-
-			//fileReader = new BufferedReader(new FileReader("D:/Workspace/Opinion Miner/output.csv"));
-			// Write the CSV file header
-			// fileWriter.append(FILE_HEADER.toString());
-			// Add a new line separator after the header
-			// fileWriter.append("\n");
-			// Write a new tweet list to the CSV file
 			int count =0;
 			while (fileReader.readRecord()) {
-//				String [] output = row.split(",");
-//				System.out.println(output[1]+"LOOOK !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 				String result = fileReader.get("prediction(Sentiment)");
 				String tweet = fileReader.get("text");
 				JSONObject sentimentPrediction = new JSONObject();
-				sentimentPrediction.put("result", result);
+				sentimentPrediction.put("RapidResult", result);
 				sentimentPrediction.put("tweet", tweet);
 				rapidResults.add(sentimentPrediction);
-				count++;
 			}
 			System.out.println("Rapidminer results CSV file was created successfully !!!");
 			
@@ -196,7 +189,6 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 				}
 			}
 		((TwitterDataSubject) subject).setRapidResultsJSON(rapidResults);
-
 		}
 	}
 	

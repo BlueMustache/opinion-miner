@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.KeyStroke;
 
 import strategy.ProcessStrategy;
 import strategy.ProcessTweetsStrategy;
@@ -29,6 +30,7 @@ public class BtnFetchTweets extends JButton implements Command {
 		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		this.subjectRef = subject;
 		this.twitterAcc =  ((TwitterDataSubject) subject).getTwitterAcc();
+//		this.registerKeyboardAction(getAction(), aKeyStroke, aCondition);
 	}
 
 	@Override

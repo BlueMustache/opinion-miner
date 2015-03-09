@@ -34,12 +34,14 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private ArrayList<JSONObject> datumResultsJSON = new ArrayList<JSONObject>();
 	private ArrayList<JSONObject> rapidResultsJSON = new ArrayList<JSONObject>();
 	private ProcessStrategy processStrategy;
+	private ArrayList<JSONObject> mongoDataStore;
 
 
 	public TwitterDataSubject(Subject subjectReference) {
 		// Constructor
 		super(subjectReference);
 		observers = new ArrayList<Observer>();
+		this.mongoDataStore = new ArrayList<JSONObject>();
 		buildConfiguration(); // Create build to create a twitter access account
 		setAnalysisStrategys();
 
@@ -208,6 +210,16 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public void setRapidResultsJSON(ArrayList<JSONObject> rapidResultsJSON) {
 		this.rapidResultsJSON = rapidResultsJSON;
 		notifyObservers();
+	}
+	
+	
+
+	public ArrayList<JSONObject> getMongoDataStore() {
+		return mongoDataStore;
+	}
+
+	public void setMongoDataStore(ArrayList<JSONObject> mongoDataStore) {
+		this.mongoDataStore = mongoDataStore;
 	}
 
 	@Override

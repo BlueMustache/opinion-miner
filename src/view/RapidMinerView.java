@@ -91,8 +91,8 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		textAreaList.get(i).setWrapStyleWord(true);
 		textAreaList.get(i).setText(((TwitterDataSubject) subject).getPreProcessedTweetList().get(i).toString());	//THIS IS A BUG
 		
-		btnList.get(i).setText(rapidResults.get(i).get("result").toString());
-		Color btnColor = rapidResults.get(i).get("result").equals("positive") ? Color.GREEN : Color.RED;
+		btnList.get(i).setText(rapidResults.get(i).get("RapidResult").toString());
+		Color btnColor = rapidResults.get(i).get("RapidResult").equals("positive") ? Color.GREEN : Color.RED;
 
 		btnList.get(i).setBackground(btnColor);
 		

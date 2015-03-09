@@ -3,6 +3,8 @@ package view;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
@@ -14,6 +16,7 @@ import javax.swing.event.DocumentListener;
 
 import command.BtnAnalyseTweets;
 import command.BtnFetchTweets;
+import command.BtnUpdateMongoResults;
 import controller.Controller.CommandListner;
 //import controller.Controller.IDocumentListener;
 import controller.Controller.TextListner;
@@ -27,6 +30,7 @@ public class ControlPanelView extends JPanel implements Observer {
 	private TwitterDataSubject subject;
 	private BtnFetchTweets btnFetchTweets;
 	private BtnAnalyseTweets btnAnalyze;
+	private BtnUpdateMongoResults btnUpdateDB;
 	private JTextField textField = new JTextField();
 	private JSplitPane splitPane = new JSplitPane();
 	private Subject subjectRef; 
@@ -37,7 +41,9 @@ public class ControlPanelView extends JPanel implements Observer {
 		this.subject = subjectRef;
 		
 		btnFetchTweets = new BtnFetchTweets("Search", subjectRef);
+		
 		btnAnalyze = new BtnAnalyseTweets("Analyze", subjectRef);
+		btnUpdateDB = new BtnUpdateMongoResults("Update DB", subjectRef);
 		setBtnLayout(); //Call set layout method to layout the buttons
 		textFieldListner();// Need to try put this in the controller
 	}
@@ -88,17 +94,19 @@ public class ControlPanelView extends JPanel implements Observer {
 	         			.addContainerGap()
 	         			.addGroup(ctrlLayout.createParallelGroup(Alignment.LEADING)
 	         				.addComponent(btnAnalyze, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+	         				.addComponent(btnUpdateDB, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
 	         				.addComponent(splitPane, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
 	         			.addContainerGap())
 	         );
-	         btnAnalyze.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+	         //btnAnalyze.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 	         ctrlLayout.setVerticalGroup(
 	         	ctrlLayout.createParallelGroup(Alignment.LEADING)
 	         		.addGroup(ctrlLayout.createSequentialGroup()
 	         			.addGap(5)
 	         			.addComponent(splitPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	         			.addPreferredGap(ComponentPlacement.RELATED)
-	         			.addComponent(btnAnalyze)
+	         			.addComponent(btnAnalyze).addGap(8)
+	         			.addComponent(btnUpdateDB)
 	         			.addContainerGap(164, Short.MAX_VALUE))
 	         );
 	         this.setLayout(ctrlLayout);
@@ -107,7 +115,10 @@ public class ControlPanelView extends JPanel implements Observer {
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 		btnFetchTweets.addActionListener(commandListner);
+		KeyStroke keystroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
+		btnFetchTweets.registerKeyboardAction(commandListner, keystroke, JComponent.WHEN_FOCUSED);
 		btnAnalyze.addActionListener(commandListner);
+		btnUpdateDB.addActionListener(commandListner);
 	}
 
 }
