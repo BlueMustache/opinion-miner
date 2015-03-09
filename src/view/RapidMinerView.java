@@ -30,11 +30,13 @@ public class RapidMinerView extends JScrollPane implements Observer{
 	private ArrayList<JTextArea> textAreaList; 
 	private ArrayList<JButton> btnList;
 	private JPanel mainPanel = new JPanel();
+	private String viewRef;
 
-	public RapidMinerView(Subject subjectRef) {
+	public RapidMinerView(Subject subjectRef, String viewRef) {
 		// TODO Auto-generated constructor stub
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
+		this.viewRef = viewRef;
 		subjectRef.registerObserver(this);
 		Dimension d = new Dimension(600,800);
 		this.setPreferredSize(d);
@@ -124,5 +126,24 @@ public class RapidMinerView extends JScrollPane implements Observer{
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Observer getView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setVisibility(boolean bool) {
+		// TODO Auto-generated method stub
+		//need to add scoll stuff from fetched tweets
+		this.getViewport().setVisible(bool);
+	}
+
+	@Override
+	public String getViewRef() {
+		// TODO Auto-generated method stub
+		return this.viewRef;
 	}
 }

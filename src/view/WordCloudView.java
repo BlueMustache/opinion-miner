@@ -29,6 +29,7 @@ public class WordCloudView extends JPanel implements Observer {
 	private Subject subjectRef;
 	private ArrayList<String> tweetList = new ArrayList<String>();
 	String[] words;
+	private String viewRef;
 	private static final String[] WORDS = { "art", "australia", "baby", "beach", "birthday", "blue", "bw", "california", "canada", "canon",
         "cat", "chicago", "china", "christmas", "city", "dog", "england", "europe", "family", "festival", "flower", "flowers", "food",
         "france", "friends", "fun", "germany", "holiday", "india", "italy", "japan", "london", "me", "mexico", "music", "nature",
@@ -37,10 +38,11 @@ public class WordCloudView extends JPanel implements Observer {
 	Random random ;
 	Cloud cloud;
 	
-	public WordCloudView(Subject subjectRef) {
+	public WordCloudView(Subject subjectRef, String viewRef) {
 		// TODO Auto-generated constructor stub
 		//setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
+		this.viewRef = viewRef;
 		subjectRef.registerObserver(this);
 		//this.setLayout(new ScrollPaneLayout());
 		
@@ -107,6 +109,24 @@ public class WordCloudView extends JPanel implements Observer {
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Observer getView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setVisibility(boolean bool) {
+		// TODO Auto-generated method stub
+		this.setVisible(bool);
+	}
+
+	@Override
+	public String getViewRef() {
+		// TODO Auto-generated method stub
+		return this.viewRef;
 	}
 
 }

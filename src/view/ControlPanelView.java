@@ -19,7 +19,6 @@ import command.BtnFetchTweets;
 import command.BtnUpdateMongoResults;
 import controller.Controller.CommandListner;
 //import controller.Controller.IDocumentListener;
-import controller.Controller.TextListner;
 import model.Subject;
 import model.TwitterDataSubject;
 
@@ -34,14 +33,15 @@ public class ControlPanelView extends JPanel implements Observer {
 	private JTextField textField = new JTextField();
 	private JSplitPane splitPane = new JSplitPane();
 	private Subject subjectRef; 
+	private String viewRef;
 	
-	public ControlPanelView(final TwitterDataSubject subjectRef) {
+	public ControlPanelView(final TwitterDataSubject subjectRef, String viewRef) {
 		// Constructor
 		subjectRef.registerObserver(this);
 		this.subject = subjectRef;
+		this.viewRef = viewRef;
 		
-		btnFetchTweets = new BtnFetchTweets("Search", subjectRef);
-		
+		btnFetchTweets = new BtnFetchTweets("Search", subjectRef);	
 		btnAnalyze = new BtnAnalyseTweets("Analyze", subjectRef);
 		btnUpdateDB = new BtnUpdateMongoResults("Update DB", subjectRef);
 		setBtnLayout(); //Call set layout method to layout the buttons
@@ -111,7 +111,22 @@ public class ControlPanelView extends JPanel implements Observer {
 	         );
 	         this.setLayout(ctrlLayout);
 	}
+	@Override
+	public Observer getView(/*String viewRef*/) {
+		//if(viewRef.equalsIgnoreCase(this.viewRef)){
+			return this;
+		//}
+		//return null;
+	}
+
+	public void setViewRef(String viewRef) {
+		this.viewRef = viewRef;
+	}
 	
+	public void setVisibility(boolean bool){
+		this.setVisible(bool);
+	}
+
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 		btnFetchTweets.addActionListener(commandListner);
@@ -119,6 +134,12 @@ public class ControlPanelView extends JPanel implements Observer {
 		btnFetchTweets.registerKeyboardAction(commandListner, keystroke, JComponent.WHEN_FOCUSED);
 		btnAnalyze.addActionListener(commandListner);
 		btnUpdateDB.addActionListener(commandListner);
+	}
+
+	@Override
+	public String getViewRef() {
+		// TODO Auto-generated method stub
+		return this.viewRef;
 	}
 
 }

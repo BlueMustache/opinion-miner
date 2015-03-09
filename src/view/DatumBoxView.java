@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.LineBorder;
 
@@ -33,11 +32,13 @@ public class DatumBoxView extends JScrollPane implements Observer {
 	private ArrayList<JTextArea> textAreaList; 
 	private ArrayList<JButton> btnList;
 	private JPanel mainPanel = new JPanel();
+	private String viewRef;
 
-	public DatumBoxView(Subject subjectRef) {
+	public DatumBoxView(Subject subjectRef,String viewRef) {
 		// TODO Auto-generated constructor stub
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
+		this.viewRef = viewRef;
 		subjectRef.registerObserver(this);
 
 		//this.setLayout(new ScrollPaneLayout());
@@ -132,6 +133,27 @@ public class DatumBoxView extends JScrollPane implements Observer {
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Observer getView() {
+		//if(viewRef.equalsIgnoreCase(this.viewRef)){
+			return this;
+	//	}
+		
+	//	return null;
+	}
+
+	@Override
+	public void setVisibility(boolean bool) {
+		// TODO Auto-generated method stub
+		this.getViewport().setVisible(bool);
+	}
+
+	@Override
+	public String getViewRef() {
+		// TODO Auto-generated method stub
+		return this.viewRef;
 	}
 
 }

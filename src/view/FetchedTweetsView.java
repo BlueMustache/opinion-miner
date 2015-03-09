@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import controller.Controller.CommandListner;
-import controller.Controller.TextListner;
 import model.Subject;
 import model.TwitterDataSubject;
 
@@ -43,11 +42,15 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 	private JPanel mainPanel = new JPanel();
 	private ArrayList<JPanel> panelList; 
 	private ArrayList<JTextArea> textAreaList; 
+	private Subject subjectRef; 
+	private String viewRef;
 	
-	public FetchedTweetsView(TwitterDataSubject subjectReference) throws IOException  {
+	public FetchedTweetsView(TwitterDataSubject subjectReference, String viewRef) throws IOException  {
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		// TODO Auto-generated constructor stub
 		this.subject = subjectReference;
+		this.viewRef = viewRef;
+		
 		subjectReference.registerObserver(this);	
 		this.setLayout(new ScrollPaneLayout());	
 		panelList = new ArrayList<JPanel>();
@@ -117,5 +120,36 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public Observer getView() {
+	//	if(viewRef.equalsIgnoreCase(this.viewRef)){
+			return this;
+		//}
+		//return null;
+	}
+
+
+	@Override
+	public void setVisibility(boolean bool) {
+		// TODO Auto-generated method stub
+//		this.getParent().setEnabled(bool);;
+		this.getViewport().setVisible(bool);
+		//tidy this to make a ternary if statement
+		if(!bool){
+		this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		}else{
+			this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		}
+		
+	}
+
+
+	@Override
+	public String getViewRef() {
+		// TODO Auto-generated method stub
+		return this.viewRef;
 	}
 }

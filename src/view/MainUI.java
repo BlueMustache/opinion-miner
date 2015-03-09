@@ -29,6 +29,9 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -49,6 +52,8 @@ public class MainUI extends JFrame {
 	private TwitterDataSubject subject;
 	private JPanel Btn_Panel = new JPanel();
 	private Controller controller;
+	private Map<String,Observer> viewListMap; 
+	
 
 	public MainUI(TwitterDataSubject subject) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException {
 		this.setTitle("Twitter Data Sentiment Analysis");
@@ -56,16 +61,28 @@ public class MainUI extends JFrame {
 		// Setup menu
 		//menuSetUp();
 		this.subject = subject;
-
+		this.viewListMap = new HashMap<String,Observer>();
 		
-		ctrlView = new ControlPanelView(subject);
+		
+		ctrlView = new ControlPanelView(subject,"ctrlView");
+		this.viewListMap.put("ctrlView",ctrlView);
 		//searchCmd = new SetSearchTopicCmd(subject,ctrlView);
-		controller = new Controller(subject,ctrlView);
-		tweetView = new FetchedTweetsView(subject);
-		datumView = new DatumBoxView(subject);
-		rapidView = new RapidMinerView(subject);
-		wordCloudView = new WordCloudView(subject);
-
+		
+		tweetView = new FetchedTweetsView(subject,"tweetView");
+		this.viewListMap.put("tweetView",tweetView);
+		datumView = new DatumBoxView(subject,"datumView");
+		this.viewListMap.put("datumView",datumView);
+		rapidView = new RapidMinerView(subject,"rapidView");
+		
+		this.viewListMap.put("rapidView",rapidView);
+		wordCloudView = new WordCloudView(subject,"cloudView");
+		this.viewListMap.put("cloudView",wordCloudView);
+		
+		
+		
+		
+		controller = new Controller(subject,this.viewListMap);
+		
 		getContentPane().add(ctrlView, BorderLayout.WEST);
 		
 		JSplitPane Btn_splitPane = new JSplitPane();
@@ -74,7 +91,7 @@ public class MainUI extends JFrame {
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		
+		//tabbedPane.setEnabled(false);
 		tabbedPane.addTab("Searched Tweets", null, tweetView,null);
 		tabbedPane.addTab("DatumBox Results", null, datumView,null);
 		tabbedPane.addTab("Rapidminer Results", null, rapidView,null);
