@@ -1,3 +1,6 @@
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.io.IOException;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
