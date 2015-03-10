@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.json.simple.JSONObject;
-
+//Might need to sight this code
 public class DatumboxManager implements IDatumBoxManager {
 
 	private final String api_key;
@@ -61,13 +61,7 @@ public class DatumboxManager implements IDatumBoxManager {
 
 			request.setRequestMethod("POST");
 
-			request.setRequestProperty("Content-Type",
-					"application/x-www-form-urlencoded");
-			// request.setRequestProperty("Content-Length", "" +
-			// Integer.toString(arguments.getBytes().length));
-
-			// request.ContentLength = postData.Length;
-
+			request.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			request.setUseCaches(false);
 			request.setDoInput(true);
 			request.setDoOutput(true);
@@ -116,6 +110,7 @@ public class DatumboxManager implements IDatumBoxManager {
 
 		return stringToJSONObject(str);
 	}
+	
 	//Create a JSON Object from a JSON style string. Allows for easier processing in the future
 	private static JSONObject stringToJSONObject(String jString) {
 
