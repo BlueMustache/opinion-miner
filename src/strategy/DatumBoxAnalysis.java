@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 
+import view.Observer;
 import model.DatumboxManager;
 import model.IDatumBoxManager;
 import model.Subject;
@@ -57,7 +58,7 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 		}
 		
 		((TwitterDataSubject) subject).setDatumResultsJSON(datumResults);
-
+		
 		}
 	}
 	

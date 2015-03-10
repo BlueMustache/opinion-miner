@@ -4,6 +4,8 @@ package model;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 
@@ -28,6 +30,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private String datumBoxCSV = "D:/Workspace/Opinion Miner/DatumAnalysis.csv";
 	private Twitter twitterAcc;
 	private ArrayList<String> tweetList = new ArrayList<String>();
+	private Map<String,Integer> tweetMap;
 	private ArrayList<String> preProcessedTweetList = new ArrayList<String>();
 	private int tweetCount;
 	private  ArrayList<SentimentStrategy> AnalysisStrategys = new ArrayList<SentimentStrategy>();
@@ -42,6 +45,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		super(subjectReference);
 		observers = new ArrayList<Observer>();
 		this.mongoDataStore = new ArrayList<JSONObject>();
+		this.tweetMap = new HashMap<String, Integer>();
 		buildConfiguration(); // Create build to create a twitter access account
 		setAnalysisStrategys();
 
@@ -79,7 +83,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	}
 	
 	public int getTweetCount(){
-		return this.tweetList.size();
+		return this.tweetMap.size();
 	}
 
 	public void setTweetLits(ArrayList<String> tweets) {
@@ -220,6 +224,21 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setMongoDataStore(ArrayList<JSONObject> mongoDataStore) {
 		this.mongoDataStore = mongoDataStore;
+	}
+	
+	
+
+	public Map<String, Integer> getTweetMap() {
+		return tweetMap;
+	}
+
+	public void setTweetMap(Map<String, Integer> tweetMap) {
+		this.tweetMap = tweetMap;
+		notifyObservers();
+	}
+	public void reSetTweetMap() {
+		this.tweetMap.clear();
+		notifyObservers();
 	}
 
 	@Override
