@@ -142,10 +142,4 @@ public class ControlPanelView extends JPanel implements Observer {
 		return this.viewRef;
 	}
 
-	@Override
-	public void repaintParent() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -75,8 +75,8 @@ public class MainUI extends JFrame {
 		rapidView = new RapidMinerView(subject,"rapidView");
 		
 		this.viewListMap.put("rapidView",rapidView);
-		//wordCloudView = new WordCloudView(subject,"cloudView");
-		//this.viewListMap.put("cloudView",wordCloudView);
+		wordCloudView = new WordCloudView(subject,"cloudView");
+		this.viewListMap.put("cloudView",wordCloudView);
 		
 		
 		

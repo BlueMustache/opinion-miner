@@ -2,9 +2,7 @@ package command;
 
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.KeyStroke;
@@ -16,7 +14,6 @@ import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import view.Observer;
 import model.Subject;
 import model.TwitterDataSubject;
 
@@ -33,6 +30,7 @@ public class BtnFetchTweets extends JButton implements Command {
 		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		this.subjectRef = subject;
 		this.twitterAcc =  ((TwitterDataSubject) subject).getTwitterAcc();
+//		this.registerKeyboardAction(getAction(), aKeyStroke, aCondition);
 	}
 
 	@Override
@@ -41,10 +39,6 @@ public class BtnFetchTweets extends JButton implements Command {
 		System.out.println("Search btn pressed");// for testing if btn is pressed
 		
 		ArrayList<String> tweetList = new ArrayList<String>();
-		
-		((TwitterDataSubject) this.subjectRef).reSetTweetMap();
-		Map<String, Integer> tweetMap = ((TwitterDataSubject) this.subjectRef).getTweetMap();
-		
 		
 		int tweetCount = 0;
 		try {
@@ -62,9 +56,8 @@ public class BtnFetchTweets extends JButton implements Command {
 				
 				for (Status tweet : tweets) {
 					tweetList.add(tweet.getText());
-					tweetMap.put(tweet.getText(), tweet.getRetweetCount());
 					tweetCount++;
-					System.out.println("RetweetCount = " + tweet.getRetweetCount());	// test to see if geo loaction was possible. it was not as people do not generally provide their location
+					//System.out.println(tweet.getGeoLocation());	// test to see if geo loaction was possible. it was not as people do not generally provide their location
 				}
 			} while ((query = result.nextQuery()) != null /*&& tweetCount < 2*/);///MIGHT NEED TO REMOVE THIS LIMITS TWEETS DISPLAYED TO 20 SOMEHOW
 		} catch (TwitterException te) {
@@ -73,21 +66,13 @@ public class BtnFetchTweets extends JButton implements Command {
 		}
 		System.out.println("The Tweets Fetched count is : " + tweetCount); //For testing
 		
-		//((TwitterDataSubject) this.subjectRef).setTweetLits(tweetList);	//Set the arraylist of tweets contained in the subject
-		((TwitterDataSubject) this.subjectRef).setTweetMap(tweetMap);
-		((TwitterDataSubject) this.subjectRef).reSetTweetMap();
-		
+		((TwitterDataSubject) this.subjectRef).setTweetLits(tweetList);	//Set the arraylist of tweets contained in the subject
+
 		processStrategy = new ProcessTweetsStrategy();
 		processStrategy = ((TwitterDataSubject) subjectRef).getProcessStrategy(); // this needsd work
-		processStrategy.runProcess((TwitterDataSubject) subjectRef );
+		processStrategy.runProcess((TwitterDataSubject) subjectRef);
 		((TwitterDataSubject) this.subjectRef).setTweetStore();
 		System.out.println("tweet Count = " + ((TwitterDataSubject) subjectRef).getTweetCount());
-		
-		/////////////TEST/////////
-		for(Map.Entry<String, Integer> entry  : tweetMap.entrySet()){
-			System.out.println("tweet = " + entry.getKey() + " retweetCount = "+ entry.getValue());
-		}
-		//////////////////////////
 	}
 
 }

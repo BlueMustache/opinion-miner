@@ -146,10 +146,4 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		// TODO Auto-generated method stub
 		return this.viewRef;
 	}
-
-	@Override
-	public void repaintParent() {
-		// TODO Auto-generated method stub
-		
-	}
 }
