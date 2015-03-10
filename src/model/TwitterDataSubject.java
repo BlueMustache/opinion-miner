@@ -184,6 +184,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		// notify all observers on update
 		for (Observer o : observers) {
 			o.update(this);
+			o.repaintParent();
 		}
 	}
 

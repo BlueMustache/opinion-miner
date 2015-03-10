@@ -10,4 +10,5 @@ public interface Observer {
 	public Observer getView();//can be removed
 	public void setVisibility(boolean bool);
 	public String getViewRef();//can be removed
+	public void repaintParent();
 }
