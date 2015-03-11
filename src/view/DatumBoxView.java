@@ -69,6 +69,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		this.subjectRef = /*(TwitterDataSubject)*/ subject;
 
 		ArrayList<JSONObject> datumResults = ((TwitterDataSubject) this.subjectRef).getDatumResultsJSON();
+		
 		int tweetCount = ((TwitterDataSubject) subject).getTweetCount(); 
 		
 		//this.setLayout(new ScrollPaneLayout());
@@ -96,7 +97,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.gridx = 0;
 		
-		for(int i=0; i<datumResults.size();i++){
+		for(int i=0; i<datumResults.size();i++){	
 		panelList.add(new JPanel());
 		panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
 		textAreaList.add(new JTextArea());
@@ -152,7 +153,6 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		this.setViewportView(mainPanel);
 		this.revalidate();
 		this.repaint();
-		i++;
 		}
 
 		System.out.println("The text area is running and made "+ tweetCount +" panels & Views");
