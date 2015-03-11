@@ -33,7 +33,7 @@ public class Controller {
 		this.viewListMap = viewListMap;
 		this.subject.addCommandListner(new CommandListner());
 		
-		//Iterator iterator = viewListMap.keySet().iterator();
+	
 		for(Map.Entry<String,Observer> entry  : viewListMap.entrySet()){
 			if(entry.getKey().equals("ctrlView")){
 				entry.getValue().setVisibility(true);
@@ -57,10 +57,12 @@ public class Controller {
 			{
 			case "Search" :
 				viewListMap.get("tweetView").setVisibility(true);
+				viewListMap.get("cloudView").setVisibility(true);
 				break;
 			case "Analyze" :
 				viewListMap.get("datumView").setVisibility(true);
 				viewListMap.get("rapidView").setVisibility(true);
+				
 				break;
 //			case "Update DB" :
 //				viewListMap.get("tweetView").setVisibility(true);

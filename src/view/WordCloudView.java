@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.Random;
@@ -44,54 +45,23 @@ public class WordCloudView extends JPanel implements Observer {
 		this.subjectRef = subjectRef;
 		this.viewRef = viewRef;
 		subjectRef.registerObserver(this);
-		//this.setLayout(new ScrollPaneLayout());
-		
 		this.mainPanel = new JPanel();
-		//this.mainPanel.setLayout(new FlowLayout());
+	
 		this.random = new Random();
 		this.cloud = new Cloud();
-		//this.mainPanel.setSize(40, 40);
-		//this.setSize(400, 400);
-		Dimension d = new Dimension(600,600);
-		//this.setLayout(new ScrollPaneLayout());
-		this.mainPanel.setPreferredSize(d);
 		this.setVisible(true);	
-	//	setViewportView(mainPanel);
-//		GridBagLayout gbl_panel = new GridBagLayout();
-//		gbl_panel.columnWidths = new int[] { 0, 0 };
-//		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-//		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-//		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-//				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-//		mainPanel.setLayout(gbl_panel);
-		
-	//	this.setViewportView(mainPanel);
-//		this.tweetList = ((TwitterDataSubject) subjectRef).getTweets();
-//		//String str = 
-//		//words = this.tweetList.get(1).split(" ");
-//		 for (String s : words) {
-//	            for (int i = random.nextInt(50); i > 0; i--) {
-//	                cloud.addTag(s);
-//	            }
-//	        }
-//	        for (Tag tag : cloud.tags()) {
-//	            final JLabel label = new JLabel(tag.getName());
-//	            label.setOpaque(false);
-//	            label.setFont(label.getFont().deriveFont((float) tag.getWeight() * 10));
-//	            mainPanel.add(label);
-//	        }
-//	        this.add(mainPanel);
+	
 	}
 
 	@Override
 	public void update(Subject subject) {
 		// TODO Auto-generated method stub
-		this.tweetList = ((TwitterDataSubject) subjectRef).getTweets();
+	//	this.tweetList = ((TwitterDataSubject) subjectRef).getTweets();
 		//String str = 
-		for(int i=0; i<this.tweetList.size();i++){
-		words = this.tweetList.get(i).split(" ");
-		}
-		 for (String s : words) {
+//		for(int i=0; i<WORDS.length;i++){
+//		words = this.tweetList.get(i).split(" ");
+//		}
+		 for (String s : WORDS) {
 	            for (int i = random.nextInt(50); i > 0; i--) {
 	                cloud.addTag(s);
 	            }
@@ -99,8 +69,11 @@ public class WordCloudView extends JPanel implements Observer {
 	        for (Tag tag : cloud.tags()) {
 	            final JLabel label = new JLabel(tag.getName());
 	            label.setOpaque(false);
+	            label.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 	            label.setFont(label.getFont().deriveFont((float) tag.getWeight() * 10));
-	            mainPanel.add(label);
+	            Dimension d = new Dimension(800, 475);
+	    		this.mainPanel.setPreferredSize(d);
+	            mainPanel.add(label);          
 	        }
 	        this.add(mainPanel);
 	}

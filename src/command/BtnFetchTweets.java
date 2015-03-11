@@ -75,7 +75,7 @@ public class BtnFetchTweets extends JButton implements Command {
 		
 		//((TwitterDataSubject) this.subjectRef).setTweetLits(tweetList);	//Set the arraylist of tweets contained in the subject
 		((TwitterDataSubject) this.subjectRef).setTweetMap(tweetMap);
-		((TwitterDataSubject) this.subjectRef).reSetTweetMap();
+		//((TwitterDataSubject) this.subjectRef).reSetTweetMap();
 		
 		processStrategy = new ProcessTweetsStrategy();
 		processStrategy = ((TwitterDataSubject) subjectRef).getProcessStrategy(); // this needsd work

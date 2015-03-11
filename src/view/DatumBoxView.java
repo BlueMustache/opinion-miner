@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ScrollPaneLayout;
 import javax.swing.border.LineBorder;
 
 import org.json.simple.JSONObject;
@@ -41,25 +42,25 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		this.viewRef = viewRef;
 		subjectRef.registerObserver(this);
 
-		//this.setLayout(new ScrollPaneLayout());
+		this.setLayout(new ScrollPaneLayout());
 		Dimension d = new Dimension(15,15);
 		//this.setLayout(new ScrollPaneLayout());
 		this.setPreferredSize(d);
 		
-		panelList = new ArrayList<JPanel>();
-		textAreaList = new ArrayList<JTextArea>();;
-		btnList = new ArrayList<JButton>();
-		setViewportView(mainPanel);
-		
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 0, 0 };
-		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-		mainPanel.setLayout(gbl_panel);
-		
-		this.setViewportView(mainPanel);	
+//		panelList = new ArrayList<JPanel>();
+//		textAreaList = new ArrayList<JTextArea>();;
+//		btnList = new ArrayList<JButton>();
+//		setViewportView(mainPanel);
+//		
+//		GridBagLayout gbl_panel = new GridBagLayout();
+//		gbl_panel.columnWidths = new int[] { 0, 0 };
+//		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+//		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+//		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+//				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+//		mainPanel.setLayout(gbl_panel);
+//		
+//		this.setViewportView(mainPanel);	
 	}
 
 	@Override
@@ -70,6 +71,26 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		ArrayList<JSONObject> datumResults = ((TwitterDataSubject) this.subjectRef).getDatumResultsJSON();
 		
 		int tweetCount = ((TwitterDataSubject) subject).getTweetCount(); 
+		
+		//this.setLayout(new ScrollPaneLayout());
+		Dimension d = new Dimension(15,15);
+		this.setPreferredSize(d);
+		this.setLayout(new ScrollPaneLayout());
+		panelList = new ArrayList<JPanel>();
+		textAreaList = new ArrayList<JTextArea>();
+		btnList = new ArrayList<JButton>();
+		this.mainPanel = new JPanel();
+		
+		
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[] { 0, 0 };
+		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		mainPanel.setLayout(gbl_panel);
+		
+		this.setViewportView(mainPanel);	
 		
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
@@ -114,16 +135,24 @@ public class DatumBoxView extends JScrollPane implements Observer {
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 428, Short.MAX_VALUE)
-					.addComponent(btnList.get(i),GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+					.addComponent(btnList.get(i),GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
 					.addContainerGap())
 		);
+		panelList.get(i).revalidate();
+		panelList.get(i).repaint();
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
-				.addComponent(btnList.get(i), GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+				.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+				.addComponent(btnList.get(i), GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
 		);
+		panelList.get(i).revalidate();
+		panelList.get(i).repaint();
 		panelList.get(i).setLayout(gl_panel_3);
-
+		mainPanel.revalidate();
+		mainPanel.repaint();
+		this.setViewportView(mainPanel);
+		this.revalidate();
+		this.repaint();
 		}
 
 		System.out.println("The text area is running and made "+ tweetCount +" panels & Views");

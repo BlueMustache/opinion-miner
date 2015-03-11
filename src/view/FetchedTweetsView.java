@@ -94,8 +94,7 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 		Dimension d = new Dimension(15, 15);
 		this.setPreferredSize(d);
 		this.tweetMap =  this.subject.getTweetMap();
-		this.mainPanel = new JPanel();
-		
+		this.mainPanel = new JPanel();	
 		this.setLayout(new ScrollPaneLayout());
 		panelList = new ArrayList<JPanel>();
 		impactPanelList = new ArrayList<JPanel>();

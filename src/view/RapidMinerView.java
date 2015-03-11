@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.ScrollPaneLayout;
 import javax.swing.border.LineBorder;
 
 import org.json.simple.JSONObject;
@@ -29,7 +30,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 	private ArrayList<JPanel> panelList;
 	private ArrayList<JTextArea> textAreaList; 
 	private ArrayList<JButton> btnList;
-	private JPanel mainPanel = new JPanel();
+	private JPanel mainPanel;// = new JPanel();
 	private String viewRef;
 
 	public RapidMinerView(Subject subjectRef, String viewRef) {
@@ -38,23 +39,23 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		this.subjectRef = subjectRef;
 		this.viewRef = viewRef;
 		subjectRef.registerObserver(this);
-		Dimension d = new Dimension(600,800);
-		this.setPreferredSize(d);
-		
-		panelList = new ArrayList<JPanel>();
-		textAreaList = new ArrayList<JTextArea>();
-		btnList = new ArrayList<JButton>();
-	
-		setViewportView(mainPanel);
-		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 0, 0 };
-		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-		mainPanel.setLayout(gbl_panel);
-		
-		this.setViewportView(mainPanel);		
+//		Dimension d = new Dimension(600,800);
+//		this.setPreferredSize(d);
+//		
+//		panelList = new ArrayList<JPanel>();
+//		textAreaList = new ArrayList<JTextArea>();
+//		btnList = new ArrayList<JButton>();
+//	
+//		setViewportView(mainPanel);
+//		GridBagLayout gbl_panel = new GridBagLayout();
+//		gbl_panel.columnWidths = new int[] { 0, 0 };
+//		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+//		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+//		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+//				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+//		mainPanel.setLayout(gbl_panel);
+//		
+//		this.setViewportView(mainPanel);		
 	}
 
 	@Override
@@ -65,6 +66,25 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		ArrayList<JSONObject> rapidResults = ((TwitterDataSubject) this.subjectRef).getRapidResultsJSON();
 		
 		int tweetCount = ((TwitterDataSubject) subject).getTweetCount(); 
+		
+		Dimension d = new Dimension(15,15);
+		this.setPreferredSize(d);
+		this.setLayout(new ScrollPaneLayout());
+		panelList = new ArrayList<JPanel>();
+		textAreaList = new ArrayList<JTextArea>();
+		btnList = new ArrayList<JButton>();
+		this.mainPanel = new JPanel();
+	
+
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[] { 0, 0 };
+		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		mainPanel.setLayout(gbl_panel);
+		
+	
 		
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
@@ -107,15 +127,24 @@ public class RapidMinerView extends JScrollPane implements Observer{
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 428, Short.MAX_VALUE)
-					.addComponent(btnList.get(i),GroupLayout.PREFERRED_SIZE, 428, Short.MAX_VALUE)
+					.addComponent(btnList.get(i),GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
 					.addContainerGap())
 		);
+		panelList.get(i).revalidate();
+		panelList.get(i).repaint();
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
-				.addComponent(btnList.get(i), GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+				.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+				.addComponent(btnList.get(i), GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
 		);
+		panelList.get(i).revalidate();
+		panelList.get(i).repaint();
 		panelList.get(i).setLayout(gl_panel_3);
+		mainPanel.revalidate();
+		mainPanel.repaint();
+		this.setViewportView(mainPanel);
+		this.revalidate();
+		this.repaint();
 
 		}
 

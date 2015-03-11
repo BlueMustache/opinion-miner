@@ -1,6 +1,7 @@
 package strategy;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,16 +18,19 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 	public void runProcess(TwitterDataSubject subject) {
 		// TODO Auto-generated method stub
 		ArrayList<String> tweetlist = subject.getTweets();
+		Map<String, Integer> tweetMap = subject.getTweetMap();
 		ArrayList<String> processedTweetlist = new ArrayList<String>();
 		
 		
 		String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
 		Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
 		
-		for(String tweet : tweetlist){
-		Matcher m = p.matcher(tweet);
+		for (Map.Entry<String, Integer> entry : tweetMap.entrySet()) {
+//		for(String tweet : tweetlist){
+		Matcher m = p.matcher(entry.getKey());
 		int i = 0;
-		while (m.find()) {
+		String tweet = entry.getKey().toString();
+		while (m.find()) {	
 			tweet = tweet.replaceAll(m.group(i), "").trim();
 			i++;
 		}
@@ -35,6 +39,7 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 		tweet = tweet.replaceAll("[^\\p{L}\\p{N} ]+", "");
 		tweet = tweet.replaceAll(" +", " ").trim();
 		processedTweetlist.add(tweet);
+		//System.out.println("Processed Tweet  =  "+ processedTweetlist.get(i));// TEST
 		}
 		((TwitterDataSubject) subject).setPreProcessedTweetList(processedTweetlist);
 		System.out.println("Size of list in process strategy =  "+ tweetlist.size());// TEST

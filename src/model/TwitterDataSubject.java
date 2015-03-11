@@ -95,6 +95,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 		try {
 			fileWriter = new FileWriter(fileName);
+			//for (Map.Entry<String, Integer> entry : tweetMap.entrySet()) {
 			for (String tweet : this.preProcessedTweetList) {
 				tweet = tweet.replace(",", " ");
 				fileWriter.append(tweet);
