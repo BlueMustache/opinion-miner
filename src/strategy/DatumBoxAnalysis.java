@@ -40,13 +40,16 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 		ArrayList<String> tweets = ((TwitterDataSubject) subject).getPreProcessedTweetList();
 		JSONObject sentimentPrediction = new JSONObject();	
 		ArrayList<JSONObject> datumResults = new ArrayList<JSONObject>();
+		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) subject).getMongoDataStore();
 		
 		try {	
-			for (String tweet : tweets) {
-				sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(tweet);
-				tweet = tweet.replace(",", " ");
-				sentimentPrediction.put("tweet", tweet);
-				datumResults.add(sentimentPrediction);		
+			//for (String tweet : tweets) {
+			for(JSONObject obj : mongoDataStore){
+				sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());
+				//tweet = tweet.replace(",", " ");//for csv file not needed
+				//sentimentPrediction.put("tweet", tweet);
+				obj.put("datumResults", sentimentPrediction.get("result").toString());
+				//datumResults.add(sentimentPrediction);		
 			}
 			System.out.println("DatumBox results created successfully !!!");
 			
@@ -56,7 +59,8 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 			e.printStackTrace();
 		}
 		
-		((TwitterDataSubject) subject).setDatumResultsJSON(datumResults);
+		//((TwitterDataSubject) subject).setDatumResultsJSON(datumResults);
+		((TwitterDataSubject) subject).setMongoDataStore(mongoDataStore);
 
 		}
 	}

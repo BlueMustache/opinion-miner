@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.KeyStroke;
 
+import org.json.simple.JSONObject;
+
 import strategy.ProcessStrategy;
 import strategy.ProcessTweetsStrategy;
 import twitter4j.Query;
@@ -43,8 +45,10 @@ public class BtnFetchTweets extends JButton implements Command {
 		ArrayList<String> tweetList = new ArrayList<String>();
 		
 		((TwitterDataSubject) this.subjectRef).reSetTweetMap();
+		((TwitterDataSubject) this.subjectRef).resetMongoDataStore();
 		Map<String, Integer> tweetMap = ((TwitterDataSubject) this.subjectRef).getTweetMap();
-		
+		ArrayList<JSONObject> mongoDataStore  = ((TwitterDataSubject) this.subjectRef).getMongoDataStore();
+		//this.mongoDataStore = mongoDataStore;
 		
 		int tweetCount = 0;
 		try {
@@ -61,9 +65,13 @@ public class BtnFetchTweets extends JButton implements Command {
 				List<Status> tweets = result.getTweets();
 				
 				for (Status tweet : tweets) {
+					JSONObject fetchedTweet = new JSONObject();
+					fetchedTweet.put("unProcessedTweet", tweet.getText());
+					fetchedTweet.put("retweetCount", tweet.getRetweetCount());
 					tweetList.add(tweet.getText());
 					tweetMap.put(tweet.getText(), tweet.getRetweetCount());
 					tweetCount++;
+					mongoDataStore.add(fetchedTweet);
 					System.out.println("RetweetCount = " + tweet.getRetweetCount());	// test to see if geo loaction was possible. it was not as people do not generally provide their location
 				}
 			} while ((query = result.nextQuery()) != null /*&& tweetCount < 2*/);///MIGHT NEED TO REMOVE THIS LIMITS TWEETS DISPLAYED TO 20 SOMEHOW
@@ -75,6 +83,7 @@ public class BtnFetchTweets extends JButton implements Command {
 		
 		//((TwitterDataSubject) this.subjectRef).setTweetLits(tweetList);	//Set the arraylist of tweets contained in the subject
 		((TwitterDataSubject) this.subjectRef).setTweetMap(tweetMap);
+		((TwitterDataSubject) this.subjectRef).setMongoDataStore(mongoDataStore);
 		//((TwitterDataSubject) this.subjectRef).reSetTweetMap();
 		
 		processStrategy = new ProcessTweetsStrategy();
@@ -86,6 +95,9 @@ public class BtnFetchTweets extends JButton implements Command {
 		/////////////TEST/////////
 		for(Map.Entry<String, Integer> entry  : tweetMap.entrySet()){
 			System.out.println("tweet = " + entry.getKey() + " retweetCount = "+ entry.getValue());
+		}
+		for(JSONObject tweet : mongoDataStore ){
+			System.out.println(tweet.toString());
 		}
 		//////////////////////////
 	}

@@ -96,7 +96,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 		try {
 			fileWriter = new FileWriter(fileName);
 			//for (Map.Entry<String, Integer> entry : tweetMap.entrySet()) {
-			for (String tweet : this.preProcessedTweetList) {
+			//for (String tweet : this.preProcessedTweetList) {
+			for(JSONObject obj : this.mongoDataStore){
+				String tweet = obj.get("processedTweet").toString();
 				tweet = tweet.replace(",", " ");
 				fileWriter.append(tweet);
 				fileWriter.append(",");
@@ -140,9 +142,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		
-		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
+		//RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
 		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
-		AnalysisStrategys.add(analysis);
+		//AnalysisStrategys.add(analysis);
 		AnalysisStrategys.add(datumAnalysis);
 	}
 	
@@ -185,7 +187,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		// notify all observers on update
 		for (Observer o : observers) {
 			o.update(this);
-			o.repaintParent();
+			//o.repaintParent();
 		}
 	}
 
@@ -226,6 +228,12 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setMongoDataStore(ArrayList<JSONObject> mongoDataStore) {
 		this.mongoDataStore = mongoDataStore;
+		notifyObservers();
+		System.out.println("Set mongo DB activiated");
+	}
+	
+	public void resetMongoDataStore(){
+		this.mongoDataStore.clear();
 	}
 	
 	

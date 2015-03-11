@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.simple.JSONObject;
+
 import model.Subject;
 import model.TwitterDataSubject;
 
@@ -19,17 +21,19 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 		// TODO Auto-generated method stub
 		ArrayList<String> tweetlist = subject.getTweets();
 		Map<String, Integer> tweetMap = subject.getTweetMap();
+		ArrayList<JSONObject> mongoDataStore  = subject.getMongoDataStore();
 		ArrayList<String> processedTweetlist = new ArrayList<String>();
 		
 		
 		String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
 		Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
 		
-		for (Map.Entry<String, Integer> entry : tweetMap.entrySet()) {
+//		for (Map.Entry<String, Integer> entry : tweetMap.entrySet()) {
 //		for(String tweet : tweetlist){
-		Matcher m = p.matcher(entry.getKey());
+		for(JSONObject fetchedTweet : mongoDataStore){
+		Matcher m = p.matcher(fetchedTweet.get("unProcessedTweet").toString());
 		int i = 0;
-		String tweet = entry.getKey().toString();
+		String tweet = fetchedTweet.get("unProcessedTweet").toString();
 		while (m.find()) {	
 			tweet = tweet.replaceAll(m.group(i), "").trim();
 			i++;
@@ -39,9 +43,15 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 		tweet = tweet.replaceAll("[^\\p{L}\\p{N} ]+", "");
 		tweet = tweet.replaceAll(" +", " ").trim();
 		processedTweetlist.add(tweet);
+		fetchedTweet.put("processedTweet", tweet);
+	//	mongoDataStore
 		//System.out.println("Processed Tweet  =  "+ processedTweetlist.get(i));// TEST
 		}
 		((TwitterDataSubject) subject).setPreProcessedTweetList(processedTweetlist);
+		((TwitterDataSubject) subject).setMongoDataStore(mongoDataStore);
+		for(JSONObject tweet : mongoDataStore ){
+			System.out.println(tweet.toString());
+		}
 		System.out.println("Size of list in process strategy =  "+ tweetlist.size());// TEST
 	}
 

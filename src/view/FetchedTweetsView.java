@@ -38,6 +38,8 @@ import java.awt.Insets;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 
+import org.json.simple.JSONObject;
+
 public class FetchedTweetsView extends JScrollPane implements Observer {
 
 	private TwitterDataSubject subject;
@@ -67,7 +69,7 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 		this.subject = (TwitterDataSubject) subject;
 		// ArrayList<String> tweetList = this.subject.getTweets();
 
-		Map<String, Integer> tweetMap = this.subject.getTweetMap();
+		ArrayList<JSONObject> mongoDataStore  = ((TwitterDataSubject) this.subject).getMongoDataStore();
 
 		Dimension d = new Dimension(15, 15);
 		this.setPreferredSize(d);
@@ -95,7 +97,9 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 		gbc_panel_3.gridx = 0;
 		this.setBorder(new LineBorder(Color.BLACK));
 		int i = 0;
-		for (Map.Entry<String, Integer> entry : tweetMap.entrySet()) {
+		
+		for(JSONObject tweet : mongoDataStore ){
+		//for (Map.Entry<String, Integer> entry : tweetMap.entrySet()) {
 			// for(int i=0; i<tweetCount;i++){
 			panelList.add(new JPanel());
 			
@@ -118,10 +122,10 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			
 			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 			textAreaList.get(i).setWrapStyleWord(true);
-			lableList.get(i).setText("<html><center>RetweetCount =" + entry.getValue() + "<br>"+ determioneTweetImpact(entry.getValue())+ "</center></html>");
+			lableList.get(i).setText("<html><center>RetweetCount =" + tweet.get("retweetCount").toString() + "<br>"+ determioneTweetImpact(Integer.parseInt(tweet.get("retweetCount").toString()))+ "</center></html>");
 
-			impactPanelList.get(i).setBackground(determineTweetImpactColor(determioneTweetImpact(entry.getValue())));
-			textAreaList.get(i).setText(entry.getKey());
+			impactPanelList.get(i).setBackground(determineTweetImpactColor(determioneTweetImpact(Integer.parseInt(tweet.get("retweetCount").toString()))));
+			textAreaList.get(i).setText(tweet.get("unProcessedTweet").toString());
 			textAreaList.get(i).setLineWrap(true);
 			textAreaList.get(i).setEnabled(true);
 			textAreaList.get(i).setEditable(false);
