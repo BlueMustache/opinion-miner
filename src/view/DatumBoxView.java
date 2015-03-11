@@ -69,7 +69,6 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		this.subjectRef = /*(TwitterDataSubject)*/ subject;
 
 		ArrayList<JSONObject> datumResults = ((TwitterDataSubject) this.subjectRef).getDatumResultsJSON();
-		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) this.subjectRef).getMongoDataStore();
 		int tweetCount = ((TwitterDataSubject) subject).getTweetCount(); 
 		
 		//this.setLayout(new ScrollPaneLayout());
@@ -97,9 +96,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.gridx = 0;
 		
-		int i=0;
-		//for(int i=0; i<datumResults.size();i++){
-		for(JSONObject obj : mongoDataStore){
+		for(int i=0; i<datumResults.size();i++){
 		panelList.add(new JPanel());
 		panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
 		textAreaList.add(new JTextArea());
@@ -118,12 +115,12 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		
 		textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		textAreaList.get(i).setWrapStyleWord(true);
-		textAreaList.get(i).setText(obj.get("processedTweet").toString());	
+		textAreaList.get(i).setText(datumResults.get(i).get("tweet").toString());	
 		
-		btnList.get(i).setText(obj.get("result").toString());
-		Color btnColor = obj.get("result").equals("positive") ? Color.GREEN : Color.RED;
+		btnList.get(i).setText(datumResults.get(i).get("result").toString());
+		Color btnColor = datumResults.get(i).get("result").equals("positive") ? Color.GREEN : Color.RED;
 		
-		if(obj.get("result").equals("neutral\"")){
+		if(datumResults.get(i).get("result").equals("neutral\"")){
 			btnColor = Color.GRAY;
 		}
 		btnList.get(i).setBackground(btnColor);
