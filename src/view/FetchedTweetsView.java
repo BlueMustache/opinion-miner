@@ -57,26 +57,6 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 		this.subject = subjectReference;
 		this.viewRef = viewRef;
 		subjectReference.registerObserver(this);
-//		Dimension d = new Dimension(15, 15);
-//		this.setPreferredSize(d);
-//		this.tweetMap =  this.subject.getTweetMap();
-//		this.mainPanel = new JPanel();
-//		
-//		this.setLayout(new ScrollPaneLayout());
-//		panelList = new ArrayList<JPanel>();
-//		impactPanelList = new ArrayList<JPanel>();
-//		textAreaList = new ArrayList<JTextArea>();
-//		lableList = new ArrayList<JLabel>();
-//
-//		
-//		GridBagLayout gbl_panel = new GridBagLayout();
-//		gbl_panel.columnWidths = new int[] { 0, 0 };
-//		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-//		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-//		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-//				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-//		mainPanel.setLayout(gbl_panel);
-		//this.setViewportView(mainPanel);
 
 	}
 
@@ -89,8 +69,6 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 
 		Map<String, Integer> tweetMap = this.subject.getTweetMap();
 
-		//int tweetCount = ((TwitterDataSubject) subject).getTweetCount();
-		//repaintParent(this);
 		Dimension d = new Dimension(15, 15);
 		this.setPreferredSize(d);
 		this.tweetMap =  this.subject.getTweetMap();
