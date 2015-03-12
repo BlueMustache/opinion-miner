@@ -1,7 +1,14 @@
+import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 import view.MainUI;
+
 import model.ConcreteSubject;
 import model.Subject;
 import model.TwitterDataSubject;

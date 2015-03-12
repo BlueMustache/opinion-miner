@@ -70,7 +70,9 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 		// ArrayList<String> tweetList = this.subject.getTweets();
 
 		ArrayList<JSONObject> mongoDataStore  = ((TwitterDataSubject) this.subject).getMongoDataStore();
-
+		
+		
+		
 		Dimension d = new Dimension(15, 15);
 		this.setPreferredSize(d);
 		this.tweetMap =  this.subject.getTweetMap();

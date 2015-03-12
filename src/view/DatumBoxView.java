@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ProgressMonitor;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ScrollPaneLayout;
@@ -34,6 +35,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 	private ArrayList<JButton> btnList;
 	private JPanel mainPanel = new JPanel();
 	private String viewRef;
+	private ProgressMonitor progressMonitor;
 
 	public DatumBoxView(Subject subjectRef,String viewRef) {
 		// TODO Auto-generated constructor stub
@@ -97,7 +99,13 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.gridx = 0;
 		
-		for(int i=0; i<datumResults.size();i++){	
+		progressMonitor = new ProgressMonitor(this.getRootPane(),
+                "Operation in progress...",
+                "", 0, datumResults.size());
+		progressMonitor.setMillisToPopup(0);
+		
+		for(int i=0; i<datumResults.size();i++){
+			progressMonitor.setProgress(i);
 		panelList.add(new JPanel());
 		panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
 		textAreaList.add(new JTextArea());
