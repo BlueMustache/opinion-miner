@@ -36,8 +36,8 @@ public class WordCloudView extends JPanel implements Observer {
         "france", "friends", "fun", "germany", "holiday", "india", "italy", "japan", "london", "me", "mexico", "music", "nature",
         "new", "newyork", "night", "nikon", "nyc", "paris", "park", "party", "people", "portrait", "sanfrancisco", "sky", "snow",
         "spain", "summer", "sunset", "taiwan", "tokyo", "travel", "trip", "uk", "usa", "vacation", "water", "wedding" };
-	Random random ;
-	Cloud cloud;
+	private Random random ;
+	private Cloud cloud;
 	
 	public WordCloudView(Subject subjectRef, String viewRef) {
 		// TODO Auto-generated constructor stub
@@ -67,13 +67,17 @@ public class WordCloudView extends JPanel implements Observer {
 	            }
 	        }
 	        for (Tag tag : cloud.tags()) {
-	            final JLabel label = new JLabel(tag.getName());
-	            label.setOpaque(false);
-	            label.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-	            label.setFont(label.getFont().deriveFont((float) tag.getWeight() * 10));
+	            final JButton btn = new JButton(tag.getName());
+	            btn.setText(tag.getName());
+	            btn.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+	            btn.setFont(btn.getFont().deriveFont((float) tag.getWeight() * 10));
+//	            label.setOpaque(false);
+//	            label.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+//	            label.setFont(label.getFont().deriveFont((float) tag.getWeight() * 10));
+//	            label.set
 	            Dimension d = new Dimension(800, 475);
 	    		this.mainPanel.setPreferredSize(d);
-	            mainPanel.add(label);          
+	            mainPanel.add(btn);          
 	        }
 	        this.add(mainPanel);
 	}

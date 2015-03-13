@@ -49,6 +49,7 @@ public class MainUI extends JFrame {
 	private DatumBoxView datumView;
 	private RapidMinerView rapidView;
 	private WordCloudView wordCloudView;
+	private TrendsView twitterTrendsView;
 	private TwitterDataSubject subject;
 	private JPanel Btn_Panel = new JPanel();
 	private Controller controller;
@@ -67,7 +68,7 @@ public class MainUI extends JFrame {
 		ctrlView = new ControlPanelView(subject,"ctrlView");
 		this.viewListMap.put("ctrlView",ctrlView);
 		//searchCmd = new SetSearchTopicCmd(subject,ctrlView);
-		
+		twitterTrendsView = new TrendsView(subject,"trendsView");
 		tweetView = new FetchedTweetsView(subject,"tweetView");
 		this.viewListMap.put("tweetView",tweetView);
 		datumView = new DatumBoxView(subject,"datumView");
@@ -92,10 +93,12 @@ public class MainUI extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		//tabbedPane.setEnabled(false);
+		tabbedPane.addTab("Trending Toppics", null, twitterTrendsView,null);
 		tabbedPane.addTab("Searched Tweets", null, tweetView,null);
 		tabbedPane.addTab("DatumBox Results", null, datumView,null);
 		tabbedPane.addTab("Rapidminer Results", null, rapidView,null);
 		tabbedPane.addTab("Word Cloud", null, wordCloudView,null);
+		
 
 		// Add listeners
 		addWindowListener(new WindowAdapter() {

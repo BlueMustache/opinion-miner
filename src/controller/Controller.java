@@ -34,13 +34,13 @@ public class Controller {
 		this.subject.addCommandListner(new CommandListner());
 		
 	
-		for(Map.Entry<String,Observer> entry  : viewListMap.entrySet()){
-			if(entry.getKey().equals("ctrlView")){
-				entry.getValue().setVisibility(true);
-			}else{
-				entry.getValue().setVisibility(false);
-			}
-		}
+//		for(Map.Entry<String,Observer> entry  : viewListMap.entrySet()){
+//			if(entry.getKey().equals("ctrlView")){
+//				entry.getValue().setVisibility(true);
+//			}else{
+//				entry.getValue().setVisibility(false);
+//			}
+//		}
 		System.out.println("Viewlist size = "+ this.viewListMap.size());
 
 
@@ -53,6 +53,7 @@ public class Controller {
 			action = (Command) e.getSource();
 			action.execute();
 			String command = e.getActionCommand();
+			
 			switch(command)
 			{
 			case "Search" :
@@ -71,7 +72,7 @@ public class Controller {
 	            System.out.println("Invalid Button");
 			}
 			
-			System.out.println("action from cmd llistner = "+ e.getActionCommand());
+			System.out.println("action from cmd llistner = "+ e.getActionCommand()+"ID = "+ e.getID()+"ParamString = "+e.paramString()+"hashCode = "+e.hashCode());
 		}
 	}
 	

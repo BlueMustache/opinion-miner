@@ -142,9 +142,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		
-		//RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
+		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
 		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
-		//AnalysisStrategys.add(analysis);
+		AnalysisStrategys.add(analysis);
 		AnalysisStrategys.add(datumAnalysis);
 	}
 	
