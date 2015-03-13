@@ -15,6 +15,7 @@ import javax.swing.text.BadLocationException;
 
 import command.Command;
 import view.ControlPanelView;
+import view.MainUI;
 import view.Observer;
 import model.Subject;
 import model.TwitterDataSubject;
@@ -26,10 +27,12 @@ public class Controller {
 	private Command action;
 	private ArrayList<Observer> viewList;
 	private Map<String,Observer> viewListMap; 
+	private MainUI mainUI;
 	
-	public Controller(Subject subject, Map<String,Observer> viewListMap) {
+	public Controller(Subject subject,MainUI mainUI, Map<String,Observer> viewListMap) {
 		// Constructor for the controller, take the control view and the twitter data subject as params
 		this.subject = subject;
+		this.mainUI = mainUI;
 		this.viewListMap = viewListMap;
 		this.subject.addCommandListner(new CommandListner());
 		

@@ -54,6 +54,7 @@ public class MainUI extends JFrame {
 	private JPanel Btn_Panel = new JPanel();
 	private Controller controller;
 	private Map<String,Observer> viewListMap; 
+	private JTabbedPane tabbedPane;
 	
 
 	public MainUI(TwitterDataSubject subject) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException {
@@ -70,6 +71,7 @@ public class MainUI extends JFrame {
 		//searchCmd = new SetSearchTopicCmd(subject,ctrlView);
 		twitterTrendsView = new TrendsView(subject,"trendsView");
 		tweetView = new FetchedTweetsView(subject,"tweetView");
+		tweetView.setEnabled(false);
 		this.viewListMap.put("tweetView",tweetView);
 		datumView = new DatumBoxView(subject,"datumView");
 		this.viewListMap.put("datumView",datumView);
@@ -82,7 +84,7 @@ public class MainUI extends JFrame {
 		
 		
 		
-		controller = new Controller(subject,this.viewListMap);
+		//controller = new Controller(subject,this.viewListMap);
 		
 		getContentPane().add(ctrlView, BorderLayout.WEST);
 		
@@ -90,7 +92,7 @@ public class MainUI extends JFrame {
 		Btn_splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		Btn_Panel.add(Btn_splitPane);
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		//tabbedPane.setEnabled(false);
 		tabbedPane.addTab("Trending Toppics", null, twitterTrendsView,null);
@@ -114,8 +116,24 @@ public class MainUI extends JFrame {
 		this.setVisible(true);
 
 	}// end CTor
-
 	
+	
+	
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
+
+
+
+	public void setTabbedPane(JTabbedPane tabbedPane) {
+		this.tabbedPane = tabbedPane;
+	}
+	//mioght not need this
+	public void addToTabbedPane(){
+		
+	}
+
+
 	public void IconSetUP(){
 				 //Start the application
 		Image img;

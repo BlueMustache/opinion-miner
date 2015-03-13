@@ -29,6 +29,7 @@ public class Main {
 		twitterSubject = new TwitterDataSubject(twitterSubject);
 		//((TwitterDataSubject) twitterSubject).setTopic("#ISIS exclude:retweets"); //FOR TESTING TO CHECK TWEETS HAVE A QUERY
 		((TwitterDataSubject) twitterSubject).setProcessStrategy(); //THis needs WORK
+		Controller controller = new Controller();
 		MainUI app = new MainUI((TwitterDataSubject) twitterSubject);
 		
 		System.out.println("tweet Count = " + ((TwitterDataSubject) twitterSubject).getTweetCount());
