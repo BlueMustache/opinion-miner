@@ -4,8 +4,6 @@ package model;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.json.simple.JSONObject;
 
@@ -23,33 +21,49 @@ import view.Observer;
 public class TwitterDataSubject extends SubjectDecorator {
 
 	private ArrayList<Observer> observers;
-	private FileWriter fileWriter = null;
-	private final String fileName = "fetchedTweets.csv";
+	private FileWriter fileWriter;
 	private String topic;
-	private String tweetDataStore = "D:/Workspace/Opinion Miner/fetchedTweets.csv";
-	private String datumBoxCSV = "D:/Workspace/Opinion Miner/DatumAnalysis.csv";
+	private final String fetchedTweetsCSV = "D:/Workspace/Opinion Miner/fetchedTweets.csv";
 	private Twitter twitterAcc;
-	private ArrayList<String> tweetList = new ArrayList<String>();
-	private Map<String,Integer> tweetMap;
-	private ArrayList<String> preProcessedTweetList = new ArrayList<String>();
-	private int tweetCount;
-	private  ArrayList<SentimentStrategy> AnalysisStrategys = new ArrayList<SentimentStrategy>();
-	private ArrayList<JSONObject> datumResultsJSON = new ArrayList<JSONObject>();
-	private ArrayList<JSONObject> rapidResultsJSON = new ArrayList<JSONObject>();
+	private ArrayList<String> preProcessedTweetList;
+	private  ArrayList<SentimentStrategy> analysisStrategyList;
+	private ArrayList<JSONObject> datumBoxResults;
+	private ArrayList<JSONObject> rapidMinerResults;
 	private ProcessStrategy processStrategy;
 	private ArrayList<JSONObject> mongoDataStore;
-
+	private int datumBoxProgressCount;
 
 	public TwitterDataSubject(Subject subjectReference) {
 		// Constructor
 		super(subjectReference);
-		observers = new ArrayList<Observer>();
+		this.observers = new ArrayList<Observer>();
 		this.mongoDataStore = new ArrayList<JSONObject>();
-		this.tweetMap = new HashMap<String, Integer>();
+		this.datumBoxProgressCount=0;
+		this.fileWriter = null;
+		this.preProcessedTweetList = new ArrayList<String>();
+		this.analysisStrategyList = new ArrayList<SentimentStrategy>();
+		this.datumBoxResults = new ArrayList<JSONObject>();
+		this.rapidMinerResults = new ArrayList<JSONObject>();
+		
 		buildConfiguration(); // Create build to create a twitter access account
 		setAnalysisStrategys();
 
 	}
+
+	
+	public int getDatumBoxProgressCount() {
+		return datumBoxProgressCount;
+	}
+
+
+	public void setDatumBoxProgressCount() {
+		this.datumBoxProgressCount++;
+	}
+	
+	public void reSetDatumBoxProgressCount() {
+		this.datumBoxProgressCount=0;
+	}
+
 
 	public String getTopic() {
 		return topic;
@@ -77,26 +91,15 @@ public class TwitterDataSubject extends SubjectDecorator {
 		return this.twitterAcc;
 	}
 
-	public ArrayList<String> getTweets(/* String topic */) {
-		// this functionality was moved to a command
-		return this.tweetList;
-	}
 	
 	public int getTweetCount(){
-		return this.tweetMap.size();
+		return this.mongoDataStore.size();
 	}
 
-	public void setTweetLits(ArrayList<String> tweets) {
-		this.tweetList = tweets;
-		notifyObservers();
-	}
-
-	public void setTweetStore(/*ArrayList<String> tweets*/) {
+	public void setTweetStore() {
 
 		try {
-			fileWriter = new FileWriter(fileName);
-			//for (Map.Entry<String, Integer> entry : tweetMap.entrySet()) {
-			//for (String tweet : this.preProcessedTweetList) {
+			fileWriter = new FileWriter(fetchedTweetsCSV);
 			for(JSONObject obj : this.mongoDataStore){
 				String tweet = obj.get("processedTweet").toString();
 				tweet = tweet.replace(",", " ");
@@ -104,9 +107,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 				fileWriter.append(",");
 				fileWriter.append("\n");
 			}
-			System.out.println("CSV file was created successfully !!!");
+			System.out.println("Fetched Tweet CSV file was created successfully !!!");
 		} catch (Exception e) {
-			System.out.println("Error in CsvFileWriter !!!");
+			System.out.println("Error in Fetched Tweet CsvFileWriter !!!");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -118,13 +121,12 @@ public class TwitterDataSubject extends SubjectDecorator {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Observers notified");// TEST
 	}
 	
 	public ArrayList<String> getPreProcessedTweetList() {
 		return preProcessedTweetList;
 	}
-
+	//might remove this
 	public void setPreProcessedTweetList(ArrayList<String> processedTweetList) {
 		this.preProcessedTweetList = processedTweetList;
 		
@@ -137,31 +139,23 @@ public class TwitterDataSubject extends SubjectDecorator {
 	
 
 	public ArrayList<SentimentStrategy> getAnalysisStrategys() {
-		return this.AnalysisStrategys;
+		return this.analysisStrategyList;
 	}
 
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		
-		//RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
+		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
 		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
-		//AnalysisStrategys.add(analysis);
-		AnalysisStrategys.add(datumAnalysis);
-	}
-	
-	public String getDatumBoxCSV() {
-		return datumBoxCSV;
-	}
-
-	public void setDatumBoxCSV(String datumBoxCSV) {
-		this.datumBoxCSV = datumBoxCSV;
+		analysisStrategyList.add(analysis);
+		analysisStrategyList.add(datumAnalysis);
 	}
 	
 	public ArrayList<JSONObject> getDatumResultsJSON() {
-		return datumResultsJSON;
+		return datumBoxResults;
 	}
 
 	public void setDatumResultsJSON(ArrayList<JSONObject> datumResultsJSON) {
-		this.datumResultsJSON = datumResultsJSON;
+		this.datumBoxResults = datumResultsJSON;
 		notifyObservers();
 	}
 	
@@ -187,7 +181,6 @@ public class TwitterDataSubject extends SubjectDecorator {
 		// notify all observers on update
 		for (Observer o : observers) {
 			o.update(this);
-			//o.repaintParent();
 		}
 	}
 
@@ -197,8 +190,8 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	}
 
-	public String getTweetDataStore() {
-		return this.tweetDataStore;
+	public String getFetchedTweetsCSV() {
+		return this.fetchedTweetsCSV;
 	}
 	
 
@@ -212,11 +205,11 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 
 	public ArrayList<JSONObject> getRapidResultsJSON() {
-		return rapidResultsJSON;
+		return rapidMinerResults;
 	}
 
 	public void setRapidResultsJSON(ArrayList<JSONObject> rapidResultsJSON) {
-		this.rapidResultsJSON = rapidResultsJSON;
+		this.rapidMinerResults = rapidResultsJSON;
 		notifyObservers();
 	}
 	
@@ -236,21 +229,6 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.mongoDataStore.clear();
 	}
 	
-	
-
-	public Map<String, Integer> getTweetMap() {
-		return tweetMap;
-	}
-
-	public void setTweetMap(Map<String, Integer> tweetMap) {
-		this.tweetMap = tweetMap;
-		notifyObservers();
-	}
-	public void reSetTweetMap() {
-		this.tweetMap.clear();
-		notifyObservers();
-	}
-
 	@Override
 	public void addCommandListner(CommandListner commandListner) {
 		// TODO Auto-generated method stub

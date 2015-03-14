@@ -31,31 +31,12 @@ public class RapidMinerView extends JScrollPane implements Observer{
 	private ArrayList<JTextArea> textAreaList; 
 	private ArrayList<JButton> btnList;
 	private JPanel mainPanel;// = new JPanel();
-	private String viewRef;
 
 	public RapidMinerView(Subject subjectRef, String viewRef) {
 		// TODO Auto-generated constructor stub
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
-		this.viewRef = viewRef;
-		subjectRef.registerObserver(this);
-//		Dimension d = new Dimension(600,800);
-//		this.setPreferredSize(d);
-//		
-//		panelList = new ArrayList<JPanel>();
-//		textAreaList = new ArrayList<JTextArea>();
-//		btnList = new ArrayList<JButton>();
-//	
-//		setViewportView(mainPanel);
-//		GridBagLayout gbl_panel = new GridBagLayout();
-//		gbl_panel.columnWidths = new int[] { 0, 0 };
-//		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-//		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-//		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-//				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
-//		mainPanel.setLayout(gbl_panel);
-//		
-//		this.setViewportView(mainPanel);		
+		subjectRef.registerObserver(this);		
 	}
 
 	@Override
@@ -111,7 +92,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		
 		textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		textAreaList.get(i).setWrapStyleWord(true);
-		textAreaList.get(i).setText(((TwitterDataSubject) subject).getPreProcessedTweetList().get(i).toString());	//THIS IS A BUG
+		textAreaList.get(i).setText(rapidResults.get(i).get("tweet").toString());	//THIS IS A BUG
 		
 		btnList.get(i).setText(rapidResults.get(i).get("RapidResult").toString());
 		Color btnColor = rapidResults.get(i).get("RapidResult").equals("positive") ? Color.GREEN : Color.RED;
@@ -148,37 +129,12 @@ public class RapidMinerView extends JScrollPane implements Observer{
 
 		}
 
-		System.out.println("The text area is running and made "+ tweetCount +" panels & Views");
+		System.out.println("Rapidminer View is running and made "+ tweetCount +" panels & Views");
 	}
 
 	@Override
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public Observer getView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setVisibility(boolean bool) {
-		// TODO Auto-generated method stub
-		//need to add scoll stuff from fetched tweets
-		this.getViewport().setVisible(bool);
-	}
-
-	@Override
-	public String getViewRef() {
-		// TODO Auto-generated method stub
-		return this.viewRef;
-	}
-
-	@Override
-	public void repaintParent() {
-		// TODO Auto-generated method stub
-		
 	}
 }

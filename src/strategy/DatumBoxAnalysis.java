@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JFrame;
+import javax.swing.ProgressMonitor;
+
 import org.json.simple.JSONObject;
 
 import model.DatumboxManager;
@@ -15,7 +18,6 @@ import model.TwitterDataSubject;
 
 public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 
-	private FileWriter fileWriter = null;
 	private IDatumBoxManager datumBoxManager;
 	private Thread datumThread;
 	private Subject subject;
@@ -42,26 +44,26 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 		ArrayList<JSONObject> datumResults = new ArrayList<JSONObject>();
 		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) subject).getMongoDataStore();
 		
+		
 		try {	
 			//for (String tweet : tweets) {
 			for(JSONObject obj : mongoDataStore){
 				sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());
-				//tweet = tweet.replace(",", " ");//for csv file not needed
 				sentimentPrediction.put("tweet", obj.get("processedTweet").toString());
 				obj.put("datumResults", sentimentPrediction.get("result").toString());
-				datumResults.add(sentimentPrediction);		
+				datumResults.add(sentimentPrediction);	
+				((TwitterDataSubject) subject).setDatumBoxProgressCount();
+				System.out.println("DatumBox results count !!!" +((TwitterDataSubject) subject).getDatumBoxProgressCount());
 			}
 			System.out.println("DatumBox results created successfully !!!");
 			
 		} catch (Exception e) {
 			System.out
-					.println("Error  DatumBox results not written !!!");
+					.println("Error DatumBox results not written !!!");
 			e.printStackTrace();
 		}
 		
 		((TwitterDataSubject) subject).setDatumResultsJSON(datumResults);
-		//((TwitterDataSubject) subject).setMongoDataStore(mongoDataStore);
-
 		}
 	}
 	

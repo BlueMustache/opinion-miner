@@ -30,8 +30,8 @@ public class ControlPanelView extends JPanel implements Observer {
 	private BtnFetchTweets btnFetchTweets;
 	private BtnAnalyseTweets btnAnalyze;
 	private BtnUpdateMongoResults btnUpdateDB;
-	private JTextField textField = new JTextField();
-	private JSplitPane splitPane = new JSplitPane();
+	private JTextField textField;
+	private JSplitPane splitPane;
 	private Subject subjectRef; 
 	private String viewRef;
 	
@@ -40,10 +40,11 @@ public class ControlPanelView extends JPanel implements Observer {
 		subjectRef.registerObserver(this);
 		this.subject = subjectRef;
 		this.viewRef = viewRef;
-		
-		btnFetchTweets = new BtnFetchTweets("Search", subjectRef);	
-		btnAnalyze = new BtnAnalyseTweets("Analyze", subjectRef);
-		btnUpdateDB = new BtnUpdateMongoResults("Update DB", subjectRef);
+		this.textField = new JTextField();
+		this.splitPane = new JSplitPane();
+		this.btnFetchTweets = new BtnFetchTweets("Search", subjectRef);	
+		this.btnAnalyze = new BtnAnalyseTweets("Analyze", subjectRef);
+		this.btnUpdateDB = new BtnUpdateMongoResults("Update DB", subjectRef);
 		setBtnLayout(); //Call set layout method to layout the buttons
 		textFieldListner();// Need to try put this in the controller
 	}
@@ -111,21 +112,6 @@ public class ControlPanelView extends JPanel implements Observer {
 	         );
 	         this.setLayout(ctrlLayout);
 	}
-	@Override
-	public Observer getView(/*String viewRef*/) {
-		//if(viewRef.equalsIgnoreCase(this.viewRef)){
-			return this;
-		//}
-		//return null;
-	}
-
-	public void setViewRef(String viewRef) {
-		this.viewRef = viewRef;
-	}
-	
-	public void setVisibility(boolean bool){
-		this.setVisible(bool);
-	}
 
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
@@ -135,17 +121,4 @@ public class ControlPanelView extends JPanel implements Observer {
 		btnAnalyze.addActionListener(commandListner);
 		btnUpdateDB.addActionListener(commandListner);
 	}
-
-	@Override
-	public String getViewRef() {
-		// TODO Auto-generated method stub
-		return this.viewRef;
-	}
-
-	@Override
-	public void repaintParent() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

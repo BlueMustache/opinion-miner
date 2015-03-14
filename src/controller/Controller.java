@@ -9,12 +9,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.JTextField;
+import javax.swing.ProgressMonitor;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
 import command.Command;
 import view.ControlPanelView;
+import view.MainUI;
 import view.Observer;
 import model.Subject;
 import model.TwitterDataSubject;
@@ -25,25 +27,21 @@ public class Controller {
 	private Observer view;
 	private Command action;
 	private ArrayList<Observer> viewList;
-	private Map<String,Observer> viewListMap; 
-	
-	public Controller(Subject subject, Map<String,Observer> viewListMap) {
-		// Constructor for the controller, take the control view and the twitter data subject as params
+	private Map<String, Observer> viewListMap;
+	private MainUI mainUI;
+
+	// private ProgressMonitor monitor;
+
+	public Controller(Subject subject, MainUI mainUI/*
+													 * Map<String,Observer>
+													 * viewListMap
+													 */) {
+		// Constructor for the controller, take the control view and the twitter
+		// data subject as params
 		this.subject = subject;
-		this.viewListMap = viewListMap;
+		this.mainUI = mainUI;
+		// this.viewListMap = viewListMap;
 		this.subject.addCommandListner(new CommandListner());
-		
-	
-		for(Map.Entry<String,Observer> entry  : viewListMap.entrySet()){
-			if(entry.getKey().equals("ctrlView")){
-				entry.getValue().setVisibility(true);
-			}else{
-				entry.getValue().setVisibility(false);
-			}
-		}
-		System.out.println("Viewlist size = "+ this.viewListMap.size());
-
-
 	}
 
 	public class CommandListner implements ActionListener {
@@ -53,36 +51,49 @@ public class Controller {
 			action = (Command) e.getSource();
 			action.execute();
 			String command = e.getActionCommand();
-			switch(command)
-			{
-			case "Search" :
-				viewListMap.get("tweetView").setVisibility(true);
-				viewListMap.get("cloudView").setVisibility(true);
-				break;
-			case "Analyze" :
-				viewListMap.get("datumView").setVisibility(true);
-				viewListMap.get("rapidView").setVisibility(true);
-				
-				break;
-//			case "Update DB" :
-//				viewListMap.get("tweetView").setVisibility(true);
-//				break;
-			default :
-	            System.out.println("Invalid Button");
+			if (e.getActionCommand().equalsIgnoreCase("search")
+					|| !e.getActionCommand().equalsIgnoreCase("Analyze")
+					&& !e.getActionCommand().equalsIgnoreCase("Update DB")) {
+				mainUI.getTabbedPane().setSelectedIndex(1);
 			}
-			
-			System.out.println("action from cmd llistner = "+ e.getActionCommand());
+			if (e.getActionCommand().equalsIgnoreCase("Analyze")) {
+				final ProgressMonitor monitor = new ProgressMonitor(mainUI,
+						"analysis", "Iteration", 0,
+						((TwitterDataSubject) subject).getMongoDataStore()
+								.size());
+
+				final Runnable runnable = new Runnable() {
+					public void run() {
+						int sleepTime = 500;
+						while (((TwitterDataSubject) subject).getDatumBoxProgressCount() < ((TwitterDataSubject) subject).getMongoDataStore().size()) {
+							monitor.setNote("Iteration "+ ((TwitterDataSubject) subject).getDatumBoxProgressCount());
+							monitor.setProgress(((TwitterDataSubject) subject)
+									.getDatumBoxProgressCount());
+							if (monitor.isCanceled()) {
+								monitor.setProgress(((TwitterDataSubject) subject).getTweetCount());
+								break;
+							}
+						}
+						monitor.close();
+					}
+				};
+				Thread thread = new Thread(runnable);
+				thread.start();
+				mainUI.getTabbedPane().setSelectedIndex(2);
+			}
+			// switch(command)
+			// {
+			// case "Search" :
+			// mainUI.getTabbedPane().setSelectedIndex(1);
+			// break;
+			// case "Analyze" :
+			// break;
+			// // case "Update DB" :
+			// // break;
+			// default :
+			// System.out.println("Invalid Button");
+			// }
 		}
 	}
-	
-//	public class TextListner implements ActionListener {
-//		@Override
-//		public void actionPerformed(ActionEvent e) {
-//			// TODO Auto-generated method stub
-//			String str =  e.getSource().toString();
-//			System.out.println("The value in the text field is = "+ str);
-//		}
-//		
-//	}
-	
+
 }

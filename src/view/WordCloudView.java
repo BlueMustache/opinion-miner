@@ -30,20 +30,19 @@ public class WordCloudView extends JPanel implements Observer {
 	private Subject subjectRef;
 	private ArrayList<String> tweetList = new ArrayList<String>();
 	String[] words;
-	private String viewRef;
 	private static final String[] WORDS = { "art", "australia", "baby", "beach", "birthday", "blue", "bw", "california", "canada", "canon",
         "cat", "chicago", "china", "christmas", "city", "dog", "england", "europe", "family", "festival", "flower", "flowers", "food",
         "france", "friends", "fun", "germany", "holiday", "india", "italy", "japan", "london", "me", "mexico", "music", "nature",
         "new", "newyork", "night", "nikon", "nyc", "paris", "park", "party", "people", "portrait", "sanfrancisco", "sky", "snow",
         "spain", "summer", "sunset", "taiwan", "tokyo", "travel", "trip", "uk", "usa", "vacation", "water", "wedding" };
-	Random random ;
-	Cloud cloud;
+	private Random random ;
+	private Cloud cloud;
 	
 	public WordCloudView(Subject subjectRef, String viewRef) {
 		// TODO Auto-generated constructor stub
 		//setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
-		this.viewRef = viewRef;
+
 		subjectRef.registerObserver(this);
 		this.mainPanel = new JPanel();
 	
@@ -56,11 +55,6 @@ public class WordCloudView extends JPanel implements Observer {
 	@Override
 	public void update(Subject subject) {
 		// TODO Auto-generated method stub
-	//	this.tweetList = ((TwitterDataSubject) subjectRef).getTweets();
-		//String str = 
-//		for(int i=0; i<WORDS.length;i++){
-//		words = this.tweetList.get(i).split(" ");
-//		}
 		 for (String s : WORDS) {
 	            for (int i = random.nextInt(50); i > 0; i--) {
 	                cloud.addTag(s);
@@ -80,30 +74,6 @@ public class WordCloudView extends JPanel implements Observer {
 
 	@Override
 	public void addActionListener(CommandListner commandListner) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Observer getView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setVisibility(boolean bool) {
-		// TODO Auto-generated method stub
-		this.setVisible(bool);
-	}
-
-	@Override
-	public String getViewRef() {
-		// TODO Auto-generated method stub
-		return this.viewRef;
-	}
-
-	@Override
-	public void repaintParent() {
 		// TODO Auto-generated method stub
 		
 	}
