@@ -43,21 +43,18 @@ import org.json.simple.JSONObject;
 public class FetchedTweetsView extends JScrollPane implements Observer {
 
 	private TwitterDataSubject subject;
-	private JPanel mainPanel;// = new JPanel();
+	private JPanel mainPanel;
 	private ArrayList<JPanel> panelList;
 	private ArrayList<JPanel> impactPanelList;
 	private ArrayList<JTextArea> textAreaList;
 	private ArrayList<JLabel> lableList;
 	private Subject subjectRef;
-	private String viewRef;
-	private Map<String, Integer> tweetMap;
 
 	public FetchedTweetsView(TwitterDataSubject subjectReference, String viewRef)
 			throws IOException {
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		// TODO Auto-generated constructor stub
 		this.subject = subjectReference;
-		this.viewRef = viewRef;
 		subjectReference.registerObserver(this);
 
 	}
