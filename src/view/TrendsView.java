@@ -110,28 +110,4 @@ public class TrendsView extends JScrollPane implements Observer {
 		}
 	}
 
-	@Override
-	public Observer getView() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setVisibility(boolean bool) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String getViewRef() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void repaintParent() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

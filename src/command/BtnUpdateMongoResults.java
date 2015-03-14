@@ -26,19 +26,21 @@ public class BtnUpdateMongoResults extends JButton implements Command {
 		// TODO Auto-generated method stub
 		//((TwitterDataSubject)this.subjectRef).setMongoDataStore();
 		System.out.println("Update button pressed");
-		System.out.println("db size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
-		System.out.println("db size ="+((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().size());
+		System.out.println("Rapidminer results size ="+((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().size());
+		System.out.println("Mongo data store size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
+		System.out.println("Datumresults size ="+((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().size());
 		ArrayList<JSONObject> mongoResults = ((TwitterDataSubject)this.subjectRef).getMongoDataStore();
 		//JSONObject mongoData = new JSONObject();
-		
-		for(int i = 0; i<((TwitterDataSubject)this.subjectRef).getTweetCount(); i++){	
+		int i=0;
+		for(JSONObject obj : mongoResults){
+//		for(int i = 0; i<((TwitterDataSubject)this.subjectRef).getMongoDataStore().size(); i++){	
 			JSONObject mongoData = new JSONObject();
-			mongoData.put("rapidMinerResults",((TwitterDataSubject)this.subjectRef).getRapidResultsJSON().get(i).get("RapidResult"));
-			mongoData.put("datumResults",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("result"));
-			mongoData.put("tweet",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("tweet"));
+			obj.put("rapidMinerResults",((TwitterDataSubject)this.subjectRef).getRapidResultsJSON().get(i).get("RapidResult"));
+			obj.put("datumResults",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("result"));
+			obj.put("tweet",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("tweet"));
 			mongoResults.add(mongoData);		
 		}
-		((TwitterDataSubject)this.subjectRef).setMongoDataStore(mongoResults);
+		//((TwitterDataSubject)this.subjectRef).setMongoDataStore(mongoResults);
 		for(JSONObject obj :mongoResults ){
 			System.out.println(obj.toString());
 		}

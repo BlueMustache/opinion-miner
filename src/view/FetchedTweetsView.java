@@ -70,12 +70,9 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 		// ArrayList<String> tweetList = this.subject.getTweets();
 
 		ArrayList<JSONObject> mongoDataStore  = ((TwitterDataSubject) this.subject).getMongoDataStore();
-		
-		
-		
+			
 		Dimension d = new Dimension(15, 15);
 		this.setPreferredSize(d);
-		this.tweetMap =  this.subject.getTweetMap();
 		this.mainPanel = new JPanel();	
 		this.setLayout(new ScrollPaneLayout());
 		panelList = new ArrayList<JPanel>();
@@ -166,9 +163,6 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			this.repaint();
 			i++;
 		}
-		for (Map.Entry<String, Integer> entry : tweetMap.entrySet()) {
-			System.out.println(entry.getKey().toString());
-		}
 		System.out.println("THe text area is running and made " + i
 				+ " panels & Views");
 
@@ -218,33 +212,5 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public Observer getView() {
-		// if(viewRef.equalsIgnoreCase(this.viewRef)){
-		return this;
-		// }
-		// return null;
-	}
-
-	@Override
-	public void setVisibility(boolean bool) {
-		// TODO Auto-generated method stub
-		// this.getParent().setEnabled(bool);;
-		this.getViewport().setVisible(bool);
-		// tidy this to make a ternary if statement
-		if (!bool) {
-			this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-		} else {
-			this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		}
-
-	}
-
-	@Override
-	public String getViewRef() {
-		// TODO Auto-generated method stub
-		return this.viewRef;
 	}
 }

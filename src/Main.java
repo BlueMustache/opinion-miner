@@ -7,8 +7,8 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import controller.Controller;
 import view.MainUI;
-
 import model.ConcreteSubject;
 import model.Subject;
 import model.TwitterDataSubject;
@@ -29,8 +29,9 @@ public class Main {
 		twitterSubject = new TwitterDataSubject(twitterSubject);
 		//((TwitterDataSubject) twitterSubject).setTopic("#ISIS exclude:retweets"); //FOR TESTING TO CHECK TWEETS HAVE A QUERY
 		((TwitterDataSubject) twitterSubject).setProcessStrategy(); //THis needs WORK
-		Controller controller = new Controller();
+		
 		MainUI app = new MainUI((TwitterDataSubject) twitterSubject);
+		Controller controller = new Controller((TwitterDataSubject)twitterSubject,app);
 		
 		System.out.println("tweet Count = " + ((TwitterDataSubject) twitterSubject).getTweetCount());
 

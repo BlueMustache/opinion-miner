@@ -19,8 +19,6 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 	@Override
 	public void runProcess(TwitterDataSubject subject) {
 		// TODO Auto-generated method stub
-		ArrayList<String> tweetlist = subject.getTweets();
-		Map<String, Integer> tweetMap = subject.getTweetMap();
 		ArrayList<JSONObject> mongoDataStore  = subject.getMongoDataStore();
 		ArrayList<String> processedTweetlist = new ArrayList<String>();
 		
@@ -28,8 +26,6 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 		String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
 		Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
 		
-//		for (Map.Entry<String, Integer> entry : tweetMap.entrySet()) {
-//		for(String tweet : tweetlist){
 		for(JSONObject fetchedTweet : mongoDataStore){
 		Matcher m = p.matcher(fetchedTweet.get("unProcessedTweet").toString());
 		int i = 0;
@@ -44,15 +40,14 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 		tweet = tweet.replaceAll(" +", " ").trim();
 		processedTweetlist.add(tweet);
 		fetchedTweet.put("processedTweet", tweet);
-	//	mongoDataStore
-		//System.out.println("Processed Tweet  =  "+ processedTweetlist.get(i));// TEST
+	
 		}
 		((TwitterDataSubject) subject).setPreProcessedTweetList(processedTweetlist);
 		((TwitterDataSubject) subject).setMongoDataStore(mongoDataStore);
+		//////////TEST/////////
 		for(JSONObject tweet : mongoDataStore ){
 			System.out.println(tweet.toString());
 		}
-		System.out.println("Size of list in process strategy =  "+ tweetlist.size());// TEST
 	}
 
 

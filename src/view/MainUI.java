@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -38,7 +39,7 @@ import java.util.Map;
  * 
  * @author Michael Hagen
  */
-public class MainUI extends JFrame {
+public class MainUI extends JFrame{
 
 	protected JPanel contentLayoutPanel = null;
 //	private JMenuBar menuBar;
@@ -53,8 +54,9 @@ public class MainUI extends JFrame {
 	private TwitterDataSubject subject;
 	private JPanel Btn_Panel = new JPanel();
 	private Controller controller;
-	private Map<String,Observer> viewListMap; 
+	//private Map<String,Observer> viewListMap; 
 	private JTabbedPane tabbedPane;
+	private Thread progress;
 	
 
 	public MainUI(TwitterDataSubject subject) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException {
@@ -63,28 +65,24 @@ public class MainUI extends JFrame {
 		// Setup menu
 		//menuSetUp();
 		this.subject = subject;
-		this.viewListMap = new HashMap<String,Observer>();
+	//	this.viewListMap = new HashMap<String,Observer>();
 		
 		
 		ctrlView = new ControlPanelView(subject,"ctrlView");
-		this.viewListMap.put("ctrlView",ctrlView);
+	//	this.viewListMap.put("ctrlView",ctrlView);
 		//searchCmd = new SetSearchTopicCmd(subject,ctrlView);
 		twitterTrendsView = new TrendsView(subject,"trendsView");
 		tweetView = new FetchedTweetsView(subject,"tweetView");
 		tweetView.setEnabled(false);
-		this.viewListMap.put("tweetView",tweetView);
+	//	this.viewListMap.put("tweetView",tweetView);
 		datumView = new DatumBoxView(subject,"datumView");
-		this.viewListMap.put("datumView",datumView);
+	//	this.viewListMap.put("datumView",datumView);
 		rapidView = new RapidMinerView(subject,"rapidView");
 		
-		this.viewListMap.put("rapidView",rapidView);
+	//	this.viewListMap.put("rapidView",rapidView);
 		wordCloudView = new WordCloudView(subject,"cloudView");
-		this.viewListMap.put("cloudView",wordCloudView);
-		
-		
-		
-		
-		//controller = new Controller(subject,this.viewListMap);
+	//	this.viewListMap.put("cloudView",wordCloudView);
+
 		
 		getContentPane().add(ctrlView, BorderLayout.WEST);
 		
@@ -114,7 +112,6 @@ public class MainUI extends JFrame {
 		this.setSize(1000, 600);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-
 	}// end CTor
 	
 	
@@ -145,6 +142,7 @@ public class MainUI extends JFrame {
 				e.printStackTrace();
 			}
 	}
+
 	
 	
 //	public void menuSetUp() {
