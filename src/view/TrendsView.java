@@ -14,7 +14,6 @@ import org.mcavallo.opencloud.Cloud;
 import org.mcavallo.opencloud.Tag;
 
 import command.BtnSetTopicByTrend;
-
 import twitter4j.Trend;
 import twitter4j.Trends;
 import twitter4j.Twitter;
@@ -108,6 +107,12 @@ public class TrendsView extends JScrollPane implements Observer {
 		for(BtnSetTopicByTrend btn : btnTrendList){
 			btn.addActionListener(commandListner);
 		}
+	}
+
+	@Override
+	public String getObserverRef() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

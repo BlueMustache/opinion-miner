@@ -105,5 +105,6 @@
 	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
 	<classpathentry kind="lib" path="D:/Workspace/Opinion Miner/External_Jars/javacsv.jar"/>
 	<classpathentry kind="lib" path="D:/Workspace/Opinion Miner/External_Jars/opencloud.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admin/Downloads/mongo-java-driver-2.12.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

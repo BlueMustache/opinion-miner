@@ -45,4 +45,10 @@ public class ConcreteSubject implements Subject {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void addDatumObservers(Observer o, String ObserverRef) {
+		// TODO Auto-generated method stub
+		
+	}
 }

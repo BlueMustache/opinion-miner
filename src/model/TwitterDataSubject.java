@@ -4,6 +4,9 @@ package model;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.json.simple.JSONObject;
 
@@ -16,11 +19,13 @@ import strategy.SentimentStrategy;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
+import view.DatumBoxView;
 import view.Observer;
 
 public class TwitterDataSubject extends SubjectDecorator {
 
 	private ArrayList<Observer> observers;
+	private Map<String, Observer> observerMap;
 	private FileWriter fileWriter;
 	private String topic;
 	private final String fetchedTweetsCSV = "D:/Workspace/Opinion Miner/fetchedTweets.csv";
@@ -32,10 +37,13 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private ProcessStrategy processStrategy;
 	private ArrayList<JSONObject> mongoDataStore;
 	private int datumBoxProgressCount;
+//	private Observer datumObserver;
+	private ArrayList<Observer> datumObservers;
 
 	public TwitterDataSubject(Subject subjectReference) {
 		// Constructor
 		super(subjectReference);
+		this.observerMap = new HashMap<String, Observer>();
 		this.observers = new ArrayList<Observer>();
 		this.mongoDataStore = new ArrayList<JSONObject>();
 		this.datumBoxProgressCount=0;
@@ -44,7 +52,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.analysisStrategyList = new ArrayList<SentimentStrategy>();
 		this.datumBoxResults = new ArrayList<JSONObject>();
 		this.rapidMinerResults = new ArrayList<JSONObject>();
-		
+		this.datumObservers = new ArrayList<Observer>();
 		buildConfiguration(); // Create build to create a twitter access account
 		setAnalysisStrategys();
 
@@ -144,9 +152,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		
-		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
+		//RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
 		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
-		analysisStrategyList.add(analysis);
+		//analysisStrategyList.add(analysis);
 		analysisStrategyList.add(datumAnalysis);
 	}
 	
@@ -156,7 +164,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setDatumResultsJSON(ArrayList<JSONObject> datumResultsJSON) {
 		this.datumBoxResults = datumResultsJSON;
-		notifyObservers();
+		notifyObserver("datumView");
 	}
 	
 
@@ -166,6 +174,17 @@ public class TwitterDataSubject extends SubjectDecorator {
 		// Add observers to subject
 		observers.add(observer);
 	}
+
+	public ArrayList<Observer> getDatumObservers() {
+		return datumObservers;
+	}
+
+
+	public void addDatumObservers(Observer o, String ObserverRef) {
+		this.observerMap.put(ObserverRef, o);
+		System.out.println("Datum view added to observer Map");
+	}
+
 
 	@Override
 	public void removeObserver(Observer observer) {
@@ -181,6 +200,17 @@ public class TwitterDataSubject extends SubjectDecorator {
 		// notify all observers on update
 		for (Observer o : observers) {
 			o.update(this);
+		}
+	}
+	
+	public void notifyObserver(String observerRef) {
+		// notify specific observers on update	
+		System.out.println("Notify observer Called");
+		for (Entry<String, Observer> entry : observerMap.entrySet()) {
+			if(entry.getKey().equalsIgnoreCase(observerRef)){
+				entry.getValue().update(this);
+			}
+			
 		}
 	}
 

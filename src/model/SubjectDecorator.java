@@ -48,5 +48,10 @@ public class SubjectDecorator implements Subject {
 			o.addActionListener(commandListner);
 		}
 	}
+	@Override
+	public void addDatumObservers(Observer o, String ObserverRef) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

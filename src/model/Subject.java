@@ -16,4 +16,6 @@ public interface Subject {
 
 
 	public void addCommandListner(CommandListner commandListner);
+
+	public void addDatumObservers(Observer o, String ObserverRef);
 }

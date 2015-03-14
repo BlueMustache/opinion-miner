@@ -10,11 +10,11 @@ import org.json.simple.JSONObject;
 import model.Subject;
 import model.TwitterDataSubject;
 
-public class BtnUpdateMongoResults extends JButton implements Command {
+public class BtnEvaluateMongoResults extends JButton implements Command {
 	
 	private Subject subjectRef;
 	
-	public BtnUpdateMongoResults(String caption, Subject subject) {
+	public BtnEvaluateMongoResults(String caption, Subject subject) {
 		// TODO Auto-generated constructor stub
 		super(caption);
 		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));

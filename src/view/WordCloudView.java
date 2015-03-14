@@ -78,4 +78,10 @@ public class WordCloudView extends JPanel implements Observer {
 		
 	}
 
+	@Override
+	public String getObserverRef() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

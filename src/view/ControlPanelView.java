@@ -16,7 +16,7 @@ import javax.swing.event.DocumentListener;
 
 import command.BtnAnalyseTweets;
 import command.BtnFetchTweets;
-import command.BtnUpdateMongoResults;
+import command.BtnEvaluateMongoResults;
 import controller.Controller.CommandListner;
 //import controller.Controller.IDocumentListener;
 import model.Subject;
@@ -29,7 +29,7 @@ public class ControlPanelView extends JPanel implements Observer {
 	private TwitterDataSubject subject;
 	private BtnFetchTweets btnFetchTweets;
 	private BtnAnalyseTweets btnAnalyze;
-	private BtnUpdateMongoResults btnUpdateDB;
+	private BtnEvaluateMongoResults btnEvaluate;
 	private JTextField textField;
 	private JSplitPane splitPane;
 	private Subject subjectRef; 
@@ -44,7 +44,7 @@ public class ControlPanelView extends JPanel implements Observer {
 		this.splitPane = new JSplitPane();
 		this.btnFetchTweets = new BtnFetchTweets("Search", subjectRef);	
 		this.btnAnalyze = new BtnAnalyseTweets("Analyze", subjectRef);
-		this.btnUpdateDB = new BtnUpdateMongoResults("Update DB", subjectRef);
+		this.btnEvaluate = new BtnEvaluateMongoResults("Evaluate", subjectRef);
 		setBtnLayout(); //Call set layout method to layout the buttons
 		textFieldListner();// Need to try put this in the controller
 	}
@@ -95,7 +95,7 @@ public class ControlPanelView extends JPanel implements Observer {
 	         			.addContainerGap()
 	         			.addGroup(ctrlLayout.createParallelGroup(Alignment.LEADING)
 	         				.addComponent(btnAnalyze, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-	         				.addComponent(btnUpdateDB, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+	         				.addComponent(btnEvaluate, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
 	         				.addComponent(splitPane, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
 	         			.addContainerGap())
 	         );
@@ -107,7 +107,7 @@ public class ControlPanelView extends JPanel implements Observer {
 	         			.addComponent(splitPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	         			.addPreferredGap(ComponentPlacement.RELATED)
 	         			.addComponent(btnAnalyze).addGap(8)
-	         			.addComponent(btnUpdateDB)
+	         			.addComponent(btnEvaluate)
 	         			.addContainerGap(164, Short.MAX_VALUE))
 	         );
 	         this.setLayout(ctrlLayout);
@@ -119,6 +119,12 @@ public class ControlPanelView extends JPanel implements Observer {
 		KeyStroke keystroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
 		btnFetchTweets.registerKeyboardAction(commandListner, keystroke, JComponent.WHEN_FOCUSED);
 		btnAnalyze.addActionListener(commandListner);
-		btnUpdateDB.addActionListener(commandListner);
+		btnEvaluate.addActionListener(commandListner);
+	}
+
+	@Override
+	public String getObserverRef() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -32,15 +32,15 @@ public class DatumBoxView extends JScrollPane implements Observer {
 	private ArrayList<JTextArea> textAreaList;
 	private ArrayList<JButton> btnList;
 	private JPanel mainPanel = new JPanel();
-	private String viewRef;
+	private String observerRef;
 	private ProgressMonitor progressMonitor;
 
 	public DatumBoxView(Subject subjectRef, String viewRef) {
 		// TODO Auto-generated constructor stub
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
-		this.viewRef = viewRef;
-		subjectRef.registerObserver(this);
+		this.observerRef = viewRef;
+		subjectRef.addDatumObservers(this,viewRef);
 
 		this.setLayout(new ScrollPaneLayout());
 		Dimension d = new Dimension(15, 15);
@@ -85,8 +85,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 
 		for (int i = 0; i < datumResults.size(); i++) {
 			panelList.add(new JPanel());
-			panelList.get(i).setBorder(
-					new LineBorder(Color.LIGHT_GRAY, 2, true));
+			panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
 			textAreaList.add(new JTextArea());
 			btnList.add(new JButton());
 
@@ -101,16 +100,12 @@ public class DatumBoxView extends JScrollPane implements Observer {
 			gbc_panel_3.gridy = i;
 			mainPanel.add(panelList.get(i), gbc_panel_3);
 
-			textAreaList.get(i).setFont(
-					new Font("Comic Sans MS", Font.PLAIN, 14));
+			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 			textAreaList.get(i).setWrapStyleWord(true);
-			textAreaList.get(i).setText(
-					datumResults.get(i).get("tweet").toString());
+			textAreaList.get(i).setText(datumResults.get(i).get("tweet").toString());
 
-			btnList.get(i)
-					.setText(datumResults.get(i).get("result").toString());
-			Color btnColor = datumResults.get(i).get("result")
-					.equals("positive") ? Color.GREEN : Color.RED;
+			btnList.get(i).setText(datumResults.get(i).get("result").toString());
+			Color btnColor = datumResults.get(i).get("result").equals("positive") ? Color.GREEN : Color.RED;
 
 			if (datumResults.get(i).get("result").equals("neutral\"")) {
 				btnColor = Color.GRAY;
@@ -158,6 +153,11 @@ public class DatumBoxView extends JScrollPane implements Observer {
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	public String getObserverRef() {
+		return observerRef;
 	}
 
 }
