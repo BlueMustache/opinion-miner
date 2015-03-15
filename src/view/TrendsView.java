@@ -79,13 +79,17 @@ public class TrendsView extends JScrollPane implements Observer {
                 cloud.addTag(trend.getName().toString());
             }
 		}
+		int maxTag=50;
+		int minTag=20;
 		
 		for (Tag tag : cloud.tags()) {
+			int randTag = random.nextInt((maxTag - minTag) + 1) + minTag;
 			btnTrend = new BtnSetTopicByTrend(this.subject);
 			btnTrendList.add(btnTrend);
             btnTrend.setText(tag.getName());
             btnTrend.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
-            btnTrend.setFont(btnTrend.getFont().deriveFont((float) tag.getWeight() * 20));
+            tag.setWeight(randTag);
+            btnTrend.setFont(btnTrend.getFont().deriveFont((float) tag.getWeight()));
             btnTrend.setName("trendBtn");
             Dimension d = new Dimension(800, 475);
     		this.mainPanel.setPreferredSize(d);

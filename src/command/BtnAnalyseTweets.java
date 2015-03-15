@@ -3,32 +3,34 @@ package command;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 import strategy.SentimentStrategy;
 import model.Subject;
 import model.TwitterDataSubject;
 
 public class BtnAnalyseTweets extends JButton implements Command {
-	
+
 	private Subject subjectRef;
-	
+
 	public BtnAnalyseTweets(String caption, Subject subject) {
 		// TODO Auto-generated constructor stub
 		super(caption);
 		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 		this.subjectRef = subject;
-		
+
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		try {
-			for(SentimentStrategy analysis : ((TwitterDataSubject) subjectRef).getAnalysisStrategys()){
-						analysis.runSentimentAnalysis(subjectRef);
+
+		if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())) {
+			for (SentimentStrategy analysis : ((TwitterDataSubject) subjectRef).getAnalysisStrategys()) {
+				analysis.runSentimentAnalysis(subjectRef);
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} else {
+			JOptionPane.showMessageDialog(null, "Error", "No data to analyze.",JOptionPane.ERROR_MESSAGE);
 		}
 		System.out.println("Analyse btn Pressed");
 	}

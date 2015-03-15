@@ -27,21 +27,22 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 		Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
 		
 		for(JSONObject fetchedTweet : mongoDataStore){
-		Matcher m = p.matcher(fetchedTweet.get("unProcessedTweet").toString());
-		int i = 0;
-		String tweet = fetchedTweet.get("unProcessedTweet").toString();
-		while (m.find()) {	
-			tweet = tweet.replaceAll(m.group(i), "").trim();
-			i++;
-		}
-		tweet = tweet.replaceAll("@\\w+|#\\w+|\\bRT\\b", "");
-		tweet = tweet.replaceAll("\n", " ");
-		tweet = tweet.replaceAll("[^\\p{L}\\p{N} ]+", "");
-		tweet = tweet.replaceAll(" +", " ").trim();
-		processedTweetlist.add(tweet);
-		fetchedTweet.put("processedTweet", tweet);
+			Matcher m = p.matcher(fetchedTweet.get("unProcessedTweet").toString());
+			int i = 0;
+			String tweet = fetchedTweet.get("unProcessedTweet").toString();
+			while (m.find()) {	
+				tweet = tweet.replaceAll(m.group(i), "").trim();
+				i++;
+			}
+			tweet = tweet.replaceAll("@\\w+|#\\w+|\\bRT\\b", "");
+			tweet = tweet.replaceAll("\n", " ");
+			tweet = tweet.replaceAll("[^\\p{L}\\p{N} ]+", "");
+			tweet = tweet.replaceAll(" +", " ").trim();
+			processedTweetlist.add(tweet);
+			fetchedTweet.put("processedTweet", tweet);
 	
 		}
+		
 		((TwitterDataSubject) subject).setPreProcessedTweetList(processedTweetlist);
 		((TwitterDataSubject) subject).setMongoDataStore(mongoDataStore);
 		//////////TEST/////////

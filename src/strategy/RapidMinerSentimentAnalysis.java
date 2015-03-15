@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.csvreader.CsvReader;
 
 import org.json.simple.JSONObject;
@@ -39,7 +41,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 	}
 
 	@Override
-	public void runSentimentAnalysis(Subject subject) throws Exception {
+	public void runSentimentAnalysis(Subject subject) {
 		// TODO Auto-generated method stub
 		this.subject = subject;
 		rapidThread = new Thread(this);
@@ -71,6 +73,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 			IOContainer container = myProcess.run();
 
 		} catch (RepositoryException | IOException | XMLException | OperatorException e) {
+			JOptionPane.showMessageDialog(null,"Fatal error in RapidMiner Model", "DatumBox Error.",JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 		System.out.println("Running rapid miner thread");
@@ -90,6 +93,8 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 				sentimentPrediction.put("RapidResult", result);
 				sentimentPrediction.put("tweet", tweet);
 				rapidResults.add(sentimentPrediction);
+				((TwitterDataSubject) subject).setDatumBoxProgressCount();
+				System.out.println("Rapid results count !!!" +((TwitterDataSubject) subject).getDatumBoxProgressCount());
 			}
 			System.out.println("Rapidminer results CSV file was created successfully !!!");
 			

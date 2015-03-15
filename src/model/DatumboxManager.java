@@ -22,8 +22,7 @@ public class DatumboxManager implements IDatumBoxManager {
 	}
 
 	// Web Request Functions
-	private void AddArgument(Map<String, String> arguments, String key,
-			String value) {
+	private void AddArgument(Map<String, String> arguments, String key,String value) {
 		arguments.remove(key); // will return false if not found...
 		arguments.put(key, value);
 	}
@@ -104,9 +103,7 @@ public class DatumboxManager implements IDatumBoxManager {
 
 		AddArgument(arguments, "api_key", api_key);
 		AddArgument(arguments, "text", text);
-		String str = SendPostRequest(
-				"http://api.datumbox.com/1.0/TwitterSentimentAnalysis.json",
-				arguments);
+		String str = SendPostRequest("http://api.datumbox.com/1.0/TwitterSentimentAnalysis.json",arguments);
 
 		return stringToJSONObject(str);
 	}
