@@ -37,9 +37,10 @@ public class ControlPanelView extends JPanel implements Observer {
 	
 	public ControlPanelView(final TwitterDataSubject subjectRef, String viewRef) {
 		// Constructor
-		subjectRef.registerObserver(this);
+		
 		this.subject = subjectRef;
 		this.viewRef = viewRef;
+		subjectRef.registerObserver(this);
 		this.textField = new JTextField();
 		this.splitPane = new JSplitPane();
 		this.btnFetchTweets = new BtnFetchTweets("Search", subjectRef);	

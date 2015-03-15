@@ -51,6 +51,7 @@ public class MainUI extends JFrame{
 	private RapidMinerView rapidView;
 	private WordCloudView wordCloudView;
 	private TrendsView twitterTrendsView;
+	private EvaluationView evalView;
 	private TwitterDataSubject subject;
 	private JPanel Btn_Panel = new JPanel();
 	private Controller controller;
@@ -82,7 +83,7 @@ public class MainUI extends JFrame{
 	//	this.viewListMap.put("rapidView",rapidView);
 		wordCloudView = new WordCloudView(subject,"cloudView");
 	//	this.viewListMap.put("cloudView",wordCloudView);
-
+		evalView = new EvaluationView(subject,"elavView");
 		
 		getContentPane().add(ctrlView, BorderLayout.WEST);
 		
@@ -98,6 +99,7 @@ public class MainUI extends JFrame{
 		tabbedPane.addTab("DatumBox Results", null, datumView,null);
 		tabbedPane.addTab("Rapidminer Results", null, rapidView,null);
 		tabbedPane.addTab("Word Cloud", null, wordCloudView,null);
+		tabbedPane.addTab("Evaluation", null, evalView,null);
 		
 
 		// Add listeners

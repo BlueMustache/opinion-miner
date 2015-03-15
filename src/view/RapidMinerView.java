@@ -31,12 +31,14 @@ public class RapidMinerView extends JScrollPane implements Observer{
 	private ArrayList<JTextArea> textAreaList; 
 	private ArrayList<JButton> btnList;
 	private JPanel mainPanel;// = new JPanel();
+	private String observerRef;
 
 	public RapidMinerView(Subject subjectRef, String viewRef) {
 		// TODO Auto-generated constructor stub
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
-		subjectRef.registerObserver(this);		
+		this.observerRef = viewRef;
+		subjectRef.registerObserver(this,viewRef);		
 	}
 
 	@Override
@@ -61,8 +63,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		gbl_panel.columnWidths = new int[] { 0, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		mainPanel.setLayout(gbl_panel);
 		
 	
@@ -108,7 +109,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 428, Short.MAX_VALUE)
-					.addComponent(btnList.get(i),GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+					.addComponent(btnList.get(i),GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		panelList.get(i).revalidate();

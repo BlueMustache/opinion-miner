@@ -36,11 +36,12 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 		for(int i = 0; i<mongoSize; i++){	
 			JSONObject mongoData = new JSONObject();
 			mongoResults.get(i).put("rapidMinerResults",((TwitterDataSubject)this.subjectRef).getRapidResultsJSON().get(i).get("RapidResult"));
-			mongoResults.get(i).put("datumResults",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("result"));
+//			mongoResults.get(i).put("datumResults",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("result"));
 			//mongoResults.get(i).put("tweet",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("tweet"));
 			//mongoResults.add(mongoData);		
 		}
 		//((TwitterDataSubject)this.subjectRef).setMongoDataStore(mongoResults);
+		((TwitterDataSubject)this.subjectRef).notifyEvaluation();
 		for(JSONObject obj :mongoResults ){
 			System.out.println(obj.toString());
 		}

@@ -49,13 +49,15 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 	private ArrayList<JTextArea> textAreaList;
 	private ArrayList<JLabel> lableList;
 	private Subject subjectRef;
+	private String observerRef;
 
 	public FetchedTweetsView(TwitterDataSubject subjectReference, String viewRef)
 			throws IOException {
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		// TODO Auto-generated constructor stub
 		this.subject = subjectReference;
-		subjectReference.registerObserver(this);
+		this.observerRef = viewRef;
+		subjectReference.registerObserver(this,viewRef);
 
 	}
 
@@ -82,8 +84,7 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 		gbl_panel.columnWidths = new int[] { 0, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		mainPanel.setLayout(gbl_panel);
 		
 		
@@ -130,24 +131,17 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			
 			GroupLayout gl_panel_3 = new GroupLayout(panelList.get(i));
 			gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(
-					Alignment.LEADING).addGroup(
-					gl_panel_3
+					Alignment.LEADING).addGroup(gl_panel_3
 							.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(textAreaList.get(i),
-									GroupLayout.PREFERRED_SIZE, 350,
-									Short.MAX_VALUE)
-							.addComponent(impactPanelList.get(i),
-									GroupLayout.PREFERRED_SIZE, 50,
-									Short.MAX_VALUE).addContainerGap()));
+							.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 350,Short.MAX_VALUE)
+							.addComponent(impactPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()));
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
 			gl_panel_3.setVerticalGroup(gl_panel_3
 					.createParallelGroup(Alignment.LEADING)
-					.addComponent(textAreaList.get(i),
-							GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
-					.addComponent(impactPanelList.get(i),
-							GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE));
+					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+					.addComponent(impactPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE));
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
 			panelList.get(i).setLayout(gl_panel_3);

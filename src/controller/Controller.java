@@ -33,8 +33,6 @@ public class Controller {
 	private ArrayList<Observer> viewList;
 	private Map<String, Observer> viewListMap;
 	private MainUI mainUI;
-	private Observer evalView;
-	private IObserverFactory observerFactory;
 
 	// private ProgressMonitor monitor;
 
@@ -44,8 +42,6 @@ public class Controller {
 		this.mainUI = mainUI;
 		// this.viewListMap = viewListMap;
 		this.subject.addCommandListner(new CommandListner());
-		observerFactory = new ObserverFactory();
-		evalView = observerFactory.createObserver("evalView", subject);
 	}
 
 	public class CommandListner implements ActionListener {
@@ -80,9 +76,9 @@ public class Controller {
 				mainUI.getTabbedPane().setSelectedIndex(2);
 			}
 			if (e.getActionCommand().equalsIgnoreCase("Evaluate")) {
-				//evalView = new EvaluationView(subject,"EvalView");
+				
 				System.out.println("Eval view created");
-				mainUI.getTabbedPane().addTab("evalView", null, (Component) evalView,null);
+				mainUI.getTabbedPane().setSelectedIndex(5);
 				System.out.println("Eval view created");
 			}
 			// switch(command)

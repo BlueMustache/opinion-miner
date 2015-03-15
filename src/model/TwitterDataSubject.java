@@ -152,10 +152,10 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		
-		//RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
-		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
-		//analysisStrategyList.add(analysis);
-		analysisStrategyList.add(datumAnalysis);
+		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
+//		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
+		analysisStrategyList.add(analysis);
+//		analysisStrategyList.add(datumAnalysis);
 	}
 	
 	public ArrayList<JSONObject> getDatumResultsJSON() {
@@ -180,7 +180,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	}
 
 
-	public void addDatumObservers(Observer o, String ObserverRef) {
+	public void registerObserver(Observer o, String ObserverRef) {
 		this.observerMap.put(ObserverRef, o);
 		System.out.println("Datum view added to observer Map");
 	}
@@ -240,7 +240,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setRapidResultsJSON(ArrayList<JSONObject> rapidResultsJSON) {
 		this.rapidMinerResults = rapidResultsJSON;
-		notifyObservers();
+		notifyObserver("rapidView");
 	}
 	
 	
@@ -251,8 +251,13 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setMongoDataStore(ArrayList<JSONObject> mongoDataStore) {
 		this.mongoDataStore = mongoDataStore;
-		notifyObservers();
+		notifyObserver("tweetView");
 		System.out.println("Set mongo DB activiated");
+	}
+	
+	public void notifyEvaluation() {
+		notifyObserver("elavView");
+		System.out.println("Eval view notified");
 	}
 	
 	public void resetMongoDataStore(){

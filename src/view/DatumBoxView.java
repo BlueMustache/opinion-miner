@@ -40,7 +40,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
 		this.observerRef = viewRef;
-		subjectRef.addDatumObservers(this,viewRef);
+		subjectRef.registerObserver(this,viewRef);
 
 		this.setLayout(new ScrollPaneLayout());
 		Dimension d = new Dimension(15, 15);
@@ -71,8 +71,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		gbl_panel.columnWidths = new int[] { 0, 0 };
 		gbl_panel.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_panel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		mainPanel.setLayout(gbl_panel);
 
 		this.setViewportView(mainPanel);
@@ -117,24 +116,17 @@ public class DatumBoxView extends JScrollPane implements Observer {
 			textAreaList.get(i).setEditable(false);
 			GroupLayout gl_panel_3 = new GroupLayout(panelList.get(i));
 			gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(
-					Alignment.LEADING).addGroup(
-					gl_panel_3
+					Alignment.LEADING).addGroup(gl_panel_3
 							.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(textAreaList.get(i),
-									GroupLayout.PREFERRED_SIZE, 428,
-									Short.MAX_VALUE)
-							.addComponent(btnList.get(i),
-									GroupLayout.PREFERRED_SIZE, 50,
-									Short.MAX_VALUE).addContainerGap()));
+							.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 428,Short.MAX_VALUE)
+							.addComponent(btnList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()));
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
 			gl_panel_3.setVerticalGroup(gl_panel_3
 					.createParallelGroup(Alignment.LEADING)
-					.addComponent(textAreaList.get(i),
-							GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
-					.addComponent(btnList.get(i), GroupLayout.PREFERRED_SIZE,
-							30, Short.MAX_VALUE));
+					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+					.addComponent(btnList.get(i), GroupLayout.PREFERRED_SIZE,30, Short.MAX_VALUE));
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
 			panelList.get(i).setLayout(gl_panel_3);

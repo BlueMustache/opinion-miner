@@ -15,9 +15,11 @@ import model.Subject;
 import model.TwitterDataSubject;
 import controller.Controller.CommandListner;
 
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -33,15 +35,23 @@ public class EvaluationView extends JScrollPane implements Observer {
 	private JPanel mainPanel;
 	private ArrayList<JPanel> panelList;
 	private ArrayList<JPanel> impactPanelList;
+	private ArrayList<JPanel> radioBtnPanelList;
 	private ArrayList<JTextArea> textAreaList;
 	private ArrayList<JLabel> lableList;
+	private ArrayList<JRadioButton> radioBtnlistPos;
+	private ArrayList<JRadioButton> radioBtnlistNeg;
+	private ArrayList<JRadioButton> radioBtnlistNeu;
+	private ArrayList<ButtonGroup> btnGroupList;
 	private Subject subjectRef;
+	private String observerRef;
+	 
 
-	public EvaluationView(Subject subjectReference/*, String viewRef*/) {
+	public EvaluationView(Subject subjectReference, String observserRef) {
 		// TODO Auto-generated constructor stub
 		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectReference;
-		subjectReference.registerObserver(this);
+		this.observerRef = observserRef;
+		subjectReference.registerObserver(this,observserRef);
 	}
 
 	@Override
@@ -61,6 +71,11 @@ public class EvaluationView extends JScrollPane implements Observer {
 		impactPanelList = new ArrayList<JPanel>();
 		textAreaList = new ArrayList<JTextArea>();
 		lableList = new ArrayList<JLabel>();
+		radioBtnlistPos =new ArrayList<JRadioButton>();
+		radioBtnlistNeg =new ArrayList<JRadioButton>();
+		radioBtnlistNeu =new ArrayList<JRadioButton>();
+		radioBtnPanelList = new ArrayList<JPanel>();
+		btnGroupList = new ArrayList<ButtonGroup>();
 
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 0 };
@@ -79,7 +94,37 @@ public class EvaluationView extends JScrollPane implements Observer {
 
 		for (JSONObject tweet : mongoDataStore) {
 			panelList.add(new JPanel());
-
+			radioBtnPanelList.add(new JPanel());
+			btnGroupList.add(new ButtonGroup( ));
+			radioBtnPanelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
+			radioBtnPanelList.get(i).setName("rPanel_"+Integer.toString(i));
+			radioBtnPanelList.get(i).setLayout(new FlowLayout());
+			
+			radioBtnlistPos.add(new JRadioButton());
+			radioBtnlistPos.get(i).setName("radioBtnPos_"+Integer.toString(i));
+			radioBtnlistPos.get(i).setText("Positive");
+			radioBtnlistPos.get(i).setVerticalTextPosition(JRadioButton.BOTTOM);
+			radioBtnlistPos.get(i).setHorizontalTextPosition(JRadioButton.CENTER);
+			
+			radioBtnlistNeg.add(new JRadioButton());
+			radioBtnlistNeg.get(i).setName("radioBtnNeg_"+Integer.toString(i));
+			radioBtnlistNeg.get(i).setText("Negative");
+			radioBtnlistNeg.get(i).setVerticalTextPosition(JRadioButton.BOTTOM);
+			radioBtnlistNeg.get(i).setHorizontalTextPosition(JRadioButton.CENTER);
+			
+			radioBtnlistNeu.add(new JRadioButton());
+			radioBtnlistNeu.get(i).setName("radioBtnNeu_"+Integer.toString(i));
+			radioBtnlistNeu.get(i).setText("Neutral");
+			radioBtnlistNeu.get(i).setVerticalTextPosition(JRadioButton.BOTTOM);
+			radioBtnlistNeu.get(i).setHorizontalTextPosition(JRadioButton.CENTER);
+			
+			btnGroupList.get(i).add(radioBtnlistPos.get(i));
+			btnGroupList.get(i).add(radioBtnlistNeg.get(i));
+			btnGroupList.get(i).add(radioBtnlistNeu.get(i));
+			radioBtnPanelList.get(i).add(radioBtnlistPos.get(i));
+			radioBtnPanelList.get(i).add(radioBtnlistNeg.get(i));
+			radioBtnPanelList.get(i).add(radioBtnlistNeu.get(i));
+			
 			impactPanelList.add(new JPanel());
 			panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
 			impactPanelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
@@ -90,16 +135,17 @@ public class EvaluationView extends JScrollPane implements Observer {
 			panelList.get(i).setName("panel_" + Integer.toString(i));
 			impactPanelList.get(i).setName("impactPanel_" + Integer.toString(i));
 			textAreaList.get(i).setName("txtArea_" + Integer.toString(i));
+			
 
 			lableList.get(i).setName("Label_" + Integer.toString(i));
 			lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 
 			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 			textAreaList.get(i).setWrapStyleWord(true);
-//			lableList.get(i).setText("<html><center>DatumBox Result ="+ tweet.get("datumResults").toString()+ "<br>"+ "Rapid Miner Result ="+tweet.get("rapidMinerResults").toString()+ "</center></html>");
+			lableList.get(i).setText("<html><center>DatumBox Result ="/*+ tweet.get("datumResults").toString()*/+ "<br>"+ "Rapid Miner Result ="+tweet.get("rapidMinerResults").toString()+ "</center></html>");
 
 			impactPanelList.get(i).setBackground(Color.GRAY);
-//			textAreaList.get(i).setText(tweet.get("unProcessedTweet").toString());
+			textAreaList.get(i).setText(tweet.get("unProcessedTweet").toString());
 			textAreaList.get(i).setLineWrap(true);
 			textAreaList.get(i).setEnabled(true);
 			textAreaList.get(i).setEditable(false);
@@ -112,20 +158,17 @@ public class EvaluationView extends JScrollPane implements Observer {
 					gl_panel_3
 							.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(textAreaList.get(i),
-									GroupLayout.PREFERRED_SIZE, 350,
-									Short.MAX_VALUE)
-							.addComponent(impactPanelList.get(i),
-									GroupLayout.PREFERRED_SIZE, 50,
-									Short.MAX_VALUE).addContainerGap()));
+							.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 350,Short.MAX_VALUE)
+							.addComponent(radioBtnPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()
+							.addComponent(impactPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()));
+							
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
 			gl_panel_3.setVerticalGroup(gl_panel_3
 					.createParallelGroup(Alignment.LEADING)
-					.addComponent(textAreaList.get(i),
-							GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
-					.addComponent(impactPanelList.get(i),
-							GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE));
+					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
+					.addComponent(radioBtnPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30,Short.MAX_VALUE)
+					.addComponent(impactPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE));
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
 			panelList.get(i).setLayout(gl_panel_3);

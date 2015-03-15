@@ -47,7 +47,7 @@ public class ConcreteSubject implements Subject {
 	}
 
 	@Override
-	public void addDatumObservers(Observer o, String ObserverRef) {
+	public void registerObserver(Observer o, String ObserverRef) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -14,10 +14,10 @@ public class ObserverFactory implements IObserverFactory{
 	@Override
 	public Observer createObserver(String type, Subject subject) {
 		// TODO Auto-generated method stub
-		final Observer evalView = new EvaluationView(subject);
+		//final Observer evalView = new EvaluationView(subject);
 		
 		if (type.equalsIgnoreCase("evalView")) {
-			return evalView;
+			return new EvaluationView(subject, type);
 		}
 		return null;
 	}
