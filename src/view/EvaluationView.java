@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
@@ -17,6 +19,7 @@ import controller.Controller.CommandListner;
 
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -41,6 +44,7 @@ public class EvaluationView extends JScrollPane implements Observer {
 	private ArrayList<JRadioButton> radioBtnlistPos;
 	private ArrayList<JRadioButton> radioBtnlistNeg;
 	private ArrayList<JRadioButton> radioBtnlistNeu;
+	private ArrayList<JButton> submitBtnlist;
 	private ArrayList<ButtonGroup> btnGroupList;
 	private Subject subjectRef;
 	private String observerRef;
@@ -61,7 +65,7 @@ public class EvaluationView extends JScrollPane implements Observer {
 		this.subjectRef = (TwitterDataSubject) subject;
 		// ArrayList<String> tweetList = this.subject.getTweets();
 
-		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) this.subjectRef).getMongoDataStore();
+		final ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) this.subjectRef).getMongoDataStore();
 
 		Dimension d = new Dimension(15, 15);
 		this.setPreferredSize(d);
@@ -76,6 +80,7 @@ public class EvaluationView extends JScrollPane implements Observer {
 		radioBtnlistNeu =new ArrayList<JRadioButton>();
 		radioBtnPanelList = new ArrayList<JPanel>();
 		btnGroupList = new ArrayList<ButtonGroup>();
+		submitBtnlist = new ArrayList<JButton>();
 
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 0 };
@@ -93,9 +98,12 @@ public class EvaluationView extends JScrollPane implements Observer {
 		int i = 0;
 
 		for (JSONObject tweet : mongoDataStore) {
+			final int radioActioCount = i;
 			panelList.add(new JPanel());
 			radioBtnPanelList.add(new JPanel());
 			btnGroupList.add(new ButtonGroup( ));
+			
+			submitBtnlist.add(new JButton());
 			radioBtnPanelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
 			radioBtnPanelList.get(i).setName("rPanel_"+Integer.toString(i));
 			radioBtnPanelList.get(i).setLayout(new FlowLayout());
@@ -117,6 +125,37 @@ public class EvaluationView extends JScrollPane implements Observer {
 			radioBtnlistNeu.get(i).setText("Neutral");
 			radioBtnlistNeu.get(i).setVerticalTextPosition(JRadioButton.BOTTOM);
 			radioBtnlistNeu.get(i).setHorizontalTextPosition(JRadioButton.CENTER);
+			submitBtnlist.get(i).setName("subBtn_"+Integer.toString(i));
+			submitBtnlist.get(i).setSize(10, 10);
+			submitBtnlist.get(i).setText("Submit");
+			submitBtnlist.get(i).addActionListener(new ActionListener(){
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					if(radioBtnlistPos.get(radioActioCount).isSelected()){
+						System.out.println("Radio btn Pos "+ radioActioCount + " Selected");
+						mongoDataStore.get(radioActioCount).put("userClasification", "postiive");
+						for(JSONObject obj :mongoDataStore ){
+							System.out.println(obj.toString());
+						}
+					}
+					if(radioBtnlistNeg.get(radioActioCount).isSelected()){
+						System.out.println("Radio btn Neg "+ radioActioCount + " Selected");
+						mongoDataStore.get(radioActioCount).put("userClasification", "negative");
+						for(JSONObject obj :mongoDataStore ){
+							System.out.println(obj.toString());
+						}
+					}
+					if(radioBtnlistNeu.get(radioActioCount).isSelected()){
+						System.out.println("Radio btn Neu "+ radioActioCount + " Selected");
+						mongoDataStore.get(radioActioCount).put("userClasification", "neutral");
+						for(JSONObject obj :mongoDataStore ){
+							System.out.println(obj.toString());
+						}
+					}
+				}
+			});
 			
 			btnGroupList.get(i).add(radioBtnlistPos.get(i));
 			btnGroupList.get(i).add(radioBtnlistNeg.get(i));
@@ -124,6 +163,7 @@ public class EvaluationView extends JScrollPane implements Observer {
 			radioBtnPanelList.get(i).add(radioBtnlistPos.get(i));
 			radioBtnPanelList.get(i).add(radioBtnlistNeg.get(i));
 			radioBtnPanelList.get(i).add(radioBtnlistNeu.get(i));
+			radioBtnPanelList.get(i).add(submitBtnlist.get(i));
 			
 			impactPanelList.add(new JPanel());
 			panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
