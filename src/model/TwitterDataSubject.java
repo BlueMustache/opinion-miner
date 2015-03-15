@@ -153,9 +153,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		
 		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
-//		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
+		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
 		analysisStrategyList.add(analysis);
-//		analysisStrategyList.add(datumAnalysis);
+		analysisStrategyList.add(datumAnalysis);
 	}
 	
 	public ArrayList<JSONObject> getDatumResultsJSON() {

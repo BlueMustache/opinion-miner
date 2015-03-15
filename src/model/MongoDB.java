@@ -25,7 +25,7 @@ public class MongoDB{
 			this.mongoClient = new MongoClient( "localhost" , 27017 );
 			// Now connect to your databases
 	         this.database = mongoClient.getDB( "opinionMinerDB" );
-	         this.dataSetColl = this.database.createCollection("dataSetColl", null);
+	        // this.dataSetColl = this.database.createCollection("dataSetColl", null);
 			 System.out.println("Connect to database successfully");
 			
 		} catch (Exception e) {
