@@ -1,4 +1,5 @@
-text,confidence(negative),confidence(positive),prediction(Sentiment)
-wa dream plai tonight pm ,0.7553404411440768,0.24465955885592316,negative
-dont forget rte tonight pm miss ,0.6778116485223168,0.32218835147768315,negative
-pmin order úlabúla ,0.7221706072255643,0.27782939277443575,negative
+text,confidence(Negative),confidence(Positive),prediction(Sentiment)
+rte comment georg hamilton call suarez sanchez wa doobi st patrick dai ,1.0,0.0,Negative
+sanchez pronunci suarez onli georg hamilton know ,1.0,0.0,Negative
+video rte comment georg hamilton clearli think alexi sanchez plai barcelona ,1.0,0.0,Negative
+georg hamilton sanchez ar trend higher messi reason brilliant ,1.0,0.0,Negative
