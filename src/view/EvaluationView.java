@@ -182,7 +182,7 @@ public class EvaluationView extends JScrollPane implements Observer {
 
 			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 			textAreaList.get(i).setWrapStyleWord(true);
-			lableList.get(i).setText("<html><center>DatumBox Result ="/*+ tweet.get("datumResults").toString()*/+ "<br>"+ "Rapid Miner Result ="+tweet.get("rapidMinerResults").toString()+ "</center></html>");
+			lableList.get(i).setText("<html><center>DatumBox Result ="+/* tweet.get("datumResults").toString()+ */"<br>"+ "Rapid Miner Result ="+tweet.get("rapidMinerResults").toString()+ "</center></html>");
 
 			impactPanelList.get(i).setBackground(Color.GRAY);
 			textAreaList.get(i).setText(tweet.get("unProcessedTweet").toString());

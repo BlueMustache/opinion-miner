@@ -9,8 +9,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ProgressMonitor;
+import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -53,15 +55,23 @@ public class Controller {
 			String command = e.getActionCommand();
 			if (e.getActionCommand().equalsIgnoreCase("search")|| !e.getActionCommand().equalsIgnoreCase("Analyze")&& !e.getActionCommand().equalsIgnoreCase("Update DB")) {
 				mainUI.getTabbedPane().setSelectedIndex(1);
+				mainUI.getTabbedPane().revalidate();
+				mainUI.getTabbedPane().repaint();
 			}
 			if (e.getActionCommand().equalsIgnoreCase("Analyze")) {
-				final ProgressMonitor monitor = new ProgressMonitor(mainUI,"analysis", "Iteration", 0,((TwitterDataSubject) subject).getMongoDataStore().size());
-
+				final ProgressMonitor monitor = new ProgressMonitor(mainUI,"analysis", "Iteration", 0,((TwitterDataSubject) subject).getMongoDataStore().size()*2);
+				
+				final Timer timer = new Timer(2, new ActionListener() {
+		            public void actionPerformed(ActionEvent e) {
+		            	JOptionPane.showMessageDialog(null, "Analysis complete");
+		            }
+		        });
+				
 				final Runnable runnable = new Runnable() {
 					public void run() {
 						int sleepTime = 500;
-						while (((TwitterDataSubject) subject).getDatumBoxProgressCount() < ((TwitterDataSubject) subject).getMongoDataStore().size()) {
-							monitor.setNote("Iteration "+ ((TwitterDataSubject) subject).getDatumBoxProgressCount());
+						while (((TwitterDataSubject) subject).getDatumBoxProgressCount() < ((TwitterDataSubject) subject).getMongoDataStore().size()*2) {
+							monitor.setNote("Percent Complete "+ ((TwitterDataSubject) subject).getDatumBoxProgressCount()*10+"%");
 							monitor.setProgress(((TwitterDataSubject) subject).getDatumBoxProgressCount());
 							if (monitor.isCanceled()) {
 								monitor.setProgress(((TwitterDataSubject) subject).getTweetCount());
@@ -69,12 +79,19 @@ public class Controller {
 							}
 						}
 						monitor.close();
+						timer.setRepeats(false);
+						timer.start();
 					}
 				};
 				Thread thread = new Thread(runnable);
 				thread.start();
-				mainUI.getTabbedPane().setSelectedIndex(2);
+				mainUI.getTabbedPane().setSelectedIndex(3);
+				
 			}
+			
+//			if (e.getActionCommand().equalsIgnoreCase("Evaluate") && ((TwitterDataSubject) subject).getMongoDataStore().size()==0) {
+//				JOptionPane.showMessageDialog(null, "No Twitterdata to evaluate.");
+//			}
 			if (e.getActionCommand().equalsIgnoreCase("Evaluate")) {
 				
 				System.out.println("Eval view created");

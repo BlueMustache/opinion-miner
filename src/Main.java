@@ -19,8 +19,6 @@ public class Main {
 
 		System.out.println("Driver running");
 
-//		Subject datumSubject = new ConcreteSubject();
-//		datumSubject = new DatumBoxSubject(datumSubject);
 
 		// Select the Look and Feel need a backup to go to the default look and feel maybe a try catch
 		UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");

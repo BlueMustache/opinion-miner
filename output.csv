@@ -1,5 +1,9 @@
-text,confidence(negative),confidence(positive),prediction(Sentiment)
-RTE commentator George Hamilton calling Suarez Sanchez doobies St Patricks Day ,0.5436729277562553,0.45632707224374475,negative
-Sanchez pronunciation Suarez George Hamilton knows ,0.7071953096098899,0.29280469039011014,negative
-Video RTE commentator George Hamilton clearly thinks Alexis Sanchez plays Barcelona ,0.5997337477689311,0.40026625223106893,negative
-George Hamilton Sanchez trending higher Messi reason brilliant ,0.6318071111992336,0.3681928888007664,negative
+text,confidence(Negative),confidence(Positive),prediction(Sentiment)
+congrat make proud follow ,1.0,0.0,Negative
+get readi go ,0.010393950919810295,1.0,Positive
+wonder floyd bieb becam pal stori start ,1.0,0.0,Negative
+forreal thi point mani facetim screen shot think got ,1.0,0.0,Negative
+comedi club watch great time jb hi crew ,1.0,0.0,Negative
+said kill tonight dy thx man youv see big show crazi time ,1.0,0.0,Negative
+lmfao,0.010393950919810295,1.0,Positive
+why ar creep creep ,0.010393950919810295,1.0,Positive

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.ProgressMonitor;
 
 import org.json.simple.JSONObject;
@@ -27,7 +28,7 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 	}
 
 	@Override
-	public void runSentimentAnalysis(Subject subject) throws Exception {
+	public void runSentimentAnalysis(Subject subject) {
 		// TODO Auto-generated method stub
 		this.subject = subject;
 		datumThread = new Thread(this);
@@ -48,7 +49,11 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 		try {	
 			//for (String tweet : tweets) {
 			for(JSONObject obj : mongoDataStore){
+				try{
 				sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());
+				} catch (NullPointerException e) {
+					JOptionPane.showMessageDialog(null,"Datum Box Api Call Rate Limit Reached", "DatumBox Error.",JOptionPane.ERROR_MESSAGE);
+				}
 				sentimentPrediction.put("tweet", obj.get("processedTweet").toString());
 				obj.put("datumResults", sentimentPrediction.get("result").toString());
 				datumResults.add(sentimentPrediction);	
@@ -57,10 +62,10 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 			}
 			System.out.println("DatumBox results created successfully !!!");
 			
-		} catch (Exception e) {
-			System.out
-					.println("Error DatumBox results not written !!!");
+		} catch (NullPointerException e) {
+			System.out.println("Error DatumBox results not written !!!");
 			e.printStackTrace();
+			
 		}
 		
 		((TwitterDataSubject) subject).setDatumResultsJSON(datumResults);

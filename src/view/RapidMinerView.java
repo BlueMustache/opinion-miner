@@ -96,7 +96,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		textAreaList.get(i).setText(rapidResults.get(i).get("tweet").toString());	//THIS IS A BUG
 		
 		btnList.get(i).setText(rapidResults.get(i).get("RapidResult").toString());
-		Color btnColor = rapidResults.get(i).get("RapidResult").equals("positive") ? Color.GREEN : Color.RED;
+		Color btnColor = rapidResults.get(i).get("RapidResult").equals("Positive") ? Color.GREEN : Color.RED;
 
 		btnList.get(i).setBackground(btnColor);
 		

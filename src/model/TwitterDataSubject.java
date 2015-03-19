@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.swing.JOptionPane;
+
 import org.json.simple.JSONObject;
 
 import controller.Controller.CommandListner;
@@ -153,9 +155,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
 		
 		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
-		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
+//		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
 		analysisStrategyList.add(analysis);
-		analysisStrategyList.add(datumAnalysis);
+//		analysisStrategyList.add(datumAnalysis);
 	}
 	
 	public ArrayList<JSONObject> getDatumResultsJSON() {
@@ -257,6 +259,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	
 	public void notifyEvaluation() {
 		notifyObserver("elavView");
+		notifyObserver("chartView");
 		System.out.println("Eval view notified");
 	}
 	

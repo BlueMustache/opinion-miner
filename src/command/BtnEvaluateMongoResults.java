@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import org.json.simple.JSONObject;
 
@@ -25,6 +26,7 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 	public void execute() {
 		// TODO Auto-generated method stub
 		//((TwitterDataSubject)this.subjectRef).setMongoDataStore();
+			if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())){
 		System.out.println("Update button pressed");
 		System.out.println("Rapidminer results size ="+((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().size());
 		System.out.println("Mongo data store size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
@@ -44,6 +46,10 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 		((TwitterDataSubject)this.subjectRef).notifyEvaluation();
 		for(JSONObject obj :mongoResults ){
 			System.out.println(obj.toString());
+		}
+			}else{
+			
+			JOptionPane.showMessageDialog(null,"Error", "Evaluation.",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
