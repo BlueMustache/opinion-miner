@@ -140,7 +140,7 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			panelList.get(i).repaint();
 			gl_panel_3.setVerticalGroup(gl_panel_3
 					.createParallelGroup(Alignment.LEADING)
-					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
+					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
 					.addComponent(impactPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE));
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();

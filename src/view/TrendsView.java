@@ -52,6 +52,7 @@ public class TrendsView extends JScrollPane implements Observer {
 			Trends twitterTrends = this.twitterAcc.getPlaceTrends(23424803);
 			for(Trend trends : twitterTrends.getTrends()){
 				System.out.println("Trend 1 = "+ trends.getName());
+				System.out.println("Trend Query = " + trends.getQuery());
 				trendList.add(trends);
 			}
 //			twitterTrends = this.twitterAcc.getPlaceTrends(1);
