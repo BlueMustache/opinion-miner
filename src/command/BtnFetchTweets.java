@@ -75,6 +75,9 @@ public class BtnFetchTweets extends JButton implements Command {
 					te.printStackTrace();
 					System.out.println("Failed to search tweets: "+ te.getMessage()); // For// testing
 				}
+				if(tweetCount==0){
+					JOptionPane.showMessageDialog(null,"No matching Tweets found \n Please search a different topic.", "Error",JOptionPane.ERROR_MESSAGE);
+				}
 				System.out.println("The Tweets Fetched count is : "+ tweetCount); // For// testing
 
 				((TwitterDataSubject) this.subjectRef).reSetDatumBoxProgressCount();
@@ -94,8 +97,9 @@ public class BtnFetchTweets extends JButton implements Command {
 				}
 				// ////////////////////////
 			} catch (NullPointerException e) {
-				JOptionPane.showMessageDialog(null,"Error", "Search topic provided.",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Search topic not provided.", "Error",JOptionPane.ERROR_MESSAGE);
 			}
+			
 		
 			
 	}

@@ -21,6 +21,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
@@ -37,7 +38,9 @@ public class EvaluationView extends JScrollPane implements Observer {
 //	private TwitterDataSubject subject;
 	private JPanel mainPanel;
 	private ArrayList<JPanel> panelList;
-	private ArrayList<JPanel> impactPanelList;
+	private ArrayList<JPanel> resultsPanelList;
+	private ArrayList<JPanel> datumResultsPanelList;
+	private ArrayList<JPanel> rapidResultsPanelList;
 	private ArrayList<JPanel> radioBtnPanelList;
 	private ArrayList<JTextArea> textAreaList;
 	private ArrayList<JLabel> lableList;
@@ -72,7 +75,7 @@ public class EvaluationView extends JScrollPane implements Observer {
 		this.mainPanel = new JPanel();
 		this.setLayout(new ScrollPaneLayout());
 		panelList = new ArrayList<JPanel>();
-		impactPanelList = new ArrayList<JPanel>();
+		resultsPanelList = new ArrayList<JPanel>();
 		textAreaList = new ArrayList<JTextArea>();
 		lableList = new ArrayList<JLabel>();
 		radioBtnlistPos =new ArrayList<JRadioButton>();
@@ -81,6 +84,8 @@ public class EvaluationView extends JScrollPane implements Observer {
 		radioBtnPanelList = new ArrayList<JPanel>();
 		btnGroupList = new ArrayList<ButtonGroup>();
 		submitBtnlist = new ArrayList<JButton>();
+		datumResultsPanelList = new ArrayList<JPanel>();
+		rapidResultsPanelList = new ArrayList<JPanel>();
 
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 0, 0 };
@@ -100,11 +105,13 @@ public class EvaluationView extends JScrollPane implements Observer {
 		for (JSONObject tweet : mongoDataStore) {
 			final int radioActioCount = i;
 			panelList.add(new JPanel());
+			datumResultsPanelList.add(new JPanel());//might get rid of these
+			rapidResultsPanelList.add(new JPanel());
 			radioBtnPanelList.add(new JPanel());
 			btnGroupList.add(new ButtonGroup( ));
 			
 			submitBtnlist.add(new JButton());
-			radioBtnPanelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
+			radioBtnPanelList.get(i).setBorder(new LineBorder(Color.black, 2, true));
 			radioBtnPanelList.get(i).setName("rPanel_"+Integer.toString(i));
 			radioBtnPanelList.get(i).setLayout(new FlowLayout());
 			
@@ -154,6 +161,8 @@ public class EvaluationView extends JScrollPane implements Observer {
 							System.out.println(obj.toString());
 						}
 					}
+					
+						JOptionPane.showMessageDialog(null, "Results Updated");
 				}
 			});
 			
@@ -165,15 +174,18 @@ public class EvaluationView extends JScrollPane implements Observer {
 			radioBtnPanelList.get(i).add(radioBtnlistNeu.get(i));
 			radioBtnPanelList.get(i).add(submitBtnlist.get(i));
 			
-			impactPanelList.add(new JPanel());
+			resultsPanelList.add(new JPanel());
 			panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
-			impactPanelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
-			impactPanelList.get(i).setLayout(new FlowLayout());
+			resultsPanelList.get(i).setBorder(new LineBorder(Color.black, 2, true));
+			resultsPanelList.get(i).setLayout(new FlowLayout());
+			datumResultsPanelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
+			datumResultsPanelList.get(i).setLayout(new FlowLayout());
 			textAreaList.add(new JTextArea());
 			lableList.add(new JLabel());
 
 			panelList.get(i).setName("panel_" + Integer.toString(i));
-			impactPanelList.get(i).setName("impactPanel_" + Integer.toString(i));
+			resultsPanelList.get(i).setName("impactPanel_" + Integer.toString(i));
+			datumResultsPanelList.get(i).setName("datumResultsPanel_" + Integer.toString(i));
 			textAreaList.get(i).setName("txtArea_" + Integer.toString(i));
 			
 
@@ -182,15 +194,15 @@ public class EvaluationView extends JScrollPane implements Observer {
 
 			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 			textAreaList.get(i).setWrapStyleWord(true);
-			lableList.get(i).setText("<html><center>DatumBox Result ="+/* tweet.get("datumResults").toString()+ */"<br>"+ "Rapid Miner Result ="+tweet.get("rapidMinerResults").toString()+ "</center></html>");
+			lableList.get(i).setText("<html><center>DatumBox Result ="+tweet.get("datumResults").toString()+ "<br>"+ "Rapid Miner Result ="+tweet.get("rapidMinerResults").toString()+ "</center></html>");
 
-			impactPanelList.get(i).setBackground(Color.GRAY);
+			resultsPanelList.get(i).setBackground(Color.LIGHT_GRAY);
 			textAreaList.get(i).setText(tweet.get("unProcessedTweet").toString());
 			textAreaList.get(i).setLineWrap(true);
 			textAreaList.get(i).setEnabled(true);
 			textAreaList.get(i).setEditable(false);
 
-			impactPanelList.get(i).add(lableList.get(i));
+			resultsPanelList.get(i).add(lableList.get(i));
 
 			GroupLayout gl_panel_3 = new GroupLayout(panelList.get(i));
 			gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(
@@ -200,7 +212,7 @@ public class EvaluationView extends JScrollPane implements Observer {
 							.addContainerGap()
 							.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 350,Short.MAX_VALUE)
 							.addComponent(radioBtnPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()
-							.addComponent(impactPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()));
+							.addComponent(resultsPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()));
 							
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
@@ -208,7 +220,7 @@ public class EvaluationView extends JScrollPane implements Observer {
 					.createParallelGroup(Alignment.LEADING)
 					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
 					.addComponent(radioBtnPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30,Short.MAX_VALUE)
-					.addComponent(impactPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE));
+					.addComponent(resultsPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE));
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
 			panelList.get(i).setLayout(gl_panel_3);

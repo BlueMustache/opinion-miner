@@ -3,6 +3,7 @@ package command;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import strategy.ProcessStrategy;
 import strategy.ProcessTweetsStrategy;
@@ -27,8 +28,13 @@ public class BtnUpdateMongoDB extends JButton implements Command {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		System.out.println("MongoStratgey Execute");
-		mongoDBStrategy.runProcess((TwitterDataSubject) this.subjectRef);
+		if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())) {
+			System.out.println("MongoStratgey Execute");
+			JOptionPane.showMessageDialog(null, "Database Update Complete");
+			mongoDBStrategy.runProcess((TwitterDataSubject) this.subjectRef);
+		} else {
+			JOptionPane.showMessageDialog(null, "Error", "No data to update.",JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }

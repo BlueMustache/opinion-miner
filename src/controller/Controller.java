@@ -54,7 +54,7 @@ public class Controller {
 			action.execute();
 			String command = e.getActionCommand();
 			if (e.getActionCommand().equalsIgnoreCase("search")|| !e.getActionCommand().equalsIgnoreCase("Analyze")&& !e.getActionCommand().equalsIgnoreCase("Update DB")) {
-				mainUI.getTabbedPane().setSelectedIndex(1);
+				mainUI.getTabbedPane().setSelectedIndex(2);
 				mainUI.getTabbedPane().revalidate();
 				mainUI.getTabbedPane().repaint();
 			}
@@ -70,8 +70,9 @@ public class Controller {
 				final Runnable runnable = new Runnable() {
 					public void run() {
 						int sleepTime = 500;
+						double progressNoteCount = (((TwitterDataSubject) subject).getDatumBoxProgressCount()/((TwitterDataSubject) subject).getMongoDataStore().size())*100;
 						while (((TwitterDataSubject) subject).getDatumBoxProgressCount() < ((TwitterDataSubject) subject).getMongoDataStore().size()*2) {
-							monitor.setNote("Percent Complete "+ ((TwitterDataSubject) subject).getDatumBoxProgressCount()*10+"%");
+							monitor.setNote("Analyzing "/*+ progressNoteCount+"%"*/);
 							monitor.setProgress(((TwitterDataSubject) subject).getDatumBoxProgressCount());
 							if (monitor.isCanceled()) {
 								monitor.setProgress(((TwitterDataSubject) subject).getTweetCount());
@@ -79,13 +80,14 @@ public class Controller {
 							}
 						}
 						monitor.close();
+						((TwitterDataSubject) subject).reSetDatumBoxProgressCount();
 						timer.setRepeats(false);
 						timer.start();
 					}
 				};
 				Thread thread = new Thread(runnable);
 				thread.start();
-				mainUI.getTabbedPane().setSelectedIndex(3);
+				mainUI.getTabbedPane().setSelectedIndex(4);
 				
 			}
 			
@@ -95,7 +97,7 @@ public class Controller {
 			if (e.getActionCommand().equalsIgnoreCase("Evaluate")) {
 				
 				System.out.println("Eval view created");
-				mainUI.getTabbedPane().setSelectedIndex(5);
+				mainUI.getTabbedPane().setSelectedIndex(6);
 				System.out.println("Eval view created");
 			}
 			// switch(command)

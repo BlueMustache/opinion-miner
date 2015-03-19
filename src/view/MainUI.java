@@ -118,7 +118,7 @@ public class MainUI extends JFrame{
 			}
 		});
 		
-		this.setSize(1000, 600);
+		this.setSize(1200, 800);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}// end CTor
