@@ -104,9 +104,9 @@ public class DatumBoxView extends JScrollPane implements Observer {
 			textAreaList.get(i).setText(datumResults.get(i).get("tweet").toString());
 
 			btnList.get(i).setText(datumResults.get(i).get("result").toString());
-			Color btnColor = datumResults.get(i).get("result").equals("positive") ? Color.GREEN : Color.RED;
+			Color btnColor = datumResults.get(i).get("result").equals("Positive") ? Color.GREEN : Color.RED;
 
-			if (datumResults.get(i).get("result").equals("neutral\"")) {
+			if (datumResults.get(i).get("result").equals("neutral")) {
 				btnColor = Color.GRAY;
 			}
 			btnList.get(i).setBackground(btnColor);
@@ -140,6 +140,12 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		System.out.println("The text area is running and made " + tweetCount
 				+ " panels & Views");
 	}
+	
+//	public String changeResultFormat(String result){
+//		switch
+//		return result;
+//		
+//	}
 
 	@Override
 	public void addActionListener(CommandListner commandListner) {

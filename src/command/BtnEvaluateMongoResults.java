@@ -26,7 +26,7 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 	public void execute() {
 		// TODO Auto-generated method stub
 		//((TwitterDataSubject)this.subjectRef).setMongoDataStore();
-			if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())){
+			if (!(((TwitterDataSubject) this.subjectRef).getRapidResultsJSON().isEmpty())&&!(((TwitterDataSubject) this.subjectRef).getDatumResultsJSON().isEmpty())){
 		System.out.println("Update button pressed");
 		System.out.println("Rapidminer results size ="+((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().size());
 		System.out.println("Mongo data store size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
@@ -38,7 +38,7 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 		for(int i = 0; i<mongoSize; i++){	
 			JSONObject mongoData = new JSONObject();
 			mongoResults.get(i).put("rapidMinerResults",((TwitterDataSubject)this.subjectRef).getRapidResultsJSON().get(i).get("RapidResult"));
-//			mongoResults.get(i).put("datumResults",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("result"));
+			mongoResults.get(i).put("datumResults",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("result"));
 			//mongoResults.get(i).put("tweet",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("tweet"));
 			//mongoResults.add(mongoData);		
 		}
