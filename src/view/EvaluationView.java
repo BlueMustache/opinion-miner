@@ -175,10 +175,10 @@ public class EvaluationView extends JScrollPane implements Observer {
 			radioBtnPanelList.get(i).add(submitBtnlist.get(i));
 			
 			resultsPanelList.add(new JPanel());
-			panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
-			resultsPanelList.get(i).setBorder(new LineBorder(Color.black, 2, true));
+			panelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
+			resultsPanelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
 			resultsPanelList.get(i).setLayout(new FlowLayout());
-			datumResultsPanelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
+			datumResultsPanelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
 			datumResultsPanelList.get(i).setLayout(new FlowLayout());
 			textAreaList.add(new JTextArea());
 			lableList.add(new JLabel());
@@ -190,9 +190,9 @@ public class EvaluationView extends JScrollPane implements Observer {
 			
 
 			lableList.get(i).setName("Label_" + Integer.toString(i));
-			lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+			lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 
-			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 			textAreaList.get(i).setWrapStyleWord(true);
 			lableList.get(i).setText("<html><center>DatumBox Result ="+tweet.get("datumResults").toString()+ "<br>"+ "Rapid Miner Result ="+tweet.get("rapidMinerResults").toString()+ "</center></html>");
 

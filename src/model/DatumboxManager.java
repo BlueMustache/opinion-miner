@@ -110,29 +110,7 @@ public class DatumboxManager implements IDatumBoxManager {
 	
 	//Create a JSON Object from a JSON style string. Allows for easier processing in the future
 	private static JSONObject stringToJSONObject(String jString) {
-		
-//		jString = jString.replaceAll("\\{", "");
-//		System.out.println("1 = "+jString);
-//		jString = jString.replaceAll("}", "");
-//		System.out.println("2 = "+jString);
-//		jString = jString.replaceAll("\"output\":", "");
-//		System.out.println("3 = "+jString);
-//		jString = jString.replaceAll("\"status\":1,", "");
-//		System.out.println("4 = "+jString);
-//		jString = jString.replaceAll(" ", "");
-//		System.out.println("5 = "+jString);
-//		jString = jString.replaceAll("\"", "");
-//		System.out.println("6 = "+jString);
-//		String[] jSplit = jString.split(":");
-//		System.out.println("1 = "+jSplit[0]+" 2 = "+jSplit[1]);
-//		
-//		String resultKey = jSplit[0];
-//		String result = jSplit[1].substring(0, 1).toUpperCase()+jSplit[1].substring(1);
-//		
-//		JSONObject obj = new JSONObject();
-//		
-//		obj.put(resultKey, result);
-//		return obj;
+
 		String outputKey = jString.substring(2, 8);
 		// System.out.println(jString.substring(2, 8));
 
@@ -149,6 +127,8 @@ public class DatumboxManager implements IDatumBoxManager {
 		// System.out.println(jString.substring(23, 29));
 
 		String resultValue = jString.substring(32, 40);
+		resultValue = resultValue.substring(0, 1).toUpperCase()+resultValue.substring(1);
+		resultValue = resultValue.replaceAll("\"", "");
 		// System.out.println(jString.substring(32, 40));
 
 		JSONObject obj = new JSONObject();

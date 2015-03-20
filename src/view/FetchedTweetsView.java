@@ -102,8 +102,8 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			
 			
 			impactPanelList.add(new JPanel());
-			panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
-			impactPanelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
+			panelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
+			impactPanelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
 			impactPanelList.get(i).setLayout(new FlowLayout());
 			textAreaList.add(new JTextArea());
 			lableList.add(new JLabel());
@@ -113,13 +113,13 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			textAreaList.get(i).setName("txtArea_" + Integer.toString(i));
 			
 			lableList.get(i).setName("Label_" + Integer.toString(i));
-			lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+			lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 
 			
 			
-			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 			textAreaList.get(i).setWrapStyleWord(true);
-			lableList.get(i).setText("<html><center>RetweetCount =" + tweet.get("retweetCount").toString() + "<br>"+ determioneTweetImpact(Integer.parseInt(tweet.get("retweetCount").toString()))+ "</center></html>");
+			lableList.get(i).setText("<html><center>Re-Tweet Count = " + tweet.get("retweetCount").toString() + "<br>"+ determioneTweetImpact(Integer.parseInt(tweet.get("retweetCount").toString()))+ "</center></html>");
 
 			impactPanelList.get(i).setBackground(determineTweetImpactColor(determioneTweetImpact(Integer.parseInt(tweet.get("retweetCount").toString()))));
 			textAreaList.get(i).setText(tweet.get("unProcessedTweet").toString());
@@ -133,14 +133,14 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			gl_panel_3.setHorizontalGroup(gl_panel_3.createParallelGroup(
 					Alignment.LEADING).addGroup(gl_panel_3
 							.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 350,Short.MAX_VALUE)
-							.addComponent(impactPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()));
+							.addGap(10)
+							.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 350,Short.MAX_VALUE).addGap(50)
+							.addComponent(impactPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE)));
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
 			gl_panel_3.setVerticalGroup(gl_panel_3
 					.createParallelGroup(Alignment.LEADING)
-					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
+					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE).addGap(100)
 					.addComponent(impactPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE));
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
@@ -176,19 +176,19 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 
 		switch (impact) {
 		case "LOW IMPACT":
-			impactColor = Color.GREEN;
+			impactColor = new Color(113,   213,   160);
 			break;
 		case "MEDIUM IMPACT":
-			impactColor = Color.YELLOW;
+			impactColor = new Color(231,   242,   177);
 			break;
 		case "HIGH IMPACT":
-			impactColor = Color.RED;
+			impactColor = new Color(236,   102,   111);
 			break;
 		case "EXTREME IMPACT":
-			impactColor = Color.PINK;
+			impactColor = new Color(215,   159,   211);
 			break;
 		default:
-			impactColor = Color.BLUE;
+			impactColor = new Color(255,   0,   0);
 		}
 		return impactColor;
 	}

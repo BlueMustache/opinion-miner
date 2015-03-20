@@ -84,7 +84,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 
 		for (int i = 0; i < datumResults.size(); i++) {
 			panelList.add(new JPanel());
-			panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
+			
 			textAreaList.add(new JTextArea());
 			btnList.add(new JButton());
 
@@ -99,14 +99,15 @@ public class DatumBoxView extends JScrollPane implements Observer {
 			gbc_panel_3.gridy = i;
 			mainPanel.add(panelList.get(i), gbc_panel_3);
 
-			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 			textAreaList.get(i).setWrapStyleWord(true);
 			textAreaList.get(i).setText(datumResults.get(i).get("tweet").toString());
 
 			btnList.get(i).setText(datumResults.get(i).get("result").toString());
-			Color btnColor = datumResults.get(i).get("result").equals("Positive") ? Color.GREEN : Color.RED;
+			Color btnColor = datumResults.get(i).get("result").equals("Positive") ? new Color(113,   213,   160) : new Color(236,   102,   111);
+			panelList.get(i).setBorder(new LineBorder(btnColor, 4, true));
 
-			if (datumResults.get(i).get("result").equals("neutral")) {
+			if (datumResults.get(i).get("result").equals("Neutral")) {
 				btnColor = Color.GRAY;
 			}
 			btnList.get(i).setBackground(btnColor);
@@ -140,12 +141,6 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		System.out.println("The text area is running and made " + tweetCount
 				+ " panels & Views");
 	}
-	
-//	public String changeResultFormat(String result){
-//		switch
-//		return result;
-//		
-//	}
 
 	@Override
 	public void addActionListener(CommandListner commandListner) {
@@ -159,3 +154,4 @@ public class DatumBoxView extends JScrollPane implements Observer {
 	}
 
 }
+

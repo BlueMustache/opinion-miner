@@ -76,7 +76,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		
 		for(int i=0; i<rapidResults.size();i++){	
 		panelList.add(new JPanel());
-		panelList.get(i).setBorder(new LineBorder(Color.LIGHT_GRAY, 2, true));
+		
 		textAreaList.add(new JTextArea());
 		btnList.add(new JButton());
 		
@@ -97,7 +97,8 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		textAreaList.get(i).setText(mongoDataStore.get(i).get("unProcessedTweet").toString());	//THIS IS A BUG
 		
 		btnList.get(i).setText(rapidResults.get(i).get("RapidResult").toString());
-		Color btnColor = rapidResults.get(i).get("RapidResult").equals("Positive") ? Color.GREEN : Color.RED;
+		Color btnColor = rapidResults.get(i).get("RapidResult").equals("Positive") ? new Color(113,   213,   160) : new Color(236,   102,   111);
+		panelList.get(i).setBorder(new LineBorder(btnColor, 4, true));
 
 		btnList.get(i).setBackground(btnColor);
 		
