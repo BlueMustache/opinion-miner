@@ -175,7 +175,7 @@ public class EvaluationView extends JScrollPane implements Observer {
 			radioBtnPanelList.get(i).add(submitBtnlist.get(i));
 			
 			resultsPanelList.add(new JPanel());
-			panelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
+			panelList.get(i).setBorder(new LineBorder(Color.BLACK, 4, true));
 			resultsPanelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
 			resultsPanelList.get(i).setLayout(new FlowLayout());
 			datumResultsPanelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
@@ -190,11 +190,11 @@ public class EvaluationView extends JScrollPane implements Observer {
 			
 
 			lableList.get(i).setName("Label_" + Integer.toString(i));
-			lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+			lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 
 			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 			textAreaList.get(i).setWrapStyleWord(true);
-			lableList.get(i).setText("<html><center>DatumBox Result ="+tweet.get("datumResults").toString()+ "<br>"+ "Rapid Miner Result ="+tweet.get("rapidMinerResults").toString()+ "</center></html>");
+			lableList.get(i).setText("<html><center>DatumBox Result = "+tweet.get("datumResults").toString()+ "<br>"+ "RapidMiner Result = "+tweet.get("rapidMinerResults").toString()+ "</center></html>");
 
 			resultsPanelList.get(i).setBackground(Color.LIGHT_GRAY);
 			textAreaList.get(i).setText(tweet.get("unProcessedTweet").toString());
@@ -210,15 +210,15 @@ public class EvaluationView extends JScrollPane implements Observer {
 					gl_panel_3
 							.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 350,Short.MAX_VALUE)
+							.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 350,Short.MAX_VALUE).addGap(30)
 							.addComponent(radioBtnPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()
-							.addComponent(resultsPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()));
+							.addComponent(resultsPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE)));
 							
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
 			gl_panel_3.setVerticalGroup(gl_panel_3
 					.createParallelGroup(Alignment.LEADING)
-					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
+					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE)
 					.addComponent(radioBtnPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30,Short.MAX_VALUE)
 					.addComponent(resultsPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE));
 			panelList.get(i).revalidate();

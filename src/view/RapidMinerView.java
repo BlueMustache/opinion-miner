@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -29,7 +31,8 @@ public class RapidMinerView extends JScrollPane implements Observer{
 	private Subject subjectRef;
 	private ArrayList<JPanel> panelList;
 	private ArrayList<JTextArea> textAreaList; 
-	private ArrayList<JButton> btnList;
+	private ArrayList<JPanel> sentimentPanelList;
+	private ArrayList<JLabel> lableList;
 	private JPanel mainPanel;// = new JPanel();
 	private String observerRef;
 
@@ -56,7 +59,8 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		this.setLayout(new ScrollPaneLayout());
 		panelList = new ArrayList<JPanel>();
 		textAreaList = new ArrayList<JTextArea>();
-		btnList = new ArrayList<JButton>();
+		sentimentPanelList = new ArrayList<JPanel>();
+		lableList = new ArrayList<JLabel>();
 		this.mainPanel = new JPanel();
 	
 
@@ -76,31 +80,28 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		
 		for(int i=0; i<rapidResults.size();i++){	
 		panelList.add(new JPanel());
-		
+		sentimentPanelList.add(new JPanel());
+		lableList.add(new JLabel());
 		textAreaList.add(new JTextArea());
-		btnList.add(new JButton());
 		
-		btnList.get(i).setName("btn_"+Integer.toString(i));
-		btnList.get(i).setBackground(Color.red);
-		btnList.get(i).setSize(20, 20);
-		
-		btnList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		sentimentPanelList.get(i).setName("impactPanel_" + Integer.toString(i));
+		sentimentPanelList.get(i).setLayout(new FlowLayout());
 		panelList.get(i).setName("panel_"+Integer.toString(i));
 		textAreaList.get(i).setName("txtArea_"+Integer.toString(i));
-		
+		lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 		
 		gbc_panel_3.gridy = i;
 		mainPanel.add(panelList.get(i), gbc_panel_3);
 		
-		textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 		textAreaList.get(i).setWrapStyleWord(true);
 		textAreaList.get(i).setText(mongoDataStore.get(i).get("unProcessedTweet").toString());	//THIS IS A BUG
 		
-		btnList.get(i).setText(rapidResults.get(i).get("RapidResult").toString());
-		Color btnColor = rapidResults.get(i).get("RapidResult").equals("Positive") ? new Color(113,   213,   160) : new Color(236,   102,   111);
-		panelList.get(i).setBorder(new LineBorder(btnColor, 4, true));
-
-		btnList.get(i).setBackground(btnColor);
+		lableList.get(i).setText(rapidResults.get(i).get("RapidResult").toString());
+		Color colour = rapidResults.get(i).get("RapidResult").equals("Positive") ? new Color(113,   213,   160) : new Color(236,   102,   111);
+		panelList.get(i).setBorder(new LineBorder(colour, 4, true));
+		sentimentPanelList.get(i).setBackground(colour);
+		sentimentPanelList.get(i).add(lableList.get(i));
 		
 		textAreaList.get(i).setLineWrap(true);
 		textAreaList.get(i).setEnabled(true);
@@ -110,17 +111,15 @@ public class RapidMinerView extends JScrollPane implements Observer{
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 428, Short.MAX_VALUE)
-					.addComponent(btnList.get(i),GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
-					.addContainerGap())
-		);
+					.addGap(10)
+					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 428,Short.MAX_VALUE).addGap(100)
+					.addComponent(sentimentPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE)));
 		panelList.get(i).revalidate();
 		panelList.get(i).repaint();
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 50, Short.MAX_VALUE)
-				.addComponent(btnList.get(i), GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
-		);
+				.addComponent(textAreaList.get(i), GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE)
+				.addComponent(sentimentPanelList.get(i), GroupLayout.PREFERRED_SIZE,30, Short.MAX_VALUE));
 		panelList.get(i).revalidate();
 		panelList.get(i).repaint();
 		panelList.get(i).setLayout(gl_panel_3);
