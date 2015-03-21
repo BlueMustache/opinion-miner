@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagLayout;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,9 +19,17 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
 
+import opennlp.tools.tokenize.Tokenizer;
+import opennlp.tools.tokenize.TokenizerME;
+import opennlp.tools.tokenize.TokenizerModel;
+import opennlp.tools.util.InvalidFormatException;
+
+import org.json.simple.JSONObject;
 import org.mcavallo.opencloud.Cloud;
 import org.mcavallo.opencloud.Cloud;
 import org.mcavallo.opencloud.Tag;
+
+import com.mongodb.util.JSON;
 
 import model.Subject;
 import model.TwitterDataSubject;
@@ -38,23 +49,33 @@ public class WordCloudView extends JPanel implements Observer {
 	private Random random ;
 	private Cloud cloud;
 	
-	public WordCloudView(Subject subjectRef, String viewRef) {
+	public WordCloudView(Subject subjectRef, String viewRef){
 		// TODO Auto-generated constructor stub
 		//setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.subjectRef = subjectRef;
 
-		subjectRef.registerObserver(this);
+		this.subjectRef.registerObserver(this,viewRef);
 		this.mainPanel = new JPanel();
 	
 		this.random = new Random();
 		this.cloud = new Cloud();
 		this.setVisible(true);	
+		
 	
 	}
 
 	@Override
 	public void update(Subject subject) {
 		// TODO Auto-generated method stub
+		try {
+			getTokens();
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		 for (String s : WORDS) {
 	            for (int i = random.nextInt(50); i > 0; i--) {
 	                cloud.addTag(s);
@@ -70,6 +91,31 @@ public class WordCloudView extends JPanel implements Observer {
 	            mainPanel.add(label);          
 	        }
 	        this.add(mainPanel);
+	}
+	
+public void getTokens() throws InvalidFormatException, IOException {
+		InputStream is = new FileInputStream("D:/Workspace/Opinion Miner/en-token.bin"); 
+		TokenizerModel model = new TokenizerModel(is);
+		Tokenizer tokenizer = new TokenizerME(model);
+		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) this.subjectRef).getMongoDataStore();
+		ArrayList<JSONObject> negativeResults = new ArrayList<JSONObject>();
+		
+		String tokens[] = null;// = new ArrayList<String>();// = tokenizer.tokenize(txtData.getData());
+		String negTweet = null;
+		for(JSONObject obj :mongoDataStore ){
+			String sentiment = obj.get("rapidMinerResults").toString();
+			if(sentiment.equalsIgnoreCase("negative")){
+				negTweet = negTweet + obj.get("processedTweet").toString();
+			}
+		}
+		tokens = tokenizer.tokenize(negTweet);
+		for (String a : tokens){
+			System.out.println(a);
+		}
+		
+		
+		is.close();
+		
 	}
 
 	@Override

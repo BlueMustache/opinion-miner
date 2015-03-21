@@ -260,6 +260,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public void notifyEvaluation() {
 		notifyObserver("elavView");
 		notifyObserver("chartView");
+		notifyObserver("cloudView");
 		System.out.println("Eval view notified");
 	}
 	

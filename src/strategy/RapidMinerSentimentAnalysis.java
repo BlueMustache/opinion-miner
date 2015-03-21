@@ -69,7 +69,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 
 			Operator op = myProcess.getOperator("Read CSV");
 			op.setParameter(com.rapidminer.operator.nio.CSVExampleSource.PARAMETER_CSV_FILE,((TwitterDataSubject) subject).getFetchedTweetsCSV());
-				Operator csvOutput = myProcess.getOperator("Write CSV");
+			Operator csvOutput = myProcess.getOperator("Write CSV");
 			IOContainer container = myProcess.run();
 
 		} catch (RepositoryException | IOException | XMLException | OperatorException e) {

@@ -23,7 +23,7 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 		ArrayList<String> processedTweetlist = new ArrayList<String>();
 		
 		
-		String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
+		String urlPattern = "((https?|ftp|gopher|telnet|file|Unsure|http):((//)|(\\\\))+[\\w\\d:%/;$()~_?\\+-=\\\\\\.&]*)";
 		Pattern p = Pattern.compile(urlPattern, Pattern.CASE_INSENSITIVE);
 		
 		for(JSONObject fetchedTweet : mongoDataStore){
