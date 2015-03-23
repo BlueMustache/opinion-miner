@@ -54,7 +54,7 @@ public class BtnFetchTweets extends JButton implements Command {
 				try {
 					Query query = new Query(((TwitterDataSubject) this.subjectRef).getTopic());;
 					query.lang("en");
-					query.setResultType(Query.POPULAR);
+					query.setResultType(Query.RECENT);
 					QueryResult result;
 					do {
 						result = this.twitterAcc.search(query);
@@ -70,7 +70,7 @@ public class BtnFetchTweets extends JButton implements Command {
 							// System.out.println("RetweetCount = "
 							// +tweet.getRetweetCount()); // test
 						}
-					} while ((query = result.nextQuery()) != null /* && tweetCount* < 2*/);// /MIGHT NEED TO REMOVE THIS LIMITS TWEETS DISPLAYED TO 20 SOMEHOW
+					} while ((query = result.nextQuery()) != null  && tweetCount < 10);// /MIGHT NEED TO REMOVE THIS LIMITS TWEETS DISPLAYED TO 20 SOMEHOW
 				} catch (TwitterException te) {
 					te.printStackTrace();
 					System.out.println("Failed to search tweets: "+ te.getMessage()); // For// testing
