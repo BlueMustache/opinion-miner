@@ -89,7 +89,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	}
 
 	public void setTopic(String topic) {
-		this.topic = topic;
+		this.topic = topic+" exclude:retweets";
 	}
 
 	public void buildConfiguration() {
