@@ -54,9 +54,13 @@ public class Controller {
 			action.execute();
 			String command = e.getActionCommand();
 			if (e.getActionCommand().equalsIgnoreCase("search")|| !e.getActionCommand().equalsIgnoreCase("Analyze")&& !e.getActionCommand().equalsIgnoreCase("Update DB")) {
-				mainUI.getTabbedPane().setSelectedIndex(2);
+				mainUI.getTabbedPane().setSelectedIndex(1);
 				mainUI.getTabbedPane().revalidate();
 				mainUI.getTabbedPane().repaint();
+				int index = mainUI.getTabbedPane().getSelectedIndex();
+				if(((TwitterDataSubject) subject).getMongoDataStore().size()==0){
+					mainUI.getTabbedPane().setSelectedIndex(0);
+				}
 			}
 			if (e.getActionCommand().equalsIgnoreCase("Analyze")) {
 				final ProgressMonitor monitor = new ProgressMonitor(mainUI,"analysis", "Iteration", 0,((TwitterDataSubject) subject).getMongoDataStore().size()*2);

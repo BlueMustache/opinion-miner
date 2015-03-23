@@ -53,7 +53,7 @@ public class MainUI extends JFrame{
 	private TrendsView twitterTrendsView;
 	private EvaluationView evalView;
 	private ChartView chartView;
-	private CategoryView categoryView;
+//	private CategoryView categoryView;
 	private TwitterDataSubject subject;
 	private JPanel Btn_Panel = new JPanel();
 	private Controller controller;
@@ -87,7 +87,7 @@ public class MainUI extends JFrame{
 	//	this.viewListMap.put("cloudView",wordCloudView);
 		evalView = new EvaluationView(subject,"elavView");
 		chartView = new ChartView(subject,"chartView");
-		categoryView = new CategoryView(subject,"chartView");
+//		categoryView = new CategoryView(subject,"chartView");
 		
 		getContentPane().add(ctrlView, BorderLayout.WEST);
 		
@@ -99,7 +99,7 @@ public class MainUI extends JFrame{
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		//tabbedPane.setEnabled(false);
 		tabbedPane.addTab("Trending Toppics", null, twitterTrendsView,null);
-		tabbedPane.addTab("Categorys", null, categoryView,null);
+//		tabbedPane.addTab("Categorys", null, categoryView,null);
 		tabbedPane.addTab("Searched Tweets", null, tweetView,null);
 		tabbedPane.addTab("DatumBox Results", null, datumView,null);
 		tabbedPane.addTab("Rapidminer Results", null, rapidView,null);
