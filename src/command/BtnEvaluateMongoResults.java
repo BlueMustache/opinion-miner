@@ -32,15 +32,22 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 		System.out.println("Mongo data store size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
 		System.out.println("Datumresults size ="+((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().size());
 		ArrayList<JSONObject> mongoResults = ((TwitterDataSubject)this.subjectRef).getMongoDataStore();
+		ArrayList<JSONObject> rapidResults = ((TwitterDataSubject)this.subjectRef).getRapidResultsJSON();
+		ArrayList<JSONObject> datumResults = ((TwitterDataSubject)this.subjectRef).getDatumResultsJSON();
 		//JSONObject mongoData = new JSONObject();
 		int mongoSize=((TwitterDataSubject)this.subjectRef).getMongoDataStore().size();
 
-		for(int i = 0; i<mongoSize; i++){	
-			JSONObject mongoData = new JSONObject();
-			mongoResults.get(i).put("rapidMinerResults",((TwitterDataSubject)this.subjectRef).getRapidResultsJSON().get(i).get("RapidResult"));
-			mongoResults.get(i).put("datumResults",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("result"));
+//		for(int i = 0; i<mongoSize; i++){	
+		for(JSONObject obj : mongoResults ){
+			for(JSONObject rapidObj : rapidResults ){
+				for(JSONObject datumObj : datumResults ){
+//			JSONObject mongoData = new JSONObject();
+			obj.put("rapidMinerResults",rapidObj.get("RapidResult"));
+			obj.put("datumResults",datumObj.get("result"));
 			//mongoResults.get(i).put("tweet",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("tweet"));
 			//mongoResults.add(mongoData);		
+				}
+			}
 		}
 		//((TwitterDataSubject)this.subjectRef).setMongoDataStore(mongoResults);
 		((TwitterDataSubject)this.subjectRef).notifyEvaluation();

@@ -34,9 +34,9 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 				tweet = tweet.replaceAll(m.group(i), "").trim();
 				i++;
 			}
-			tweet = tweet.replaceAll("@\\w+|#\\w+|\\bRT\\b", "");
+//			tweet = tweet.replaceAll("@\\w+|#\\w+|\\bRT\\b", "");
 			tweet = tweet.replaceAll("\n", " ");
-			tweet = tweet.replaceAll("[^\\p{L}\\p{N} ]+", "");
+//			tweet = tweet.replaceAll("[^\\p{L}\\p{N} ]+", "");
 			tweet = tweet.replaceAll(" +", " ").trim();
 			processedTweetlist.add(tweet);
 			fetchedTweet.put("processedTweet", tweet);

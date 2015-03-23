@@ -39,6 +39,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private ProcessStrategy processStrategy;
 	private ArrayList<JSONObject> mongoDataStore;
 	private int datumBoxProgressCount;
+	private int rapidminerProgressCount;
 //	private Observer datumObserver;
 	private ArrayList<Observer> datumObservers;
 
@@ -64,14 +65,22 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public int getDatumBoxProgressCount() {
 		return datumBoxProgressCount;
 	}
+	
+	public int getRapidminerProgressCount() {
+		return rapidminerProgressCount;
+	}
 
 
 	public void setDatumBoxProgressCount() {
 		this.datumBoxProgressCount++;
 	}
+	public void setRapidMinerProgressCount() {
+		this.rapidminerProgressCount++;
+	}
 	
 	public void reSetDatumBoxProgressCount() {
 		this.datumBoxProgressCount=0;
+		this.rapidminerProgressCount=0;
 	}
 
 

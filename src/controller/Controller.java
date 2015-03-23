@@ -70,10 +70,11 @@ public class Controller {
 				final Runnable runnable = new Runnable() {
 					public void run() {
 						int sleepTime = 500;
-						double progressNoteCount = (((TwitterDataSubject) subject).getDatumBoxProgressCount()/((TwitterDataSubject) subject).getMongoDataStore().size())*100;
-						while (((TwitterDataSubject) subject).getDatumBoxProgressCount() < ((TwitterDataSubject) subject).getMongoDataStore().size()*2) {
+						int progressCount=0;
+						while (progressCount < (((TwitterDataSubject) subject).getTweetCount()*2)-1) {
+							progressCount = ((TwitterDataSubject) subject).getDatumBoxProgressCount()+((TwitterDataSubject) subject).getRapidminerProgressCount();
 							monitor.setNote("Analyzing "/*+ progressNoteCount+"%"*/);
-							monitor.setProgress(((TwitterDataSubject) subject).getDatumBoxProgressCount());
+							monitor.setProgress(progressCount);
 							if (monitor.isCanceled()) {
 								monitor.setProgress(((TwitterDataSubject) subject).getTweetCount());
 								break;

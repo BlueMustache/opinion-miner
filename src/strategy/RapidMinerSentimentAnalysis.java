@@ -93,8 +93,8 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 				sentimentPrediction.put("RapidResult", result);
 				sentimentPrediction.put("tweet", tweet);
 				rapidResults.add(sentimentPrediction);
-				((TwitterDataSubject) subject).setDatumBoxProgressCount();
-				System.out.println("Rapid results count !!!" +((TwitterDataSubject) subject).getDatumBoxProgressCount());
+				((TwitterDataSubject) subject).setRapidMinerProgressCount();
+				System.out.println("Rapid results count !!!" +((TwitterDataSubject) subject).getRapidminerProgressCount());
 			}
 			System.out.println("Rapidminer results CSV file was created successfully !!!");
 			
