@@ -20,7 +20,7 @@ public class BtnUpdateMongoDB extends JButton implements Command {
 	public BtnUpdateMongoDB(String caption, Subject subject) {
 		// Constructor for this btn
 		super(caption);
-		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		this.setFont(new Font("Gotham Medium", Font.PLAIN, 15));
 		this.subjectRef = subject;
 		this.mongoDBStrategy = new UpdateMongoDBStrategy();
 	}
@@ -30,7 +30,7 @@ public class BtnUpdateMongoDB extends JButton implements Command {
 		// TODO Auto-generated method stub
 		if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())) {
 			System.out.println("MongoStratgey Execute");
-			JOptionPane.showMessageDialog(null, "Database Update Complete");
+//			JOptionPane.showMessageDialog(null, "Database Update Complete");
 			mongoDBStrategy.runProcess((TwitterDataSubject) this.subjectRef);
 		} else {
 			JOptionPane.showMessageDialog(null, "Error", "No data to update.",JOptionPane.ERROR_MESSAGE);

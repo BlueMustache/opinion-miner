@@ -41,7 +41,7 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 		// TODO Auto-generated method stub
 		this.datumBoxManager = new DatumboxManager("2ddfadb2561f2a6273b801dc35d4ab09");
 		ArrayList<String> tweets = ((TwitterDataSubject) subject).getPreProcessedTweetList();
-		JSONObject sentimentPrediction = new JSONObject();	
+		
 		ArrayList<JSONObject> datumResults = new ArrayList<JSONObject>();
 		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) subject).getMongoDataStore();
 		
@@ -49,16 +49,18 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 		try {	
 			//for (String tweet : tweets) {
 			for(JSONObject obj : mongoDataStore){
+				JSONObject sentimentPrediction = new JSONObject();	
 				try{
-				sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());
+					
+					sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());
 				} catch (NullPointerException e) {
 					JOptionPane.showMessageDialog(null,"Datum Box Error", "Datum Box Api Call Rate Limit Reached.",JOptionPane.ERROR_MESSAGE);
 				}
-				sentimentPrediction.put("tweet", obj.get("processedTweet").toString());
-				obj.put("datumResults", sentimentPrediction.get("result").toString());
-				datumResults.add(sentimentPrediction);	
-				((TwitterDataSubject) subject).setDatumBoxProgressCount();
-				System.out.println("DatumBox results count !!!" +((TwitterDataSubject) subject).getDatumBoxProgressCount());
+					sentimentPrediction.put("tweet", obj.get("processedTweet").toString());
+					obj.put("datumResults", sentimentPrediction.get("result").toString());
+					datumResults.add(sentimentPrediction);	
+					((TwitterDataSubject) subject).setDatumBoxProgressCount();
+					System.out.println("DatumBox results count !!!" +((TwitterDataSubject) subject).getDatumBoxProgressCount());
 			}
 			System.out.println("DatumBox results created successfully !!!");
 			

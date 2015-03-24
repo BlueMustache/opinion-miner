@@ -161,8 +161,13 @@ public class EvaluationView extends JScrollPane implements Observer {
 							System.out.println(obj.toString());
 						}
 					}
-					
+					if(!radioBtnlistPos.get(radioActioCount).isSelected()&&!radioBtnlistNeg.get(radioActioCount).isSelected()&&!radioBtnlistNeu.get(radioActioCount).isSelected()){
+						JOptionPane.showMessageDialog(null,"Select re-classifaction before submitting ", "Error",JOptionPane.ERROR_MESSAGE);
+					}else if(radioBtnlistPos.get(radioActioCount).isSelected()||radioBtnlistNeg.get(radioActioCount).isSelected()||radioBtnlistNeu.get(radioActioCount).isSelected()){
 						JOptionPane.showMessageDialog(null, "Results Updated");
+					}
+					
+						
 				}
 			});
 			
@@ -190,9 +195,9 @@ public class EvaluationView extends JScrollPane implements Observer {
 			
 
 			lableList.get(i).setName("Label_" + Integer.toString(i));
-			lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+			lableList.get(i).setFont(new Font("Gotham Medium", Font.PLAIN, 15));
 
-			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+			textAreaList.get(i).setFont(new Font("Gotham Book", Font.PLAIN, 20));
 			textAreaList.get(i).setWrapStyleWord(true);
 			lableList.get(i).setText("<html><center>DatumBox Result = "+tweet.get("datumResults").toString()+ "<br>"+ "RapidMiner Result = "+tweet.get("rapidMinerResults").toString()+ "</center></html>");
 

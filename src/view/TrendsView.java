@@ -98,7 +98,7 @@ public class TrendsView extends JScrollPane implements Observer {
 		btnTrendList = new ArrayList<BtnSetTopicByTrend>();
 		btnCategoryList = new ArrayList<BtnSetTopicByCategory>();
 		this.mainPanel.setLayout(new FlowLayout());
-		Dimension d = new Dimension(800, 475);
+		Dimension d = new Dimension(800, 1000);
 		this.mainPanel.setPreferredSize(d);
 		
 		for(Trend trend : this.trendList){
@@ -120,7 +120,7 @@ public class TrendsView extends JScrollPane implements Observer {
             tag.setWeight(randTag);
             btnTrend.setFont(btnTrend.getFont().deriveFont((float) tag.getWeight()));
             btnTrend.setName("trendBtn");
-            Dimension trendPanelDimension = new Dimension(1000, 200);
+            Dimension trendPanelDimension = new Dimension(1000, 275);
     		this.trendPanel.setPreferredSize(trendPanelDimension);
     		trendPanel.add(btnTrend); 
     		trendPanel.setBorder(new TitledBorder (new LineBorder(Color.BLACK, 4, true),"Trends",TitledBorder.LEFT,TitledBorder.CENTER,new Font("Comic Sans MS", Font.PLAIN, 20)));

@@ -16,7 +16,7 @@ public class BtnAnalyseTweets extends JButton implements Command {
 	public BtnAnalyseTweets(String caption, Subject subject) {
 		// TODO Auto-generated constructor stub
 		super(caption);
-		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		this.setFont(new Font("Gotham Medium", Font.PLAIN, 20));
 		this.subjectRef = subject;
 
 	}

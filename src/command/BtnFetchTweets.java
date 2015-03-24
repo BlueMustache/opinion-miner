@@ -1,6 +1,7 @@
 package command;
 
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,7 @@ public class BtnFetchTweets extends JButton implements Command {
 	public BtnFetchTweets(String caption, Subject subject) {
 		// Constructor for this btn
 		super(caption);
-		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		this.setFont(new Font("Gotham Medium", Font.PLAIN, 20));
 		this.subjectRef = subject;
 		this.twitterAcc = ((TwitterDataSubject) subject).getTwitterAcc();
 	}
@@ -54,7 +55,7 @@ public class BtnFetchTweets extends JButton implements Command {
 				try {
 					Query query = new Query(((TwitterDataSubject) this.subjectRef).getTopic());;
 					query.lang("en");
-					query.setResultType(Query.RECENT);
+					query.setResultType(Query.MIXED);
 					QueryResult result;
 					do {
 						result = this.twitterAcc.search(query);
