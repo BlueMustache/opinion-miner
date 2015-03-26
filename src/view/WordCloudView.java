@@ -116,7 +116,8 @@ public class WordCloudView extends JScrollPane implements Observer {
 		Dimension d = new Dimension(1000, 600);
 		this.setPreferredSize(d);//setPreferredSize(d);//
 		this.setViewportView(mainPanel);
-
+		this.revalidate();
+		this.repaint();
 	}
 
 	public void getTokens() throws InvalidFormatException, IOException {
