@@ -82,6 +82,7 @@ public class BtnFetchTweets extends JButton implements Command {
 				System.out.println("The Tweets Fetched count is : "+ tweetCount); // For// testing
 
 				((TwitterDataSubject) this.subjectRef).reSetDatumBoxProgressCount();
+				((TwitterDataSubject) this.subjectRef).hasChanged("tweetView");
 				((TwitterDataSubject) this.subjectRef).setMongoDataStore(mongoDataStore);
 				System.out.println("The Mongo data count is : "+ mongoDataStore.size());
 
@@ -92,9 +93,9 @@ public class BtnFetchTweets extends JButton implements Command {
 				System.out.println("tweet Count = "+ ((TwitterDataSubject) subjectRef).getTweetCount());
 				
 				// ///////////TEST/////////
-				for (JSONObject tweet : mongoDataStore) {
-					System.out.println(tweet.toString());
-				}
+//				for (JSONObject tweet : mongoDataStore) {
+//					System.out.println(tweet.toString());
+//				}
 				}
 				// ////////////////////////
 			} catch (NullPointerException e) {

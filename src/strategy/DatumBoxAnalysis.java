@@ -69,7 +69,7 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 			e.printStackTrace();
 			
 		}
-		
+		((TwitterDataSubject) subject).hasChanged("datumView");
 		((TwitterDataSubject) subject).setDatumResultsJSON(datumResults);
 		}
 	}

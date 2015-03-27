@@ -60,6 +60,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.rapidMinerResults = new ArrayList<JSONObject>();
 		this.datumObservers = new ArrayList<Observer>();
 		this.changeManager = changeManager;
+		changeManager.register(this);
 		buildConfiguration(); // Create build to create a twitter access account
 		setAnalysisStrategys();
 
@@ -215,13 +216,14 @@ public class TwitterDataSubject extends SubjectDecorator {
 	}
 
 	@Override
-	public void notifyObservers() {
-		// notify all observers on update
-//		for (Observer o : observers) {
-//			o.update(this);
-//		}
-		changeManager.notifyChange(this.observerToUpdate);
-	}
+//	public void notifyObservers() {
+//		// notify all observers on update
+////		for (Observer o : observers) {
+////			o.update(this);
+////		}
+//		changeManager.notifyChange(this.observerToUpdate);
+//		System.out.println("Notify called in subject called");
+//	}
 	
 //	public void notifyObserver(String observerRef) {
 //		// notify specific observers on update	
@@ -273,6 +275,10 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.mongoDataStore = mongoDataStore;
 		notifyObservers();
 		System.out.println("Set mongo DB activiated");
+		for (JSONObject tweet : mongoDataStore) {
+			System.out.println("in subject");
+			System.out.println(tweet.toString());
+		}
 	}
 	
 	public void notifyEvaluation() {
@@ -294,11 +300,13 @@ public class TwitterDataSubject extends SubjectDecorator {
 		}
 	}
 	
-	public void notifyChange() {
+	public void notifyObservers() {
 		System.out.println("Changemanager called");
 		changeManager.notifyChange(this.observerToUpdate);
 	}
 	public void hasChanged(String observerRef){
 		this.observerToUpdate = observerRef;
+		notifyObservers();
+		System.out.println("has changed called = "+this.observerToUpdate);
 	}
 }

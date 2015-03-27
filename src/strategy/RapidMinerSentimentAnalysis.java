@@ -111,6 +111,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 				}
 			}
 		}
+		((TwitterDataSubject) subject).hasChanged("rapidView");
 		((TwitterDataSubject) subject).setRapidResultsJSON(rapidResults);
 	}
 	

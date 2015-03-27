@@ -13,16 +13,16 @@ public class SimpleChangeManager implements ChangeManager{
 	private Map<String, Observer> observerMap;
 	private TwitterDataSubject subjectRef;
 	
-	public SimpleChangeManager(TwitterDataSubject subjectRef) {
+	public SimpleChangeManager() {
 		// TODO Auto-generated constructor stub
-		this.subjectRef = subjectRef; 
-		this.observerMap = subjectRef.getObservers();
+		
 	}
 
-//	public void register(Subject subject, Observer observer) {
-//		// TODO Auto-generated method stub
-//		subjectObservermapping.put(subject, observer);
-//	}
+	public void register(Subject subject) {
+		// TODO Auto-generated method stub
+		this.subjectRef = (TwitterDataSubject) subject;
+		this.observerMap = subjectRef.getObservers();
+	}
 
 	public void unRegister(Subject subject, Observer observer) {
 		// TODO Auto-generated method stub
@@ -31,11 +31,15 @@ public class SimpleChangeManager implements ChangeManager{
 
 	public void notifyChange(String observerRef) {
 		// TODO Auto-generated method stub
-		System.out.println("Notify observer Called");
+		System.out.println("Notify Change Called in changemanager ObserverRef = " +observerRef);
 		for (Entry<String, Observer> entry : observerMap.entrySet()) {
 			if(entry.getKey().equalsIgnoreCase(observerRef)){
 				entry.getValue().update(this.subjectRef);
 			}
+//			if(entry.getKey().equalsIgnoreCase("elavView")){
+//				entry.getValue().update(this.subjectRef);
+//				entry.getKey().
+//			}
 			
 		}
 	}

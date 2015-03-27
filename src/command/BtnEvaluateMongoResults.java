@@ -52,7 +52,10 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 			i++;
 		}
 		//((TwitterDataSubject)this.subjectRef).setMongoDataStore(mongoResults);
-		((TwitterDataSubject)this.subjectRef).notifyEvaluation();
+		((TwitterDataSubject)this.subjectRef).hasChanged("elavView");
+		((TwitterDataSubject)this.subjectRef).hasChanged("chartView");
+		((TwitterDataSubject)this.subjectRef).hasChanged("cloudView");
+		((TwitterDataSubject)this.subjectRef).setMongoDataStore(mongoResults);
 		for(JSONObject obj :mongoResults ){
 			System.out.println(obj.toString());
 		}

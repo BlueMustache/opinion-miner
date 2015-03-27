@@ -46,9 +46,9 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 		((TwitterDataSubject) subject).setPreProcessedTweetList(processedTweetlist);
 		((TwitterDataSubject) subject).setMongoDataStore(mongoDataStore);
 		//////////TEST/////////
-		for(JSONObject tweet : mongoDataStore ){
-			System.out.println(tweet.toString());
-		}
+//		for(JSONObject tweet : mongoDataStore ){
+//			System.out.println(tweet.toString());
+//		}
 	}
 
 
