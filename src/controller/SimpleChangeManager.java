@@ -5,17 +5,18 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import model.Subject;
+import model.TwitterDataSubject;
 import view.Observer;
 
 public class SimpleChangeManager implements ChangeManager{
 	
 	private Map<String, Observer> observerMap;
-	private Subject subjectRef;
+	private TwitterDataSubject subjectRef;
 	
-	public SimpleChangeManager(Subject subjectRef) {
+	public SimpleChangeManager(TwitterDataSubject subjectRef) {
 		// TODO Auto-generated constructor stub
 		this.subjectRef = subjectRef; 
-		this.observerMap = new HashMap<String, Observer>();
+		this.observerMap = subjectRef.getObservers();
 	}
 
 //	public void register(Subject subject, Observer observer) {
@@ -28,7 +29,7 @@ public class SimpleChangeManager implements ChangeManager{
 		
 	}
 
-	public void notifyChange(Subject subject) {
+	public void notifyChange(String observerRef) {
 		// TODO Auto-generated method stub
 		System.out.println("Notify observer Called");
 		for (Entry<String, Observer> entry : observerMap.entrySet()) {

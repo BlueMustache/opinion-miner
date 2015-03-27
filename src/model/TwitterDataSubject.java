@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import org.json.simple.JSONObject;
 
 import controller.Controller.CommandListner;
+import controller.SimpleChangeManager;
 import strategy.DatumBoxAnalysis;
 import strategy.ProcessStrategy;
 import strategy.ProcessTweetsStrategy;
@@ -42,8 +43,10 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private int rapidminerProgressCount;
 //	private Observer datumObserver;
 	private ArrayList<Observer> datumObservers;
+	private SimpleChangeManager changeManager;
+	private String observerToUpdate;
 
-	public TwitterDataSubject(Subject subjectReference) {
+	public TwitterDataSubject(Subject subjectReference,SimpleChangeManager changeManager) {
 		// Constructor
 		super(subjectReference);
 		this.observerMap = new HashMap<String, Observer>();
@@ -56,6 +59,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.datumBoxResults = new ArrayList<JSONObject>();
 		this.rapidMinerResults = new ArrayList<JSONObject>();
 		this.datumObservers = new ArrayList<Observer>();
+		this.changeManager = changeManager;
 		buildConfiguration(); // Create build to create a twitter access account
 		setAnalysisStrategys();
 
@@ -175,7 +179,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setDatumResultsJSON(ArrayList<JSONObject> datumResultsJSON) {
 		this.datumBoxResults = datumResultsJSON;
-		notifyObserver("datumView");
+		notifyObservers();
 	}
 	
 
@@ -195,6 +199,10 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.observerMap.put(ObserverRef, o);
 		System.out.println("Datum view added to observer Map");
 	}
+	
+	public Map<String, Observer> getObservers(){
+		return this.observerMap;
+	}
 
 
 	@Override
@@ -209,21 +217,22 @@ public class TwitterDataSubject extends SubjectDecorator {
 	@Override
 	public void notifyObservers() {
 		// notify all observers on update
-		for (Observer o : observers) {
-			o.update(this);
-		}
+//		for (Observer o : observers) {
+//			o.update(this);
+//		}
+		changeManager.notifyChange(this.observerToUpdate);
 	}
 	
-	public void notifyObserver(String observerRef) {
-		// notify specific observers on update	
-		System.out.println("Notify observer Called");
-		for (Entry<String, Observer> entry : observerMap.entrySet()) {
-			if(entry.getKey().equalsIgnoreCase(observerRef)){
-				entry.getValue().update(this);
-			}
-			
-		}
-	}
+//	public void notifyObserver(String observerRef) {
+//		// notify specific observers on update	
+//		System.out.println("Notify observer Called");
+//		for (Entry<String, Observer> entry : observerMap.entrySet()) {
+//			if(entry.getKey().equalsIgnoreCase(observerRef)){
+//				entry.getValue().update(this);
+//			}
+//			
+//		}
+//	}
 
 	public String description() {
 		// For testing to check if subjects are been decorated
@@ -251,7 +260,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setRapidResultsJSON(ArrayList<JSONObject> rapidResultsJSON) {
 		this.rapidMinerResults = rapidResultsJSON;
-		notifyObserver("rapidView");
+		notifyObservers();
 	}
 	
 	
@@ -262,14 +271,14 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setMongoDataStore(ArrayList<JSONObject> mongoDataStore) {
 		this.mongoDataStore = mongoDataStore;
-		notifyObserver("tweetView");
+		notifyObservers();
 		System.out.println("Set mongo DB activiated");
 	}
 	
 	public void notifyEvaluation() {
-		notifyObserver("elavView");
-		notifyObserver("chartView");
-		notifyObserver("cloudView");
+		notifyObservers();
+//		notifyObserver("chartView");
+//		notifyObserver("cloudView");
 		System.out.println("Eval view notified");
 	}
 	
@@ -284,5 +293,12 @@ public class TwitterDataSubject extends SubjectDecorator {
 			o.addActionListener(commandListner);
 		}
 	}
-
+	
+	public void notifyChange() {
+		System.out.println("Changemanager called");
+		changeManager.notifyChange(this.observerToUpdate);
+	}
+	public void hasChanged(String observerRef){
+		this.observerToUpdate = observerRef;
+	}
 }
