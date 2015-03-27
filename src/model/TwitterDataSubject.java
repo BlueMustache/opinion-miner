@@ -205,13 +205,6 @@ public class TwitterDataSubject extends SubjectDecorator {
 		}
 	}
 	
-	public void notifyEvaluation() {
-		notifyObservers();
-//		notifyObserver("chartView");
-//		notifyObserver("cloudView");
-		System.out.println("Eval view notified");
-	}
-	
 	public void resetMongoDataStore(){
 		this.mongoDataStore.clear();
 	}

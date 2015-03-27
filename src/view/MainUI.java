@@ -42,9 +42,6 @@ import java.util.Map;
 public class MainUI extends JFrame{
 
 	protected JPanel contentLayoutPanel = null;
-//	private JMenuBar menuBar;
-//	private JMenu menu;
-//	private JMenuItem menuItem;
 	private FetchedTweetsView tweetView;
 	private ControlPanelView ctrlView;
 	private DatumBoxView datumView;
@@ -53,11 +50,9 @@ public class MainUI extends JFrame{
 	private TrendsView twitterTrendsView;
 	private EvaluationView evalView;
 	private ChartView chartView;
-//	private CategoryView categoryView;
 	private TwitterDataSubject subject;
 	private JPanel Btn_Panel = new JPanel();
 	private Controller controller;
-	//private Map<String,Observer> viewListMap; 
 	private JTabbedPane tabbedPane;
 	private Thread progress;
 	
@@ -68,26 +63,16 @@ public class MainUI extends JFrame{
 		// Setup menu
 		//menuSetUp();
 		this.subject = subject;
-	//	this.viewListMap = new HashMap<String,Observer>();
-		
-		
-		ctrlView = new ControlPanelView(subject,"ctrlView");
-	//	this.viewListMap.put("ctrlView",ctrlView);
-		//searchCmd = new SetSearchTopicCmd(subject,ctrlView);
+
+		ctrlView = new ControlPanelView(subject,"ctrlView");	
 		twitterTrendsView = new TrendsView(subject,"trendsView");
 		tweetView = new FetchedTweetsView(subject,"tweetView");
 		tweetView.setEnabled(false);
-	//	this.viewListMap.put("tweetView",tweetView);
-		datumView = new DatumBoxView(subject,"datumView");
-	//	this.viewListMap.put("datumView",datumView);
-		rapidView = new RapidMinerView(subject,"rapidView");
-		
-	//	this.viewListMap.put("rapidView",rapidView);
+		datumView = new DatumBoxView(subject,"datumView");	
+		rapidView = new RapidMinerView(subject,"rapidView");		
 		wordCloudView = new WordCloudView(subject,"cloudView");
-	//	this.viewListMap.put("cloudView",wordCloudView);
 		evalView = new EvaluationView(subject,"elavView");
 		chartView = new ChartView(subject,"chartView");
-//		categoryView = new CategoryView(subject,"chartView");
 		
 		getContentPane().add(ctrlView, BorderLayout.WEST);
 		
@@ -97,15 +82,20 @@ public class MainUI extends JFrame{
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		//tabbedPane.setEnabled(false);
-		tabbedPane.addTab("Trending Toppics", null, twitterTrendsView,null);
-//		tabbedPane.addTab("Categorys", null, categoryView,null);
-		tabbedPane.addTab("Searched Tweets", null, tweetView,null);
-		tabbedPane.addTab("DatumBox Results", null, datumView,null);
-		tabbedPane.addTab("Rapidminer Results", null, rapidView,null);
-		tabbedPane.addTab("Word Cloud", null, wordCloudView,null);
-		tabbedPane.addTab("Evaluation", null, evalView,null);
-		tabbedPane.addTab("Metrics", null, chartView,null);
+		tabbedPane.addTab("Trending Toppics", null, twitterTrendsView,null); //tab 0
+
+		tabbedPane.addTab("Searched Tweets", null, tweetView,null); //tab 1
+		tabbedPane.setEnabledAt(1, false);
+		tabbedPane.addTab("DatumBox Results", null, datumView,null); //tab 2
+		tabbedPane.setEnabledAt(2, false);
+		tabbedPane.addTab("Rapidminer Results", null, rapidView,null); //tab 3
+		tabbedPane.setEnabledAt(3, false);
+		tabbedPane.addTab("Evaluation", null, evalView,null); //tab 4
+		tabbedPane.setEnabledAt(4, false);
+		tabbedPane.addTab("Metrics", null, chartView,null); //tab 5
+		tabbedPane.setEnabledAt(5, false);
+		tabbedPane.addTab("Word Cloud", null, wordCloudView,null); //tab 6
+		tabbedPane.setEnabledAt(6, false);
 		
 		
 
@@ -121,7 +111,7 @@ public class MainUI extends JFrame{
 		this.setSize(1200, 800);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-	}// end CTor
+	}
 	
 	
 	

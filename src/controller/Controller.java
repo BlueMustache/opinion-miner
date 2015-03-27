@@ -55,6 +55,12 @@ public class Controller {
 			String command = e.getActionCommand();
 			if (e.getActionCommand().equalsIgnoreCase("search")|| !e.getActionCommand().equalsIgnoreCase("Analyze")&& !e.getActionCommand().equalsIgnoreCase("Update DB")) {
 				mainUI.getTabbedPane().setSelectedIndex(1);
+				mainUI.getTabbedPane().setEnabledAt(1, true);
+				mainUI.getTabbedPane().setEnabledAt(3, false);
+				mainUI.getTabbedPane().setEnabledAt(2, false);
+				mainUI.getTabbedPane().setEnabledAt(4, false);
+				mainUI.getTabbedPane().setEnabledAt(5, false);
+				mainUI.getTabbedPane().setEnabledAt(6, false);
 				mainUI.getTabbedPane().revalidate();
 				mainUI.getTabbedPane().repaint();
 				int index = mainUI.getTabbedPane().getSelectedIndex();
@@ -93,6 +99,8 @@ public class Controller {
 				Thread thread = new Thread(runnable);
 				thread.start();
 				mainUI.getTabbedPane().setSelectedIndex(3);
+				mainUI.getTabbedPane().setEnabledAt(3, true);
+				mainUI.getTabbedPane().setEnabledAt(2, true);
 				
 			}
 			
@@ -102,7 +110,13 @@ public class Controller {
 			if (e.getActionCommand().equalsIgnoreCase("Evaluate")) {
 				
 				System.out.println("Eval view created");
-				mainUI.getTabbedPane().setSelectedIndex(5);
+				mainUI.getTabbedPane().setSelectedIndex(4);
+				mainUI.getTabbedPane().setEnabledAt(3, true);
+				mainUI.getTabbedPane().setEnabledAt(2, true);
+				mainUI.getTabbedPane().setEnabledAt(4, true);
+				mainUI.getTabbedPane().setEnabledAt(5, true);
+				mainUI.getTabbedPane().setEnabledAt(6, true);
+				
 				System.out.println("Eval view created");
 			}
 			// switch(command)
