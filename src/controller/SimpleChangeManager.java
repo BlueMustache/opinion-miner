@@ -9,32 +9,33 @@ import view.Observer;
 
 public class SimpleChangeManager implements ChangeManager{
 	
-	private Map<Subject, Observer> subjectObservermapping;
+	private Map<String, Observer> observerMap;
+	private Subject subjectRef;
 	
-	public SimpleChangeManager() {
+	public SimpleChangeManager(Subject subjectRef) {
 		// TODO Auto-generated constructor stub
-		this.subjectObservermapping = new HashMap<Subject, Observer>();
+		this.subjectRef = subjectRef; 
+		this.observerMap = new HashMap<String, Observer>();
 	}
 
-	@Override
-	public void register(Subject subject, Observer observer) {
-		// TODO Auto-generated method stub
-		subjectObservermapping.put(subject, observer);
-	}
+//	public void register(Subject subject, Observer observer) {
+//		// TODO Auto-generated method stub
+//		subjectObservermapping.put(subject, observer);
+//	}
 
-	@Override
 	public void unRegister(Subject subject, Observer observer) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void notifyChange(Subject subject) {
 		// TODO Auto-generated method stub
-		for (Entry<Subject, Observer> entry : subjectObservermapping.entrySet()) {
-			if (entry.getKey().equals(subject)) {	
-				entry.getValue().update(subject);
+		System.out.println("Notify observer Called");
+		for (Entry<String, Observer> entry : observerMap.entrySet()) {
+			if(entry.getKey().equalsIgnoreCase(observerRef)){
+				entry.getValue().update(this.subjectRef);
 			}
+			
 		}
 	}
 
