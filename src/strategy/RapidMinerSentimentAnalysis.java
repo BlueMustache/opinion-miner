@@ -93,10 +93,10 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 				for(JSONObject obj : mongoDataStore){
 					obj.put("RapidResult", result);
 				}
-				JSONObject sentimentPrediction = new JSONObject();
-				sentimentPrediction.put("RapidResult", result);
-				sentimentPrediction.put("tweet", tweet);
-				rapidResults.add(sentimentPrediction);
+//				JSONObject sentimentPrediction = new JSONObject();
+//				sentimentPrediction.put("RapidResult", result);
+//				sentimentPrediction.put("tweet", tweet);
+//				rapidResults.add(sentimentPrediction);
 				((TwitterDataSubject) subject).setRapidMinerProgressCount();
 				System.out.println("Rapid results count !!!" +((TwitterDataSubject) subject).getRapidminerProgressCount());
 			}

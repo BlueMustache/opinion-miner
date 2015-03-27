@@ -49,7 +49,6 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		// TODO Auto-generated method stub
 		this.subjectRef =  subject;
 
-		ArrayList<JSONObject> rapidResults = ((TwitterDataSubject) this.subjectRef).getRapidResultsJSON();
 		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) this.subjectRef).getMongoDataStore();
 		
 		int tweetCount = ((TwitterDataSubject) subject).getTweetCount(); 
