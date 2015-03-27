@@ -78,7 +78,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.gridx = 0;
 		
-		for(int i=0; i<rapidResults.size();i++){	
+		for(int i=0; i<mongoDataStore.size();i++){	
 		panelList.add(new JPanel());
 		sentimentPanelList.add(new JPanel());
 		lableList.add(new JLabel());
@@ -97,8 +97,8 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		textAreaList.get(i).setWrapStyleWord(true);
 		textAreaList.get(i).setText(mongoDataStore.get(i).get("unProcessedTweet").toString());	//THIS IS A BUG
 		
-		lableList.get(i).setText(rapidResults.get(i).get("RapidResult").toString());
-		Color colour = rapidResults.get(i).get("RapidResult").equals("Positive") ? new Color(113,   213,   160) : new Color(236,   102,   111);
+		lableList.get(i).setText(mongoDataStore.get(i).get("RapidResult").toString());
+		Color colour = mongoDataStore.get(i).get("RapidResult").equals("Positive") ? new Color(113,   213,   160) : new Color(236,   102,   111);
 		panelList.get(i).setBorder(new LineBorder(colour, 4, true));
 		sentimentPanelList.get(i).setBackground(colour);
 		sentimentPanelList.get(i).add(lableList.get(i));

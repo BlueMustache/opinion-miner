@@ -82,6 +82,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 	
 	public void updateTwitterData(){
 		ArrayList<JSONObject> rapidResults = new ArrayList<JSONObject>();
+		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) subject).getMongoDataStore();
 		
 		try {
 			CsvReader fileReader = new CsvReader("D:/Workspace/Opinion Miner/output.csv");	
@@ -89,6 +90,9 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 			while (fileReader.readRecord()) {
 				String result = fileReader.get("prediction(Sentiment)");
 				String tweet = fileReader.get("text");
+				for(JSONObject obj : mongoDataStore){
+					obj.put("RapidResult", result);
+				}
 				JSONObject sentimentPrediction = new JSONObject();
 				sentimentPrediction.put("RapidResult", result);
 				sentimentPrediction.put("tweet", tweet);
@@ -111,8 +115,13 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 				}
 			}
 		}
+		for (JSONObject tweet : mongoDataStore) {
+			System.out.println("rapid results");
+			System.out.println(tweet.toString());
+		}
 		((TwitterDataSubject) subject).hasChanged("rapidView");
-		((TwitterDataSubject) subject).setRapidResultsJSON(rapidResults);
+		((TwitterDataSubject) subject).setMongoDataStore(mongoDataStore);
+//		((TwitterDataSubject) subject).setRapidResultsJSON(rapidResults);
 	}
 	
 
