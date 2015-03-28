@@ -88,6 +88,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		panelList.get(i).setName("panel_"+Integer.toString(i));
 		textAreaList.get(i).setName("txtArea_"+Integer.toString(i));
 		lableList.get(i).setFont(new Font("Gotham Medium", Font.PLAIN, 20));
+		lableList.get(i).setForeground(new Color(0, 132, 180));
 		
 		gbc_panel_3.gridy = i;
 		mainPanel.add(panelList.get(i), gbc_panel_3);
@@ -96,7 +97,7 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		textAreaList.get(i).setWrapStyleWord(true);
 		textAreaList.get(i).setText(mongoDataStore.get(i).get("unProcessedTweet").toString());	//THIS IS A BUG
 		
-		lableList.get(i).setText(mongoDataStore.get(i).get("RapidResult").toString());
+		lableList.get(i).setText("<html><center>"+"<br>"+mongoDataStore.get(i).get("RapidResult").toString()+"</center></html>");
 		Color colour = mongoDataStore.get(i).get("RapidResult").equals("Positive") ? new Color(113,   213,   160) : new Color(236,   102,   111);
 		panelList.get(i).setBorder(new LineBorder(colour, 4, true));
 		sentimentPanelList.get(i).setBackground(colour);

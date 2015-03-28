@@ -27,6 +27,7 @@ import model.TwitterDataSubject;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -59,6 +60,7 @@ public class MainUI extends JFrame{
 
 	public MainUI(TwitterDataSubject subject) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException, IOException {
 		this.setTitle("Twitter Data Sentiment Analysis");
+//		this.s
 		IconSetUP();
 		// Setup menu
 		//menuSetUp();
@@ -82,9 +84,11 @@ public class MainUI extends JFrame{
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		getContentPane().add(tabbedPane, BorderLayout.CENTER);
-		tabbedPane.addTab("Trending Toppics", null, twitterTrendsView,null); //tab 0
+		tabbedPane.setFont(new Font("Gotham Bold", Font.PLAIN, 17));
+		tabbedPane.setForeground(new Color(0, 132, 180));
+		tabbedPane.addTab("Search Suggestions", null, twitterTrendsView,null); //tab 0
 
-		tabbedPane.addTab("Searched Tweets", null, tweetView,null); //tab 1
+		tabbedPane.addTab("Tweets", null, tweetView,null); //tab 1
 		tabbedPane.setEnabledAt(1, false);
 		tabbedPane.addTab("DatumBox Results", null, datumView,null); //tab 2
 		tabbedPane.setEnabledAt(2, false);

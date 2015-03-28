@@ -1,5 +1,6 @@
 package command;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class BtnFetchTweets extends JButton implements Command {
 		// Constructor for this btn
 		super(caption);
 		this.setFont(new Font("Gotham Medium", Font.PLAIN, 20));
+		this.setForeground(new Color(0, 132, 180));
 		this.subjectRef = subject;
 		this.twitterAcc = ((TwitterDataSubject) subject).getTwitterAcc();
 	}

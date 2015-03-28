@@ -108,11 +108,13 @@ public class DatumBoxView extends JScrollPane implements Observer {
 			textAreaList.get(i).setWrapStyleWord(true);
 			textAreaList.get(i).setText(mongoDataStore.get(i).get("unProcessedTweet").toString());
 
-			lableList.get(i).setText(mongoDataStore.get(i).get("datumResults").toString());
+			lableList.get(i).setText("<html><center>"+"<br>"+mongoDataStore.get(i).get("datumResults").toString()+"</center></html>");
+			lableList.get(i).setForeground(new Color(0, 132, 180));
 			
 			Color colour = mongoDataStore.get(i).get("datumResults").equals("Positive") ? new Color(113,   213,   160) : new Color(236,   102,   111);
 			if (mongoDataStore.get(i).get("datumResults").equals("Neutral")) {
 				colour = Color.GRAY;
+				lableList.get(i).setForeground(new Color(192, 222, 237));
 			}
 			panelList.get(i).setBorder(new LineBorder(colour, 4, true));
 			sentimentPanelList.get(i).setBackground(colour);
