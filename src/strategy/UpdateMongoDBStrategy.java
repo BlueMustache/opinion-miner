@@ -2,6 +2,8 @@ package strategy;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import org.json.simple.JSONObject;
 
 import com.mongodb.DB;
@@ -32,15 +34,16 @@ public class UpdateMongoDBStrategy implements ProcessStrategy{
 		
 		
 		for(JSONObject obj :mongoDataStore ){
-//			System.out.println(obj.toString());
 			DBObject dbObject = (DBObject) JSON.parse(obj.toJSONString());
 			collection.insert(dbObject);
 		}
+		
 		System.out.println("Mongo db Entrys");
 		DBCursor cursorDoc = collection.find();
 		while (cursorDoc.hasNext()) {
 			System.out.println(cursorDoc.next());
 		}
+		JOptionPane.showMessageDialog(null, "Database Update Complete");
 	}
 
 }

@@ -41,24 +41,28 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 		// TODO Auto-generated method stub
 		this.datumBoxManager = new DatumboxManager("2ddfadb2561f2a6273b801dc35d4ab09");
 		ArrayList<String> tweets = ((TwitterDataSubject) subject).getPreProcessedTweetList();
-		JSONObject sentimentPrediction = new JSONObject();	
+		
 		ArrayList<JSONObject> datumResults = new ArrayList<JSONObject>();
 		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) subject).getMongoDataStore();
 		
 		
 		try {	
-			//for (String tweet : tweets) {
+			int i =0;		//temp while datum rate limit is in place so i can test
 			for(JSONObject obj : mongoDataStore){
+				JSONObject sentimentPrediction = new JSONObject();	
 				try{
-				sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());
+					
+//					sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());	//temp while datum rate limit is in place so i can test
 				} catch (NullPointerException e) {
 					JOptionPane.showMessageDialog(null,"Datum Box Error", "Datum Box Api Call Rate Limit Reached.",JOptionPane.ERROR_MESSAGE);
 				}
-				sentimentPrediction.put("tweet", obj.get("processedTweet").toString());
-				obj.put("datumResults", sentimentPrediction.get("result").toString());
-				datumResults.add(sentimentPrediction);	
-				((TwitterDataSubject) subject).setDatumBoxProgressCount();
-				System.out.println("DatumBox results count !!!" +((TwitterDataSubject) subject).getDatumBoxProgressCount());
+//					sentimentPrediction.put("tweet", obj.get("processedTweet").toString());
+//					obj.put("datumResults", sentimentPrediction.get("result").toString());//temp while datum rate limit is in place so i can test
+					obj.put("datumResults", "temp reading!"+i);//temp while datum rate limit is in place so i can test
+					datumResults.add(sentimentPrediction);	
+					((TwitterDataSubject) subject).setProgressCount(true);
+					i++;//temp while datum rate limit is in place so i can test
+					System.out.println("DatumBox results count !!!" +((TwitterDataSubject) subject).getDatumBoxProgressCount());
 			}
 			System.out.println("DatumBox results created successfully !!!");
 			
@@ -67,8 +71,12 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 			e.printStackTrace();
 			
 		}
-		
-		((TwitterDataSubject) subject).setDatumResultsJSON(datumResults);
+		for (JSONObject tweet : mongoDataStore) {
+			System.out.println("datum results");
+			System.out.println(tweet.toString());
+		}
+		((TwitterDataSubject) subject).hasChanged("datumView");
+		((TwitterDataSubject) subject).setMongoDataStore(mongoDataStore);
 		}
 	}
 	

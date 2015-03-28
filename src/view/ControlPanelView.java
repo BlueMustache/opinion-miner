@@ -122,8 +122,6 @@ public class ControlPanelView extends JPanel implements Observer {
 	public void addActionListener(CommandListner commandListner) {
 		// TODO Auto-generated method stub
 		btnFetchTweets.addActionListener(commandListner);
-		KeyStroke keystroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0, false);
-		btnFetchTweets.registerKeyboardAction(commandListner, keystroke, JComponent.WHEN_FOCUSED);
 		btnAnalyze.addActionListener(commandListner);
 		btnEvaluate.addActionListener(commandListner);
 		btnUpdateDB.addActionListener(commandListner);

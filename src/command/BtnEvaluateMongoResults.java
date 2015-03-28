@@ -18,39 +18,25 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 	public BtnEvaluateMongoResults(String caption, Subject subject) {
 		// TODO Auto-generated constructor stub
 		super(caption);
-		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		this.setFont(new Font("Gotham Medium", Font.PLAIN, 20));
 		this.subjectRef = subject;
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		//((TwitterDataSubject)this.subjectRef).setMongoDataStore();
-			if (!(((TwitterDataSubject) this.subjectRef).getRapidResultsJSON().isEmpty())&&!(((TwitterDataSubject) this.subjectRef).getDatumResultsJSON().isEmpty())){
+		
+			if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())){
 		System.out.println("Update button pressed");
-		System.out.println("Rapidminer results size ="+((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().size());
-		System.out.println("Mongo data store size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
-		System.out.println("Datumresults size ="+((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().size());
-		ArrayList<JSONObject> mongoResults = ((TwitterDataSubject)this.subjectRef).getMongoDataStore();
-		ArrayList<JSONObject> rapidResults = ((TwitterDataSubject)this.subjectRef).getRapidResultsJSON();
-		ArrayList<JSONObject> datumResults = ((TwitterDataSubject)this.subjectRef).getDatumResultsJSON();
-		//JSONObject mongoData = new JSONObject();
-		int mongoSize=((TwitterDataSubject)this.subjectRef).getMongoDataStore().size();
 
-//		for(int i = 0; i<mongoSize; i++){	
-		for(JSONObject obj : mongoResults ){
-			for(JSONObject rapidObj : rapidResults ){
-				for(JSONObject datumObj : datumResults ){
-//			JSONObject mongoData = new JSONObject();
-			obj.put("rapidMinerResults",rapidObj.get("RapidResult"));
-			obj.put("datumResults",datumObj.get("result"));
-			//mongoResults.get(i).put("tweet",((TwitterDataSubject)this.subjectRef).getDatumResultsJSON().get(i).get("tweet"));
-			//mongoResults.add(mongoData);		
-				}
-			}
-		}
-		//((TwitterDataSubject)this.subjectRef).setMongoDataStore(mongoResults);
-		((TwitterDataSubject)this.subjectRef).notifyEvaluation();
+		System.out.println("Mongo data store size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
+
+		ArrayList<JSONObject> mongoResults = ((TwitterDataSubject)this.subjectRef).getMongoDataStore();
+
+		((TwitterDataSubject)this.subjectRef).hasChanged("elavView");
+		((TwitterDataSubject)this.subjectRef).hasChanged("chartView");
+		((TwitterDataSubject)this.subjectRef).hasChanged("cloudView");
+		((TwitterDataSubject)this.subjectRef).setMongoDataStore(mongoResults);
 		for(JSONObject obj :mongoResults ){
 			System.out.println(obj.toString());
 		}

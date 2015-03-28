@@ -54,12 +54,28 @@ public class Controller {
 			action.execute();
 			String command = e.getActionCommand();
 			if (e.getActionCommand().equalsIgnoreCase("search")|| !e.getActionCommand().equalsIgnoreCase("Analyze")&& !e.getActionCommand().equalsIgnoreCase("Update DB")) {
-				mainUI.getTabbedPane().setSelectedIndex(2);
+				mainUI.getTabbedPane().setSelectedIndex(1);
+				mainUI.getTabbedPane().setEnabledAt(1, true);
+				mainUI.getTabbedPane().setEnabledAt(3, false);
+				mainUI.getTabbedPane().setEnabledAt(2, false);
+				mainUI.getTabbedPane().setEnabledAt(4, false);
+				mainUI.getTabbedPane().setEnabledAt(5, false);
+				mainUI.getTabbedPane().setEnabledAt(6, false);
 				mainUI.getTabbedPane().revalidate();
 				mainUI.getTabbedPane().repaint();
+				int index = mainUI.getTabbedPane().getSelectedIndex();
+				if(((TwitterDataSubject) subject).getMongoDataStore().size()==0){
+					mainUI.getTabbedPane().setSelectedIndex(0);
+					mainUI.getTabbedPane().setEnabledAt(1, false);
+					mainUI.getTabbedPane().setEnabledAt(3, false);
+					mainUI.getTabbedPane().setEnabledAt(2, false);
+					mainUI.getTabbedPane().setEnabledAt(4, false);
+					mainUI.getTabbedPane().setEnabledAt(5, false);
+					mainUI.getTabbedPane().setEnabledAt(6, false);
+				}
 			}
-			if (e.getActionCommand().equalsIgnoreCase("Analyze")) {
-				final ProgressMonitor monitor = new ProgressMonitor(mainUI,"analysis", "Iteration", 0,((TwitterDataSubject) subject).getMongoDataStore().size()*2);
+			if (e.getActionCommand().equalsIgnoreCase("Analyze")&&((TwitterDataSubject) subject).getMongoDataStore().size()>0) {
+				final ProgressMonitor monitor = new ProgressMonitor(mainUI,"Analyzing", "Iteration", 0,((TwitterDataSubject) subject).getMongoDataStore().size()*2);
 				
 				final Timer timer = new Timer(2, new ActionListener() {
 		            public void actionPerformed(ActionEvent e) {
@@ -73,7 +89,7 @@ public class Controller {
 						int progressCount=0;
 						while (progressCount < (((TwitterDataSubject) subject).getTweetCount()*2)-1) {
 							progressCount = ((TwitterDataSubject) subject).getDatumBoxProgressCount()+((TwitterDataSubject) subject).getRapidminerProgressCount();
-							monitor.setNote("Analyzing "/*+ progressNoteCount+"%"*/);
+//							monitor.setNote("Analyzing "/*+ progressNoteCount+"%"*/);
 							monitor.setProgress(progressCount);
 							if (monitor.isCanceled()) {
 								monitor.setProgress(((TwitterDataSubject) subject).getTweetCount());
@@ -81,16 +97,28 @@ public class Controller {
 							}
 						}
 						monitor.close();
-						((TwitterDataSubject) subject).reSetDatumBoxProgressCount();
+						((TwitterDataSubject) subject).reSetProgressCount();
 						timer.setRepeats(false);
 						timer.start();
 					}
 				};
 				Thread thread = new Thread(runnable);
 				thread.start();
-				mainUI.getTabbedPane().setSelectedIndex(4);
+				mainUI.getTabbedPane().setSelectedIndex(3);
+				mainUI.getTabbedPane().setEnabledAt(3, true);
+				mainUI.getTabbedPane().setEnabledAt(2, true);
 				
 			}
+			if(e.getActionCommand().equalsIgnoreCase("Analyze")&&((TwitterDataSubject) subject).getMongoDataStore().size()==0){
+					mainUI.getTabbedPane().setSelectedIndex(0);
+					mainUI.getTabbedPane().setEnabledAt(1, false);
+					mainUI.getTabbedPane().setEnabledAt(3, false);
+					mainUI.getTabbedPane().setEnabledAt(2, false);
+					mainUI.getTabbedPane().setEnabledAt(4, false);
+					mainUI.getTabbedPane().setEnabledAt(5, false);
+					mainUI.getTabbedPane().setEnabledAt(6, false);
+			}
+			
 			
 //			if (e.getActionCommand().equalsIgnoreCase("Evaluate") && ((TwitterDataSubject) subject).getMongoDataStore().size()==0) {
 //				JOptionPane.showMessageDialog(null, "No Twitterdata to evaluate.");
@@ -98,21 +126,25 @@ public class Controller {
 			if (e.getActionCommand().equalsIgnoreCase("Evaluate")) {
 				
 				System.out.println("Eval view created");
-				mainUI.getTabbedPane().setSelectedIndex(6);
+				mainUI.getTabbedPane().setSelectedIndex(4);
+				mainUI.getTabbedPane().setEnabledAt(3, true);
+				mainUI.getTabbedPane().setEnabledAt(2, true);
+				mainUI.getTabbedPane().setEnabledAt(4, true);
+				mainUI.getTabbedPane().setEnabledAt(5, true);
+				mainUI.getTabbedPane().setEnabledAt(6, true);
+				
 				System.out.println("Eval view created");
+				if(((TwitterDataSubject) subject).getMongoDataStore().size()==0){
+					mainUI.getTabbedPane().setSelectedIndex(0);
+					mainUI.getTabbedPane().setEnabledAt(1, false);
+					mainUI.getTabbedPane().setEnabledAt(3, false);
+					mainUI.getTabbedPane().setEnabledAt(2, false);
+					mainUI.getTabbedPane().setEnabledAt(4, false);
+					mainUI.getTabbedPane().setEnabledAt(5, false);
+					mainUI.getTabbedPane().setEnabledAt(6, false);
+				}
 			}
-			// switch(command)
-			// {
-			// case "Search" :
-			// mainUI.getTabbedPane().setSelectedIndex(1);
-			// break;
-			// case "Analyze" :
-			// break;
-			// // case "Update DB" :
-			// // break;
-			// default :
-			// System.out.println("Invalid Button");
-			// }
+
 		}
 	}
 

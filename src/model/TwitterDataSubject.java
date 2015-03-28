@@ -6,13 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.swing.JOptionPane;
-
 import org.json.simple.JSONObject;
-
 import controller.Controller.CommandListner;
+import controller.SimpleChangeManager;
 import strategy.DatumBoxAnalysis;
 import strategy.ProcessStrategy;
 import strategy.ProcessTweetsStrategy;
@@ -21,7 +17,6 @@ import strategy.SentimentStrategy;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
-import view.DatumBoxView;
 import view.Observer;
 
 public class TwitterDataSubject extends SubjectDecorator {
@@ -34,16 +29,14 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private Twitter twitterAcc;
 	private ArrayList<String> preProcessedTweetList;
 	private  ArrayList<SentimentStrategy> analysisStrategyList;
-	private ArrayList<JSONObject> datumBoxResults;
-	private ArrayList<JSONObject> rapidMinerResults;
 	private ProcessStrategy processStrategy;
 	private ArrayList<JSONObject> mongoDataStore;
 	private int datumBoxProgressCount;
 	private int rapidminerProgressCount;
-//	private Observer datumObserver;
-	private ArrayList<Observer> datumObservers;
+	private SimpleChangeManager changeManager;
+	private String observerToUpdate;
 
-	public TwitterDataSubject(Subject subjectReference) {
+	public TwitterDataSubject(Subject subjectReference,SimpleChangeManager changeManager) {
 		// Constructor
 		super(subjectReference);
 		this.observerMap = new HashMap<String, Observer>();
@@ -53,12 +46,10 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.fileWriter = null;
 		this.preProcessedTweetList = new ArrayList<String>();
 		this.analysisStrategyList = new ArrayList<SentimentStrategy>();
-		this.datumBoxResults = new ArrayList<JSONObject>();
-		this.rapidMinerResults = new ArrayList<JSONObject>();
-		this.datumObservers = new ArrayList<Observer>();
+		this.changeManager = changeManager;
+		changeManager.register(this);
 		buildConfiguration(); // Create build to create a twitter access account
 		setAnalysisStrategys();
-
 	}
 
 	
@@ -69,27 +60,26 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public int getRapidminerProgressCount() {
 		return rapidminerProgressCount;
 	}
-
-
-	public void setDatumBoxProgressCount() {
-		this.datumBoxProgressCount++;
-	}
-	public void setRapidMinerProgressCount() {
-		this.rapidminerProgressCount++;
-	}
 	
-	public void reSetDatumBoxProgressCount() {
+	public void reSetProgressCount() {
 		this.datumBoxProgressCount=0;
 		this.rapidminerProgressCount=0;
 	}
-
+	
+	public void setProgressCount(boolean countRef){
+		if(countRef){
+			this.datumBoxProgressCount++;
+		}else{
+			this.rapidminerProgressCount++;
+		}
+	}
 
 	public String getTopic() {
 		return topic;
 	}
 
 	public void setTopic(String topic) {
-		this.topic = topic;
+		this.topic = topic+" exclude:retweets";
 	}
 
 	public void buildConfiguration() {
@@ -100,9 +90,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		cb.setOAuthConsumerSecret("1yMPEgEduQnTOR9Vhic8K4DDIr0e4jGDAgHV1vfRNZrVy7wuOJ");
 		cb.setOAuthAccessToken("1132014068-3por1LAq9kljhAgotaxwEpPJu6xRYaRRFfKXD3O");
 		cb.setOAuthAccessTokenSecret("bohSoky6eklbPsdjpYMDotqYSI5oZB4bpoHeeYpUf8jmM");
-
 		this.twitterAcc = new TwitterFactory(cb.build()).getInstance();
-
 	}
 
 	// This returns the twitter account created might not be needed
@@ -110,13 +98,11 @@ public class TwitterDataSubject extends SubjectDecorator {
 		return this.twitterAcc;
 	}
 
-	
 	public int getTweetCount(){
 		return this.mongoDataStore.size();
 	}
 
 	public void setTweetStore() {
-
 		try {
 			fileWriter = new FileWriter(fetchedTweetsCSV);
 			for(JSONObject obj : this.mongoDataStore){
@@ -145,40 +131,18 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public ArrayList<String> getPreProcessedTweetList() {
 		return preProcessedTweetList;
 	}
-	//might remove this
-	public void setPreProcessedTweetList(ArrayList<String> processedTweetList) {
-		this.preProcessedTweetList = processedTweetList;
-		
-		System.out.println("setPreProcessedTweetList activated");// TEST
-		System.out.println(processedTweetList.size());// TEST
-		for(int i = 0; i<this.preProcessedTweetList.size();i++){
-			System.out.println(preProcessedTweetList.get(i).toString());
-		}
-	}
 	
-
 	public ArrayList<SentimentStrategy> getAnalysisStrategys() {
 		return this.analysisStrategyList;
 	}
 
-	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {
-		
+	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {	
 		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
 		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
 		analysisStrategyList.add(analysis);
 		analysisStrategyList.add(datumAnalysis);
 	}
 	
-	public ArrayList<JSONObject> getDatumResultsJSON() {
-		return datumBoxResults;
-	}
-
-	public void setDatumResultsJSON(ArrayList<JSONObject> datumResultsJSON) {
-		this.datumBoxResults = datumResultsJSON;
-		notifyObserver("datumView");
-	}
-	
-
 	// CAN BE REMOVED
 	@Override
 	public void registerObserver(Observer observer) {
@@ -186,14 +150,14 @@ public class TwitterDataSubject extends SubjectDecorator {
 		observers.add(observer);
 	}
 
-	public ArrayList<Observer> getDatumObservers() {
-		return datumObservers;
-	}
-
-
+	@Override
 	public void registerObserver(Observer o, String ObserverRef) {
 		this.observerMap.put(ObserverRef, o);
 		System.out.println("Datum view added to observer Map");
+	}
+	
+	public Map<String, Observer> getObservers(){
+		return this.observerMap;
 	}
 
 
@@ -206,24 +170,6 @@ public class TwitterDataSubject extends SubjectDecorator {
 		}
 	}
 
-	@Override
-	public void notifyObservers() {
-		// notify all observers on update
-		for (Observer o : observers) {
-			o.update(this);
-		}
-	}
-	
-	public void notifyObserver(String observerRef) {
-		// notify specific observers on update	
-		System.out.println("Notify observer Called");
-		for (Entry<String, Observer> entry : observerMap.entrySet()) {
-			if(entry.getKey().equalsIgnoreCase(observerRef)){
-				entry.getValue().update(this);
-			}
-			
-		}
-	}
 
 	public String description() {
 		// For testing to check if subjects are been decorated
@@ -244,33 +190,18 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.processStrategy = new ProcessTweetsStrategy();//move this to main
 	}
 
-
-	public ArrayList<JSONObject> getRapidResultsJSON() {
-		return rapidMinerResults;
-	}
-
-	public void setRapidResultsJSON(ArrayList<JSONObject> rapidResultsJSON) {
-		this.rapidMinerResults = rapidResultsJSON;
-		notifyObserver("rapidView");
-	}
-	
-	
-
 	public ArrayList<JSONObject> getMongoDataStore() {
 		return mongoDataStore;
 	}
 
 	public void setMongoDataStore(ArrayList<JSONObject> mongoDataStore) {
 		this.mongoDataStore = mongoDataStore;
-		notifyObserver("tweetView");
+		notifyObservers();
 		System.out.println("Set mongo DB activiated");
-	}
-	
-	public void notifyEvaluation() {
-		notifyObserver("elavView");
-		notifyObserver("chartView");
-		notifyObserver("cloudView");
-		System.out.println("Eval view notified");
+		for (JSONObject tweet : mongoDataStore) {
+			System.out.println("in subject");
+			System.out.println(tweet.toString());
+		}
 	}
 	
 	public void resetMongoDataStore(){
@@ -284,5 +215,14 @@ public class TwitterDataSubject extends SubjectDecorator {
 			o.addActionListener(commandListner);
 		}
 	}
-
+	
+	public void notifyObservers() {
+		System.out.println("Changemanager called");
+		changeManager.notifyChange(this.observerToUpdate);
+	}
+	public void hasChanged(String observerRef){
+		this.observerToUpdate = observerRef;
+		notifyObservers();
+		System.out.println("has changed called = "+this.observerToUpdate);
+	}
 }

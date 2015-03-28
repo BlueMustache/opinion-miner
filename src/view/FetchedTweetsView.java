@@ -113,11 +113,11 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			textAreaList.get(i).setName("txtArea_" + Integer.toString(i));
 			
 			lableList.get(i).setName("Label_" + Integer.toString(i));
-			lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+			lableList.get(i).setFont(new Font("Gotham Medium", Font.PLAIN, 20));
 
 			
 			
-			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+			textAreaList.get(i).setFont(new Font("Gotham Book", Font.PLAIN, 20));
 			textAreaList.get(i).setWrapStyleWord(true);
 			lableList.get(i).setText("<html><center>Re-Tweet Count = " + tweet.get("retweetCount").toString() + "<br>"+ determioneTweetImpact(Integer.parseInt(tweet.get("retweetCount").toString()))+ "</center></html>");
 

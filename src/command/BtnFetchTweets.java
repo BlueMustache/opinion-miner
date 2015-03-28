@@ -1,6 +1,7 @@
 package command;
 
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,7 @@ public class BtnFetchTweets extends JButton implements Command {
 	public BtnFetchTweets(String caption, Subject subject) {
 		// Constructor for this btn
 		super(caption);
-		this.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+		this.setFont(new Font("Gotham Medium", Font.PLAIN, 20));
 		this.subjectRef = subject;
 		this.twitterAcc = ((TwitterDataSubject) subject).getTwitterAcc();
 	}
@@ -54,7 +55,7 @@ public class BtnFetchTweets extends JButton implements Command {
 				try {
 					Query query = new Query(((TwitterDataSubject) this.subjectRef).getTopic());;
 					query.lang("en");
-					query.setResultType(Query.POPULAR);
+					query.setResultType(Query.MIXED);
 					QueryResult result;
 					do {
 						result = this.twitterAcc.search(query);
@@ -70,7 +71,7 @@ public class BtnFetchTweets extends JButton implements Command {
 							// System.out.println("RetweetCount = "
 							// +tweet.getRetweetCount()); // test
 						}
-					} while ((query = result.nextQuery()) != null /* && tweetCount* < 2*/);// /MIGHT NEED TO REMOVE THIS LIMITS TWEETS DISPLAYED TO 20 SOMEHOW
+					} while ((query = result.nextQuery()) != null  && tweetCount < 10);// /MIGHT NEED TO REMOVE THIS LIMITS TWEETS DISPLAYED TO 20 SOMEHOW
 				} catch (TwitterException te) {
 					te.printStackTrace();
 					System.out.println("Failed to search tweets: "+ te.getMessage()); // For// testing
@@ -80,7 +81,8 @@ public class BtnFetchTweets extends JButton implements Command {
 				}
 				System.out.println("The Tweets Fetched count is : "+ tweetCount); // For// testing
 
-				((TwitterDataSubject) this.subjectRef).reSetDatumBoxProgressCount();
+				((TwitterDataSubject) this.subjectRef).reSetProgressCount();
+				((TwitterDataSubject) this.subjectRef).hasChanged("tweetView");
 				((TwitterDataSubject) this.subjectRef).setMongoDataStore(mongoDataStore);
 				System.out.println("The Mongo data count is : "+ mongoDataStore.size());
 
@@ -91,9 +93,9 @@ public class BtnFetchTweets extends JButton implements Command {
 				System.out.println("tweet Count = "+ ((TwitterDataSubject) subjectRef).getTweetCount());
 				
 				// ///////////TEST/////////
-				for (JSONObject tweet : mongoDataStore) {
-					System.out.println(tweet.toString());
-				}
+//				for (JSONObject tweet : mongoDataStore) {
+//					System.out.println(tweet.toString());
+//				}
 				}
 				// ////////////////////////
 			} catch (NullPointerException e) {

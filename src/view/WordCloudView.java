@@ -41,7 +41,7 @@ import model.Subject;
 import model.TwitterDataSubject;
 import controller.Controller.CommandListner;
 
-public class WordCloudView extends JPanel implements Observer {
+public class WordCloudView extends JScrollPane implements Observer {
 
 	private JPanel mainPanel;
 	private Subject subjectRef;
@@ -80,9 +80,11 @@ public class WordCloudView extends JPanel implements Observer {
 	@Override
 	public void update(Subject subject) {
 		// TODO Auto-generated method stub
+//		ArrayList<String> tweetTokens = this.negativeResults;
 		try {
 			getTokens();
-			removeStopWords(this.negativeResults);
+//			tweetTokens = removeStopWords(this.negativeResults);
+//			removeStopWords(this.negativeResults);
 		} catch (InvalidFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,22 +93,31 @@ public class WordCloudView extends JPanel implements Observer {
 			e.printStackTrace();
 		}
 		for (String token : this.negativeResults) {
-//			for (int i = random.nextInt(50); i > 0; i--) {
+			for (int i = random.nextInt(this.negativeResults.size()); i > 0; i--) {
 				cloud.addTag(token.toString());
-//			}
+			}
 		}
+		
+		int maxTag=50;
+		int minTag=20;
+		
 		for (Tag tag : cloud.tags()) {
-			final JLabel label = new JLabel(tag.getName());
+			int randTag = random.nextInt((maxTag - minTag) + 1) + minTag;
+			JLabel label = new JLabel(tag.getName());
+			tag.setWeight(randTag);
 			label.setOpaque(false);
 			label.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
 			label.setFont(label.getFont().deriveFont(
-					(float) tag.getWeight() * 20));
-			Dimension d = new Dimension(800, 475);
+					(float) tag.getWeight()));
+			Dimension d = new Dimension(15, 15);
 			this.mainPanel.setPreferredSize(d);
 			mainPanel.add(label);
 		}
-		this.add(mainPanel);
-
+		Dimension d = new Dimension(1000, 600);
+		this.setPreferredSize(d);//setPreferredSize(d);//
+		this.setViewportView(mainPanel);
+		this.revalidate();
+		this.repaint();
 	}
 
 	public void getTokens() throws InvalidFormatException, IOException {
@@ -121,12 +132,13 @@ public class WordCloudView extends JPanel implements Observer {
 								// tokenizer.tokenize(txtData.getData());
 		String negTweet = null;
 		for (JSONObject obj : mongoDataStore) {
-			String sentiment = obj.get("rapidMinerResults").toString();
-			if (sentiment.equalsIgnoreCase("negative")) {
-				negTweet = negTweet + obj.get("processedTweet").toString();
-			}
+//			String sentiment = obj.get("rapidMinerResults").toString();
+//			if (sentiment.equalsIgnoreCase("negative")) {
+				negTweet = negTweet +" " + obj.get("processedTweet").toString();
+//			}
 		}
 		tokens = tokenizer.tokenize(negTweet);
+//		tokens = tokenizer.tokenize("14' - GOAL! Liverpool 0 United 1. Juan Mata finds the net! #mufclive");
 		this.negativeResults = new ArrayList<String>(Arrays.asList(tokens));
 		int count=0;
 		for (String a : negativeResults) {
@@ -138,7 +150,7 @@ public class WordCloudView extends JPanel implements Observer {
 
 	}
 
-	public void removeStopWords(ArrayList<String> tweetTokens){
+	public ArrayList<String> removeStopWords(ArrayList<String> tweetTokens){
 		ArrayList<String> tweetToken = tweetTokens;
 		String[] stopWords = {"able","about","across","after","all","almost","also","among","and","any","are","because","been","but","can","cannot","could","dear","did","does","either","else","ever","every","for","from","get","got","had","has","have","her","hers","him","his","how","however","into","its","just","least","let","like","likely","may","might","most","must","neither","nor","not","off","often","only","other","our","own","rather","said","say","says","she","should","since","some","than","that","the","their","them","then","there","these","they","this","tis","too","twas","wants","was","were","what","when","where","which","while","who","whom","why","will","with","would","yet","you","your"};
 		
@@ -158,6 +170,8 @@ public class WordCloudView extends JPanel implements Observer {
 			count++;
 		}
 		System.out.println("Tweet token count with stop words removed = "+count);
+		
+		return tweetTokens;
 
 	}
 

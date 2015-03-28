@@ -55,9 +55,9 @@ public class DatumBoxView extends JScrollPane implements Observer {
 	public void update(final Subject subject) {
 		// TODO Auto-generated method stub
 		this.subjectRef = /* (TwitterDataSubject) */subject;
-
-		ArrayList<JSONObject> datumResults = ((TwitterDataSubject) this.subjectRef)
-				.getDatumResultsJSON();
+//
+//		ArrayList<JSONObject> datumResults = ((TwitterDataSubject) this.subjectRef)
+//				.getDatumResultsJSON();
 		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) this.subjectRef)
 				.getMongoDataStore();
 
@@ -88,7 +88,7 @@ public class DatumBoxView extends JScrollPane implements Observer {
 		gbc_panel_3.gridx = 0;
 
 
-		for (int i = 0; i < datumResults.size(); i++) {
+		for (int i = 0; i < mongoDataStore.size(); i++) {
 			panelList.add(new JPanel());
 			sentimentPanelList.add(new JPanel());
 			textAreaList.add(new JTextArea());
@@ -99,19 +99,19 @@ public class DatumBoxView extends JScrollPane implements Observer {
 			panelList.get(i).setName("panel_" + Integer.toString(i));
 			textAreaList.get(i).setName("txtArea_" + Integer.toString(i));
 			lableList.get(i).setName("Label_" + Integer.toString(i));
-			lableList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+			lableList.get(i).setFont(new Font("Gotham Medium", Font.PLAIN, 20));
 
 			gbc_panel_3.gridy = i;
 			mainPanel.add(panelList.get(i), gbc_panel_3);
 
-			textAreaList.get(i).setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+			textAreaList.get(i).setFont(new Font("Gotham Book", Font.PLAIN, 20));
 			textAreaList.get(i).setWrapStyleWord(true);
 			textAreaList.get(i).setText(mongoDataStore.get(i).get("unProcessedTweet").toString());
 
-			lableList.get(i).setText(datumResults.get(i).get("result").toString());
+			lableList.get(i).setText(mongoDataStore.get(i).get("datumResults").toString());
 			
-			Color colour = datumResults.get(i).get("result").equals("Positive") ? new Color(113,   213,   160) : new Color(236,   102,   111);
-			if (datumResults.get(i).get("result").equals("Neutral")) {
+			Color colour = mongoDataStore.get(i).get("datumResults").equals("Positive") ? new Color(113,   213,   160) : new Color(236,   102,   111);
+			if (mongoDataStore.get(i).get("datumResults").equals("Neutral")) {
 				colour = Color.GRAY;
 			}
 			panelList.get(i).setBorder(new LineBorder(colour, 4, true));

@@ -65,7 +65,7 @@ public class ChartView extends JScrollPane implements Observer {
 		int posCount = 0;
 		for (JSONObject tweet : mongoDataStore) {
 			// tweet.get("rapidMinerResults");
-			if (tweet.get("rapidMinerResults").toString()
+			if (tweet.get("RapidResult").toString()
 					.equalsIgnoreCase("Negative")) {
 				negCount++;
 			} else {
