@@ -60,20 +60,19 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public int getRapidminerProgressCount() {
 		return rapidminerProgressCount;
 	}
-
-
-	public void setDatumBoxProgressCount() {
-		this.datumBoxProgressCount++;
-	}
-	public void setRapidMinerProgressCount() {
-		this.rapidminerProgressCount++;
-	}
 	
-	public void reSetDatumBoxProgressCount() {
+	public void reSetProgressCount() {
 		this.datumBoxProgressCount=0;
 		this.rapidminerProgressCount=0;
 	}
-
+	
+	public void setProgressCount(boolean countRef){
+		if(countRef){
+			this.datumBoxProgressCount++;
+		}else{
+			this.rapidminerProgressCount++;
+		}
+	}
 
 	public String getTopic() {
 		return topic;

@@ -81,7 +81,7 @@ public class BtnFetchTweets extends JButton implements Command {
 				}
 				System.out.println("The Tweets Fetched count is : "+ tweetCount); // For// testing
 
-				((TwitterDataSubject) this.subjectRef).reSetDatumBoxProgressCount();
+				((TwitterDataSubject) this.subjectRef).reSetProgressCount();
 				((TwitterDataSubject) this.subjectRef).hasChanged("tweetView");
 				((TwitterDataSubject) this.subjectRef).setMongoDataStore(mongoDataStore);
 				System.out.println("The Mongo data count is : "+ mongoDataStore.size());

@@ -22,7 +22,7 @@ public class Main {
 
 
 		// Select the Look and Feel need a backup to go to the default look and feel maybe a try catch
-		UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+		UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
 		
 		SimpleChangeManager changeManager = new SimpleChangeManager();
 		

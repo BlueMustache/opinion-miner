@@ -109,10 +109,13 @@ public class EvaluationView extends JScrollPane implements Observer {
 			rapidResultsPanelList.add(new JPanel());
 			radioBtnPanelList.add(new JPanel());
 			btnGroupList.add(new ButtonGroup( ));
+
 			
 			submitBtnlist.add(new JButton());
-			radioBtnPanelList.get(i).setBorder(new LineBorder(Color.black, 2, true));
+			radioBtnPanelList.get(i).setBorder(new LineBorder(new Color(0, 132, 180), 2, true));
 			radioBtnPanelList.get(i).setName("rPanel_"+Integer.toString(i));
+			radioBtnPanelList.get(i).setBackground(new Color(192, 222, 237));
+			radioBtnPanelList.get(i).setForeground(new Color(0, 132, 180));
 			radioBtnPanelList.get(i).setLayout(new FlowLayout());
 			
 			radioBtnlistPos.add(new JRadioButton());
@@ -120,19 +123,31 @@ public class EvaluationView extends JScrollPane implements Observer {
 			radioBtnlistPos.get(i).setText("Positive");
 			radioBtnlistPos.get(i).setVerticalTextPosition(JRadioButton.BOTTOM);
 			radioBtnlistPos.get(i).setHorizontalTextPosition(JRadioButton.CENTER);
+			radioBtnlistPos.get(i).setBackground(new Color(192, 222, 237));
+			radioBtnlistPos.get(i).setForeground(new Color(0, 132, 180));
+			radioBtnlistPos.get(i).setFont(new Font("Gotham Medium", Font.PLAIN, 13));
 			
 			radioBtnlistNeg.add(new JRadioButton());
 			radioBtnlistNeg.get(i).setName("radioBtnNeg_"+Integer.toString(i));
 			radioBtnlistNeg.get(i).setText("Negative");
 			radioBtnlistNeg.get(i).setVerticalTextPosition(JRadioButton.BOTTOM);
 			radioBtnlistNeg.get(i).setHorizontalTextPosition(JRadioButton.CENTER);
+			radioBtnlistNeg.get(i).setBackground(new Color(192, 222, 237));
+			radioBtnlistNeg.get(i).setForeground(new Color(0, 132, 180));
+			radioBtnlistNeg.get(i).setFont(new Font("Gotham Medium", Font.PLAIN, 13));
 			
 			radioBtnlistNeu.add(new JRadioButton());
 			radioBtnlistNeu.get(i).setName("radioBtnNeu_"+Integer.toString(i));
 			radioBtnlistNeu.get(i).setText("Neutral");
 			radioBtnlistNeu.get(i).setVerticalTextPosition(JRadioButton.BOTTOM);
 			radioBtnlistNeu.get(i).setHorizontalTextPosition(JRadioButton.CENTER);
+			radioBtnlistNeu.get(i).setBackground(new Color(192, 222, 237));
+			radioBtnlistNeu.get(i).setForeground(new Color(0, 132, 180));
+			radioBtnlistNeu.get(i).setFont(new Font("Gotham Medium", Font.PLAIN, 13));
+			
 			submitBtnlist.get(i).setName("subBtn_"+Integer.toString(i));
+			submitBtnlist.get(i).setFont(new Font("Gotham Medium", Font.PLAIN, 14));
+			submitBtnlist.get(i).setForeground(new Color(0, 132, 180));
 			submitBtnlist.get(i).setSize(10, 10);
 			submitBtnlist.get(i).setText("Submit");
 			submitBtnlist.get(i).addActionListener(new ActionListener(){
@@ -178,12 +193,15 @@ public class EvaluationView extends JScrollPane implements Observer {
 			radioBtnPanelList.get(i).add(radioBtnlistNeg.get(i));
 			radioBtnPanelList.get(i).add(radioBtnlistNeu.get(i));
 			radioBtnPanelList.get(i).add(submitBtnlist.get(i));
+//			Dimension dimension = new Dimension(15, 175);
+//			radioBtnPanelList.get(i).setPreferredSize(dimension);
+
 			
 			resultsPanelList.add(new JPanel());
-			panelList.get(i).setBorder(new LineBorder(Color.BLACK, 4, true));
-			resultsPanelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
+			panelList.get(i).setBorder(new LineBorder(new Color(0, 132, 180), 4, true));
+			resultsPanelList.get(i).setBorder(new LineBorder(new Color(0, 132, 180), 2, true));
 			resultsPanelList.get(i).setLayout(new FlowLayout());
-			datumResultsPanelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
+			datumResultsPanelList.get(i).setBorder(new LineBorder(new Color(0, 132, 180), 2, true));
 			datumResultsPanelList.get(i).setLayout(new FlowLayout());
 			textAreaList.add(new JTextArea());
 			lableList.add(new JLabel());
@@ -196,12 +214,14 @@ public class EvaluationView extends JScrollPane implements Observer {
 
 			lableList.get(i).setName("Label_" + Integer.toString(i));
 			lableList.get(i).setFont(new Font("Gotham Medium", Font.PLAIN, 15));
-
+			lableList.get(i).setForeground(new Color(0, 132, 180));
+			
 			textAreaList.get(i).setFont(new Font("Gotham Book", Font.PLAIN, 20));
+			textAreaList.get(i).setForeground(new Color(0, 132, 180));
 			textAreaList.get(i).setWrapStyleWord(true);
-			lableList.get(i).setText("<html><center>DatumBox Result = "+tweet.get("datumResults").toString()+ "<br>"+ "RapidMiner Result = "+tweet.get("RapidResult").toString()+ "</center></html>");
+			lableList.get(i).setText("<html><center>"+"<br>"+"<br>"+"<center>DatumBox Result :"+ "<br>"+tweet.get("datumResults").toString()+ "<br>"+"<br>"+"<br>"+ "RapidMiner Result :"+ "<br>"+tweet.get("RapidResult").toString()+ "</center></html>");
 
-			resultsPanelList.get(i).setBackground(Color.LIGHT_GRAY);
+			resultsPanelList.get(i).setBackground(new Color(192, 222, 237));
 			textAreaList.get(i).setText(tweet.get("unProcessedTweet").toString());
 			textAreaList.get(i).setLineWrap(true);
 			textAreaList.get(i).setEnabled(true);
@@ -215,15 +235,15 @@ public class EvaluationView extends JScrollPane implements Observer {
 					gl_panel_3
 							.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 350,Short.MAX_VALUE).addGap(30)
-							.addComponent(radioBtnPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE).addContainerGap()
-							.addComponent(resultsPanelList.get(i),GroupLayout.PREFERRED_SIZE, 50,Short.MAX_VALUE)));
+							.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 500,Short.MAX_VALUE).addGap(30)							
+							.addComponent(resultsPanelList.get(i),GroupLayout.PREFERRED_SIZE, 100,Short.MAX_VALUE).addContainerGap()
+							.addComponent(radioBtnPanelList.get(i),GroupLayout.PREFERRED_SIZE, 15,Short.MAX_VALUE)));
 							
 			panelList.get(i).revalidate();
 			panelList.get(i).repaint();
 			gl_panel_3.setVerticalGroup(gl_panel_3
 					.createParallelGroup(Alignment.LEADING)
-					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 150, Short.MAX_VALUE)
+					.addComponent(textAreaList.get(i),GroupLayout.PREFERRED_SIZE, 175, Short.MAX_VALUE)
 					.addComponent(radioBtnPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30,Short.MAX_VALUE)
 					.addComponent(resultsPanelList.get(i),GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE));
 			panelList.get(i).revalidate();

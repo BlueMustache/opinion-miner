@@ -100,7 +100,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 				String result = fileReader.get("prediction(Sentiment)");
 				String tweet = fileReader.get("text");
 				mongoDataStore.get(i).put("RapidResult", result);
-				((TwitterDataSubject) subject).setRapidMinerProgressCount();
+				((TwitterDataSubject) subject).setProgressCount(false);
 				System.out.println("Rapid results count !!!"
 						+ ((TwitterDataSubject) subject)
 								.getRapidminerProgressCount());

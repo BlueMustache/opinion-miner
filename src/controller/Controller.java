@@ -97,7 +97,7 @@ public class Controller {
 							}
 						}
 						monitor.close();
-						((TwitterDataSubject) subject).reSetDatumBoxProgressCount();
+						((TwitterDataSubject) subject).reSetProgressCount();
 						timer.setRepeats(false);
 						timer.start();
 					}

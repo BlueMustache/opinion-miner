@@ -60,7 +60,7 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 //					obj.put("datumResults", sentimentPrediction.get("result").toString());//temp while datum rate limit is in place so i can test
 					obj.put("datumResults", "temp reading!"+i);//temp while datum rate limit is in place so i can test
 					datumResults.add(sentimentPrediction);	
-					((TwitterDataSubject) subject).setDatumBoxProgressCount();
+					((TwitterDataSubject) subject).setProgressCount(true);
 					i++;//temp while datum rate limit is in place so i can test
 					System.out.println("DatumBox results count !!!" +((TwitterDataSubject) subject).getDatumBoxProgressCount());
 			}
