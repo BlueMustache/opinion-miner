@@ -66,9 +66,15 @@ public class Controller {
 				int index = mainUI.getTabbedPane().getSelectedIndex();
 				if(((TwitterDataSubject) subject).getMongoDataStore().size()==0){
 					mainUI.getTabbedPane().setSelectedIndex(0);
+					mainUI.getTabbedPane().setEnabledAt(1, false);
+					mainUI.getTabbedPane().setEnabledAt(3, false);
+					mainUI.getTabbedPane().setEnabledAt(2, false);
+					mainUI.getTabbedPane().setEnabledAt(4, false);
+					mainUI.getTabbedPane().setEnabledAt(5, false);
+					mainUI.getTabbedPane().setEnabledAt(6, false);
 				}
 			}
-			if (e.getActionCommand().equalsIgnoreCase("Analyze")) {
+			if (e.getActionCommand().equalsIgnoreCase("Analyze")&&((TwitterDataSubject) subject).getMongoDataStore().size()>0) {
 				final ProgressMonitor monitor = new ProgressMonitor(mainUI,"Analyzing", "Iteration", 0,((TwitterDataSubject) subject).getMongoDataStore().size()*2);
 				
 				final Timer timer = new Timer(2, new ActionListener() {
@@ -103,6 +109,16 @@ public class Controller {
 				mainUI.getTabbedPane().setEnabledAt(2, true);
 				
 			}
+			if(e.getActionCommand().equalsIgnoreCase("Analyze")&&((TwitterDataSubject) subject).getMongoDataStore().size()==0){
+					mainUI.getTabbedPane().setSelectedIndex(0);
+					mainUI.getTabbedPane().setEnabledAt(1, false);
+					mainUI.getTabbedPane().setEnabledAt(3, false);
+					mainUI.getTabbedPane().setEnabledAt(2, false);
+					mainUI.getTabbedPane().setEnabledAt(4, false);
+					mainUI.getTabbedPane().setEnabledAt(5, false);
+					mainUI.getTabbedPane().setEnabledAt(6, false);
+			}
+			
 			
 //			if (e.getActionCommand().equalsIgnoreCase("Evaluate") && ((TwitterDataSubject) subject).getMongoDataStore().size()==0) {
 //				JOptionPane.showMessageDialog(null, "No Twitterdata to evaluate.");
@@ -118,19 +134,17 @@ public class Controller {
 				mainUI.getTabbedPane().setEnabledAt(6, true);
 				
 				System.out.println("Eval view created");
+				if(((TwitterDataSubject) subject).getMongoDataStore().size()==0){
+					mainUI.getTabbedPane().setSelectedIndex(0);
+					mainUI.getTabbedPane().setEnabledAt(1, false);
+					mainUI.getTabbedPane().setEnabledAt(3, false);
+					mainUI.getTabbedPane().setEnabledAt(2, false);
+					mainUI.getTabbedPane().setEnabledAt(4, false);
+					mainUI.getTabbedPane().setEnabledAt(5, false);
+					mainUI.getTabbedPane().setEnabledAt(6, false);
+				}
 			}
-			// switch(command)
-			// {
-			// case "Search" :
-			// mainUI.getTabbedPane().setSelectedIndex(1);
-			// break;
-			// case "Analyze" :
-			// break;
-			// // case "Update DB" :
-			// // break;
-			// default :
-			// System.out.println("Invalid Button");
-			// }
+
 		}
 	}
 
