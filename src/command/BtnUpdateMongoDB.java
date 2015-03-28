@@ -1,5 +1,6 @@
 package command;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -21,6 +22,7 @@ public class BtnUpdateMongoDB extends JButton implements Command {
 		// Constructor for this btn
 		super(caption);
 		this.setFont(new Font("Gotham Medium", Font.PLAIN, 15));
+		this.setForeground(new Color(0, 132, 180));
 		this.subjectRef = subject;
 		this.mongoDBStrategy = new UpdateMongoDBStrategy();
 	}

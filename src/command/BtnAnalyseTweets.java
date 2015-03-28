@@ -1,5 +1,6 @@
 package command;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ public class BtnAnalyseTweets extends JButton implements Command {
 		// TODO Auto-generated constructor stub
 		super(caption);
 		this.setFont(new Font("Gotham Medium", Font.PLAIN, 20));
+		this.setForeground(new Color(0, 132, 180));
 		this.subjectRef = subject;
 
 	}

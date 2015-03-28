@@ -117,13 +117,15 @@ public class TrendsView extends JScrollPane implements Observer {
 			btnTrendList.add(btnTrend);
             btnTrend.setText(tag.getName());
             btnTrend.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+            btnTrend.setForeground(new Color(0, 132, 180));
             tag.setWeight(randTag);
             btnTrend.setFont(btnTrend.getFont().deriveFont((float) tag.getWeight()));
             btnTrend.setName("trendBtn");
             Dimension trendPanelDimension = new Dimension(1000, 275);
     		this.trendPanel.setPreferredSize(trendPanelDimension);
     		trendPanel.add(btnTrend); 
-    		trendPanel.setBorder(new TitledBorder (new LineBorder(Color.BLACK, 4, true),"Trends",TitledBorder.LEFT,TitledBorder.CENTER,new Font("Comic Sans MS", Font.PLAIN, 20)));
+    		trendPanel.setBorder(new TitledBorder (new LineBorder(new Color(0, 132, 180), 4, true),"Trends",TitledBorder.LEFT,TitledBorder.CENTER,new Font("Gotham Medium", Font.PLAIN, 20)));
+    		trendPanel.setForeground(new Color(0, 132, 180));
     		mainPanel.add(trendPanel);
         }
 		
@@ -134,13 +136,15 @@ public class TrendsView extends JScrollPane implements Observer {
 			System.out.println("category btn added");
             btnCategory.setText(tag.getName());
             btnCategory.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+            btnCategory.setForeground(new Color(0, 132, 180));
             tag.setWeight(randTag);
             btnCategory.setFont(btnCategory.getFont().deriveFont((float) tag.getWeight()));
             btnCategory.setName("trendBtn");
             Dimension categoryPanelDimension = new Dimension(1000, 500);
     		this.categoryPanel.setPreferredSize(categoryPanelDimension);
     		categoryPanel.add(btnCategory); 
-    		categoryPanel.setBorder(new TitledBorder (new LineBorder(Color.BLACK, 4, true),"Categorys",TitledBorder.LEFT,TitledBorder.CENTER,new Font("Comic Sans MS", Font.PLAIN, 20)));
+    		categoryPanel.setBorder(new TitledBorder (new LineBorder(new Color(0, 132, 180), 4, true),"Categorys",TitledBorder.LEFT,TitledBorder.CENTER,new Font("Gotham Medium", Font.PLAIN, 20)));
+    		categoryPanel.setForeground(new Color(0, 132, 180));
     		mainPanel.add(categoryPanel);
         }
 		

@@ -92,7 +92,7 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.gridx = 0;
-		this.setBorder(new LineBorder(Color.BLACK));
+		this.setBorder(new LineBorder(new Color(0, 132, 180)));
 		int i = 0;
 		
 		for(JSONObject tweet : mongoDataStore ){
@@ -102,8 +102,8 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			
 			
 			impactPanelList.add(new JPanel());
-			panelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
-			impactPanelList.get(i).setBorder(new LineBorder(Color.BLACK, 2, true));
+			panelList.get(i).setBorder(new LineBorder(new Color(0, 132, 180), 2, true));
+			impactPanelList.get(i).setBorder(new LineBorder(new Color(0, 132, 180), 2, true));
 			impactPanelList.get(i).setLayout(new FlowLayout());
 			textAreaList.add(new JTextArea());
 			lableList.add(new JLabel());
@@ -114,18 +114,21 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			
 			lableList.get(i).setName("Label_" + Integer.toString(i));
 			lableList.get(i).setFont(new Font("Gotham Medium", Font.PLAIN, 20));
+			lableList.get(i).setForeground(new Color(0, 132, 180));
 
 			
 			
 			textAreaList.get(i).setFont(new Font("Gotham Book", Font.PLAIN, 20));
 			textAreaList.get(i).setWrapStyleWord(true);
-			lableList.get(i).setText("<html><center>Re-Tweet Count = " + tweet.get("retweetCount").toString() + "<br>"+ determioneTweetImpact(Integer.parseInt(tweet.get("retweetCount").toString()))+ "</center></html>");
+			lableList.get(i).setText("<html><center>"+"<br>"+"<center>Re-Tweet Count = " + tweet.get("retweetCount").toString() + "<br>"+ determioneTweetImpact(Integer.parseInt(tweet.get("retweetCount").toString()))+ "</center></html>");
 
 			impactPanelList.get(i).setBackground(determineTweetImpactColor(determioneTweetImpact(Integer.parseInt(tweet.get("retweetCount").toString()))));
+			
 			textAreaList.get(i).setText(tweet.get("unProcessedTweet").toString());
 			textAreaList.get(i).setLineWrap(true);
 			textAreaList.get(i).setEnabled(true);
 			textAreaList.get(i).setEditable(false);
+//			textAreaList.get(i).setForeground(new Color(55, 108, 178));
 			
 			impactPanelList.get(i).add(lableList.get(i));
 			
