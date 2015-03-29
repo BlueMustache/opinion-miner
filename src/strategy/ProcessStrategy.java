@@ -5,5 +5,5 @@ import model.TwitterDataSubject;
 
 public interface ProcessStrategy {
 	
-	public void runProcess(TwitterDataSubject subject);
+	public void runProcess(Subject subject);
 }
