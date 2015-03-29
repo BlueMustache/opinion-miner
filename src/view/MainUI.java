@@ -138,7 +138,7 @@ public class MainUI extends JFrame{
 				 //Start the application
 		Image img;
 			try {
-				img = ImageIO.read(new File("D:\\Workspace\\TattoDemo\\pics\\Twitter_logo_blue.png"));
+				img = ImageIO.read(new File("Twitter_logo_blue.png"));
 				this.setIconImage(img);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

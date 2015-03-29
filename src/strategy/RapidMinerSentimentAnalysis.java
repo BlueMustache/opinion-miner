@@ -61,7 +61,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 		RepositoryLocation pLoc;
 		try {
 			pLoc = new RepositoryLocation(
-					"//OpinionMiner/ClassificationModelProcess");
+					"//OpinionMiner/ModelProcess");
 
 			ProcessEntry pEntry = (ProcessEntry) pLoc.locateEntry();
 			String processXML = pEntry.retrieveXML();
