@@ -52,7 +52,7 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 				JSONObject sentimentPrediction = new JSONObject();	
 				try{
 					
-					sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());	//temp while datum rate limit is in place so i can test
+//					sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());	//temp while datum rate limit is in place so i can test
 				} catch (NullPointerException e) {
 					JOptionPane.showMessageDialog(null,"Datum Box Error", "Datum Box Api Call Rate Limit Reached.",JOptionPane.ERROR_MESSAGE);
 				}

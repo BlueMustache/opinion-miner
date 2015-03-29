@@ -1,6 +1,7 @@
 package strategy;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -55,18 +56,17 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 
 		((TwitterDataSubject) subject).getFetchedTweetsCSV();
 
-		RapidMiner.setExecutionMode(ExecutionMode.COMMAND_LINE);
-		RapidMiner.init();
+		
 
 		RepositoryLocation pLoc;
 		try {
-			pLoc = new RepositoryLocation(
-					"//FYP_Model/ClassificationModelProcessDemo_2");
+//			pLoc = new RepositoryLocation(
+//					"//FYP_Model/ClassificationModelProcessDemo_2");
 
-			ProcessEntry pEntry = (ProcessEntry) pLoc.locateEntry();
-			String processXML = pEntry.retrieveXML();
-			Process myProcess = new Process(processXML);
-			myProcess.setProcessLocation(new RepositoryProcessLocation(pLoc));
+//			ProcessEntry pEntry = (ProcessEntry) pLoc.locateEntry();
+//			String processXML = pEntry.retrieveXML();
+			Process myProcess = new Process(new File("D:/Workspace/Opinion Miner/ClassificationModelProcess/ClassificationModelProcess.xml"));
+//			myProcess.setProcessLocation(new RepositoryProcessLocation(pLoc));
 
 			Operator op = myProcess.getOperator("Read CSV");
 			op.setParameter(
@@ -75,7 +75,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 			Operator csvOutput = myProcess.getOperator("Write CSV");
 			IOContainer container = myProcess.run();
 
-		} catch (RepositoryException | IOException | XMLException
+		} catch (IOException | XMLException
 				| OperatorException e) {
 			JOptionPane.showMessageDialog(null,
 					"Fatal error in RapidMiner Model", "DatumBox Error.",
