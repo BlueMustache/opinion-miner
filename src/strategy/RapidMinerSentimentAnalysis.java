@@ -64,8 +64,8 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 					"//OpinionMiner/ClassificationModelProcess");
 
 			ProcessEntry pEntry = (ProcessEntry) pLoc.locateEntry();
-//			String processXML = pEntry.retrieveXML();
-//			Process myProcess = new Process(new File("//Opinion Miner/ClassificationModelProcess/ClassificationModelProcess.xml"));
+			String processXML = pEntry.retrieveXML();
+			Process myProcess = new Process(processXML);
 			myProcess.setProcessLocation(new RepositoryProcessLocation(pLoc));
 
 			Operator op = myProcess.getOperator("Read CSV");
