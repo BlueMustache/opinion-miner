@@ -1,12 +1,15 @@
 package model;
 
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.json.simple.JSONObject;
+
 import controller.Controller.CommandListner;
 import controller.SimpleChangeManager;
 import strategy.DatumBoxAnalysis;
@@ -25,7 +28,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private Map<String, Observer> observerMap;
 	private FileWriter fileWriter;
 	private String topic;
-	private final String fetchedTweetsCSV = "D:/Workspace/Opinion Miner/fetchedTweets.csv";
+	private  File fetchedTweetsCSV;// = "fetchedTweets.csv";
 	private Twitter twitterAcc;
 	private ArrayList<String> preProcessedTweetList;
 	private  ArrayList<SentimentStrategy> analysisStrategyList;
@@ -47,9 +50,9 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.preProcessedTweetList = new ArrayList<String>();
 		this.analysisStrategyList = new ArrayList<SentimentStrategy>();
 		this.changeManager = changeManager;
+		this.fetchedTweetsCSV = new File("fetchedTweets.csv");
 		changeManager.register(this);
 		buildConfiguration(); // Create build to create a twitter access account
-		setAnalysisStrategys();
 	}
 
 	
@@ -80,6 +83,10 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	public void setTopic(String topic) {
 		this.topic = topic+" exclude:retweets";
+	}
+	
+	public void reSetTopic() {
+		this.topic = null;
 	}
 
 	public void buildConfiguration() {
@@ -136,11 +143,8 @@ public class TwitterDataSubject extends SubjectDecorator {
 		return this.analysisStrategyList;
 	}
 
-	public void setAnalysisStrategys(/*ArrayList<SentimentStrategy> analysisStrategys*/) {	
-		RapidMinerSentimentAnalysis analysis = new RapidMinerSentimentAnalysis();		//move this to main
-		DatumBoxAnalysis datumAnalysis = new DatumBoxAnalysis();
-		analysisStrategyList.add(analysis);
-		analysisStrategyList.add(datumAnalysis);
+	public void addSentimentAnalysisStrategy(SentimentStrategy analysisStrategy) {	
+		this.analysisStrategyList.add(analysisStrategy);
 	}
 	
 	// CAN BE REMOVED
@@ -177,7 +181,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 
 	}
 
-	public String getFetchedTweetsCSV() {
+	public File getFetchedTweetsCSV() {
 		return this.fetchedTweetsCSV;
 	}
 	
@@ -186,8 +190,8 @@ public class TwitterDataSubject extends SubjectDecorator {
 		return processStrategy;
 	}
 
-	public void setProcessStrategy(/*ProcessStrategy processStrategy*/) {
-		this.processStrategy = new ProcessTweetsStrategy();//move this to main
+	public void setProcessStrategy(ProcessStrategy processStrategy) {
+		this.processStrategy = processStrategy;//move this to main
 	}
 
 	public ArrayList<JSONObject> getMongoDataStore() {

@@ -13,6 +13,7 @@ import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
 import model.MongoDB;
+import model.Subject;
 import model.TwitterDataSubject;
 
 public class UpdateMongoDBStrategy implements ProcessStrategy{
@@ -26,11 +27,11 @@ public class UpdateMongoDBStrategy implements ProcessStrategy{
 	}
 
 	@Override
-	public void runProcess(TwitterDataSubject subject) {
+	public void runProcess(Subject subject) {
 		// TODO Auto-generated method stub
 		this.database = this.mongoDB.getDatabase();
 		DBCollection collection = database.getCollection("twitterDataDB");
-		ArrayList<JSONObject> mongoDataStore = subject.getMongoDataStore();
+		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) subject).getMongoDataStore();
 		
 		
 		for(JSONObject obj :mongoDataStore ){

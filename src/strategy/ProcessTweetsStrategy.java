@@ -17,9 +17,9 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 	}
 
 	@Override
-	public void runProcess(TwitterDataSubject subject) {
+	public void runProcess(Subject subject) {
 		// TODO Auto-generated method stub
-		ArrayList<JSONObject> mongoDataStore  = subject.getMongoDataStore();
+		ArrayList<JSONObject> mongoDataStore  = ((TwitterDataSubject) subject).getMongoDataStore();
 		ArrayList<String> processedTweetlist = new ArrayList<String>();
 		
 		
@@ -43,7 +43,6 @@ public class ProcessTweetsStrategy implements ProcessStrategy {
 	
 		}
 		
-//		((TwitterDataSubject) subject).setPreProcessedTweetList(processedTweetlist);
 		((TwitterDataSubject) subject).setMongoDataStore(mongoDataStore);
 		//////////TEST/////////
 //		for(JSONObject tweet : mongoDataStore ){

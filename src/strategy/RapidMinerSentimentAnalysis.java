@@ -1,6 +1,7 @@
 package strategy;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -55,13 +56,12 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 
 		((TwitterDataSubject) subject).getFetchedTweetsCSV();
 
-		RapidMiner.setExecutionMode(ExecutionMode.COMMAND_LINE);
-		RapidMiner.init();
+		
 
 		RepositoryLocation pLoc;
 		try {
 			pLoc = new RepositoryLocation(
-					"//FYP_Model/ClassificationModelProcessDemo_2");
+					"//OpinionMiner/ModelProcess");
 
 			ProcessEntry pEntry = (ProcessEntry) pLoc.locateEntry();
 			String processXML = pEntry.retrieveXML();
@@ -71,12 +71,12 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 			Operator op = myProcess.getOperator("Read CSV");
 			op.setParameter(
 					com.rapidminer.operator.nio.CSVExampleSource.PARAMETER_CSV_FILE,
-					((TwitterDataSubject) subject).getFetchedTweetsCSV());
+					((TwitterDataSubject) subject).getFetchedTweetsCSV().getAbsolutePath());
 			Operator csvOutput = myProcess.getOperator("Write CSV");
 			IOContainer container = myProcess.run();
 
-		} catch (RepositoryException | IOException | XMLException
-				| OperatorException e) {
+		} catch (IOException | XMLException
+				| OperatorException | RepositoryException e) {
 			JOptionPane.showMessageDialog(null,
 					"Fatal error in RapidMiner Model", "DatumBox Error.",
 					JOptionPane.ERROR_MESSAGE);

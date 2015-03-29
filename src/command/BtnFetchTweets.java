@@ -29,7 +29,7 @@ public class BtnFetchTweets extends JButton implements Command {
 
 	private TwitterDataSubject tweetSubject;
 	private Twitter twitterAcc;
-	private ProcessStrategy processStrategy;
+	private ProcessTweetsCommand processStrategyCmd;
 	private Subject subjectRef;
 
 	public BtnFetchTweets(String caption, Subject subject) {
@@ -39,6 +39,7 @@ public class BtnFetchTweets extends JButton implements Command {
 		this.setForeground(new Color(0, 132, 180));
 		this.subjectRef = subject;
 		this.twitterAcc = ((TwitterDataSubject) subject).getTwitterAcc();
+		this.processStrategyCmd = new ProcessTweetsCommand(subject);
 	}
 
 	@Override
@@ -88,10 +89,9 @@ public class BtnFetchTweets extends JButton implements Command {
 				((TwitterDataSubject) this.subjectRef).setMongoDataStore(mongoDataStore);
 				System.out.println("The Mongo data count is : "+ mongoDataStore.size());
 
-				processStrategy = new ProcessTweetsStrategy();
-				processStrategy = ((TwitterDataSubject) subjectRef).getProcessStrategy(); // this needsd work
-				processStrategy.runProcess((TwitterDataSubject) subjectRef);
+				this.processStrategyCmd.execute();
 				((TwitterDataSubject) this.subjectRef).setTweetStore();
+				((TwitterDataSubject) this.subjectRef).reSetTopic();
 				System.out.println("tweet Count = "+ ((TwitterDataSubject) subjectRef).getTweetCount());
 				
 				// ///////////TEST/////////
