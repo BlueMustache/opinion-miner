@@ -13,8 +13,11 @@
     <parameter key="process_duration_for_mail" value="30"/>
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
-      <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve" width="90" x="179" y="75">
+      <operator activated="false" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve" width="90" x="179" y="75">
         <parameter key="repository_entry" value="D://Workspace/Opinion Miner/ClassificationModelProcess/demo_2_Model.ioo"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve (3)" width="90" x="313" y="30">
+        <parameter key="repository_entry" value="//OpinionMiner/demo_2_Model"/>
       </operator>
       <operator activated="true" class="read_csv" compatibility="6.2.000" expanded="true" height="60" name="Read CSV" width="90" x="45" y="300">
         <parameter key="csv_file" value="D:\Workspace\Opinion Miner\fetchedTweets.csv"/>
@@ -43,7 +46,7 @@
         <parameter key="datamanagement" value="double_array"/>
       </operator>
       <operator activated="true" class="retrieve" compatibility="6.2.000" expanded="true" height="60" name="Retrieve (2)" width="90" x="112" y="165">
-        <parameter key="repository_entry" value="//FYP_Model/wordVector_3_demo_2"/>
+        <parameter key="repository_entry" value="//OpinionMiner/wordVector_3_demo_2"/>
       </operator>
       <operator activated="true" class="set_role" compatibility="6.2.000" expanded="true" height="76" name="Set Role" width="90" x="246" y="345">
         <parameter key="attribute_name" value="Tweet"/>
@@ -124,7 +127,7 @@
         <parameter key="collection" value="String"/>
         <parameter key="skip_invalid_documents" value="false"/>
       </operator>
-      <connect from_op="Retrieve" from_port="output" to_op="Apply Model" to_port="model"/>
+      <connect from_op="Retrieve (3)" from_port="output" to_op="Apply Model" to_port="model"/>
       <connect from_op="Read CSV" from_port="output" to_op="Set Role" to_port="example set input"/>
       <connect from_op="Retrieve (2)" from_port="output" to_op="Process Documents from Data" to_port="word list"/>
       <connect from_op="Set Role" from_port="example set output" to_op="Process Documents from Data" to_port="example set"/>

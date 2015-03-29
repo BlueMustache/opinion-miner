@@ -60,13 +60,13 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 
 		RepositoryLocation pLoc;
 		try {
-//			pLoc = new RepositoryLocation(
-//					"//FYP_Model/ClassificationModelProcessDemo_2");
+			pLoc = new RepositoryLocation(
+					"//OpinionMiner/ClassificationModelProcess");
 
-//			ProcessEntry pEntry = (ProcessEntry) pLoc.locateEntry();
+			ProcessEntry pEntry = (ProcessEntry) pLoc.locateEntry();
 //			String processXML = pEntry.retrieveXML();
-			Process myProcess = new Process(new File("D:/Workspace/Opinion Miner/ClassificationModelProcess/ClassificationModelProcess.xml"));
-//			myProcess.setProcessLocation(new RepositoryProcessLocation(pLoc));
+//			Process myProcess = new Process(new File("//Opinion Miner/ClassificationModelProcess/ClassificationModelProcess.xml"));
+			myProcess.setProcessLocation(new RepositoryProcessLocation(pLoc));
 
 			Operator op = myProcess.getOperator("Read CSV");
 			op.setParameter(
@@ -76,7 +76,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 			IOContainer container = myProcess.run();
 
 		} catch (IOException | XMLException
-				| OperatorException e) {
+				| OperatorException | RepositoryException e) {
 			JOptionPane.showMessageDialog(null,
 					"Fatal error in RapidMiner Model", "DatumBox Error.",
 					JOptionPane.ERROR_MESSAGE);
