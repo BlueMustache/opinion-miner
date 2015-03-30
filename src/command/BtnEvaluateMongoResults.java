@@ -29,9 +29,9 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 		// TODO Auto-generated method stub
 		
 			if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())){
-		System.out.println("Update button pressed");
+		System.out.print("Update button pressed");
 
-		System.out.println("Mongo data store size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
+//		System.out.println("Mongo data store size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
 
 		ArrayList<JSONObject> mongoResults = ((TwitterDataSubject)this.subjectRef).getMongoDataStore();
 
@@ -43,7 +43,7 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 			System.out.println(obj.toString());
 		}
 			}else{
-			
+				System.out.println("Update button Error");
 			JOptionPane.showMessageDialog(null,"Error", "Evaluation.",JOptionPane.ERROR_MESSAGE);
 		}
 	}

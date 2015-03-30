@@ -32,9 +32,10 @@ public class BtnAnalyseTweets extends JButton implements Command {
 				analysis.runSentimentAnalysis(subjectRef);
 			}
 		} else {
+			System.out.println("Analyse button Error");
 			JOptionPane.showMessageDialog(null, "Error", "No data to analyze.",JOptionPane.ERROR_MESSAGE);
 		}
-		System.out.println("Analyse btn Pressed");
+		System.out.print("Analyse btn Pressed");
 	}
 
 }

@@ -201,11 +201,12 @@ public class TwitterDataSubject extends SubjectDecorator {
 	public void setMongoDataStore(ArrayList<JSONObject> mongoDataStore) {
 		this.mongoDataStore = mongoDataStore;
 		notifyObservers();
-		System.out.println("Set mongo DB activiated");
-		for (JSONObject tweet : mongoDataStore) {
-			System.out.println("in subject");
-			System.out.println(tweet.toString());
-		}
+		///////TEST???????????
+//		System.out.println("Set mongo DB activiated");
+//		for (JSONObject tweet : mongoDataStore) {
+//			System.out.println("in subject");
+//			System.out.println(tweet.toString());
+//		}
 	}
 	
 	public void resetMongoDataStore(){
@@ -221,12 +222,12 @@ public class TwitterDataSubject extends SubjectDecorator {
 	}
 	
 	public void notifyObservers() {
-		System.out.println("Changemanager called");
+//		System.out.println("Changemanager called");
 		changeManager.notifyChange(this.observerToUpdate);
 	}
 	public void hasChanged(String observerRef){
 		this.observerToUpdate = observerRef;
 		notifyObservers();
-		System.out.println("has changed called = "+this.observerToUpdate);
+//		System.out.println("has changed called = "+this.observerToUpdate);
 	}
 }

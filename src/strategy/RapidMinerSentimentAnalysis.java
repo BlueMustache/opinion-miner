@@ -38,7 +38,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 
 	public RapidMinerSentimentAnalysis() {
 		// TODO Auto-generated constructor stub
-		System.out.println("Rapidminer analysis running");
+//		System.out.println("Rapidminer analysis running");
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 		this.subject = subject;
 		rapidThread = new Thread(this);
 		rapidThread.start();
-		System.out.println("Rapid miner thread started");
+//		System.out.println("Rapid miner thread started");
 	}
 
 	@Override
@@ -56,12 +56,13 @@ public class RapidMinerSentimentAnalysis implements SentimentStrategy, Runnable 
 
 		((TwitterDataSubject) subject).getFetchedTweetsCSV();
 
-		
+	
 
 		RepositoryLocation pLoc;
 		try {
+//			System.out.println("Rapid miner thread started");
 			pLoc = new RepositoryLocation(
-					"//OpinionMiner/ModelProcess");
+					"//OpinionMiner/ModelProcess");//FYP_Model/ClassificationModelProcessDemo_3  //OpinionMiner/ModelProcess
 
 			ProcessEntry pEntry = (ProcessEntry) pLoc.locateEntry();
 			String processXML = pEntry.retrieveXML();

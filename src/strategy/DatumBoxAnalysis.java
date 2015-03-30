@@ -33,7 +33,7 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 		this.subject = subject;
 		datumThread = new Thread(this);
 		datumThread.start();
-		System.out.println("Datum miner thread started");
+//		System.out.println("Datum miner thread started");
 	
 	}
 	@Override
@@ -44,24 +44,24 @@ public class DatumBoxAnalysis implements SentimentStrategy, Runnable {
 		
 		ArrayList<JSONObject> datumResults = new ArrayList<JSONObject>();
 		ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) subject).getMongoDataStore();
-		
+		System.out.println("Datum miner thread started");
 		
 		try {	
-			int i =0;		//temp while datum rate limit is in place so i can test
+//			int i =0;		//temp while datum rate limit is in place so i can test
 			for(JSONObject obj : mongoDataStore){
 				JSONObject sentimentPrediction = new JSONObject();	
 				try{
 					
-//					sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());	//temp while datum rate limit is in place so i can test
+					sentimentPrediction = this.datumBoxManager.TwitterSentimentAnalysis(obj.get("processedTweet").toString());	//temp while datum rate limit is in place so i can test
 				} catch (NullPointerException e) {
 					JOptionPane.showMessageDialog(null,"Datum Box Error", "Datum Box Api Call Rate Limit Reached.",JOptionPane.ERROR_MESSAGE);
 				}
-//					sentimentPrediction.put("tweet", obj.get("processedTweet").toString());
-//					obj.put("datumResults", sentimentPrediction.get("result").toString());//temp while datum rate limit is in place so i can test
-					obj.put("datumResults", "temp reading!"+i);//temp while datum rate limit is in place so i can test
+					sentimentPrediction.put("tweet", obj.get("processedTweet").toString());
+					obj.put("datumResults", sentimentPrediction.get("result").toString());//temp while datum rate limit is in place so i can test
+//					obj.put("datumResults", "temp reading!"+i);//temp while datum rate limit is in place so i can test
 					datumResults.add(sentimentPrediction);	
 					((TwitterDataSubject) subject).setProgressCount(true);
-					i++;//temp while datum rate limit is in place so i can test
+//					i++;//temp while datum rate limit is in place so i can test
 					System.out.println("DatumBox results count !!!" +((TwitterDataSubject) subject).getDatumBoxProgressCount());
 			}
 			System.out.println("DatumBox results created successfully !!!");

@@ -31,7 +31,7 @@ public class SimpleChangeManager implements ChangeManager{
 
 	public void notifyChange(String observerRef) {
 		// TODO Auto-generated method stub
-		System.out.println("Notify Change Called in changemanager ObserverRef = " +observerRef);
+//		System.out.println("Notify Change Called in changemanager ObserverRef = " +observerRef);
 		for (Entry<String, Observer> entry : observerMap.entrySet()) {
 			if(entry.getKey().equalsIgnoreCase(observerRef)){
 				entry.getValue().update(this.subjectRef);
