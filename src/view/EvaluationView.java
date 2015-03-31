@@ -59,6 +59,7 @@ public class EvaluationView extends JScrollPane implements Observer {
 		this.subjectRef = subjectReference;
 		this.observerRef = observserRef;
 		subjectReference.registerObserver(this,observserRef);
+		
 	}
 
 	@Override

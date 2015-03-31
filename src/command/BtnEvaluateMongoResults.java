@@ -28,6 +28,8 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 	public void execute() {
 		// TODO Auto-generated method stub
 		
+		try{
+		
 			if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())){
 		System.out.print("Update button pressed");
 
@@ -39,13 +41,19 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 		((TwitterDataSubject)this.subjectRef).hasChanged("chartView");
 		((TwitterDataSubject)this.subjectRef).hasChanged("cloudView");
 		((TwitterDataSubject)this.subjectRef).setMongoDataStore(mongoResults);
-		for(JSONObject obj :mongoResults ){
-			System.out.println(obj.toString());
-		}
+//		/////////test////////////
+//		for(JSONObject obj :mongoResults ){
+//			System.out.println(obj.toString());
+//		}
+		
 			}else{
 				System.out.println("Update button Error");
 			JOptionPane.showMessageDialog(null,"Error", "Evaluation.",JOptionPane.ERROR_MESSAGE);
 		}
+			
+		} catch (NullPointerException e) {
+			JOptionPane.showMessageDialog(null,"Error", "Evaluation.",JOptionPane.ERROR_MESSAGE);
+	}
 	}
 
 }

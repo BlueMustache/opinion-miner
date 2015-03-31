@@ -30,7 +30,6 @@ public class TwitterDataSubject extends SubjectDecorator {
 	private String topic;
 	private  File fetchedTweetsCSV;// = "fetchedTweets.csv";
 	private Twitter twitterAcc;
-	private ArrayList<String> preProcessedTweetList;
 	private  ArrayList<SentimentStrategy> analysisStrategyList;
 	private ProcessStrategy processStrategy;
 	private ArrayList<JSONObject> mongoDataStore;
@@ -47,7 +46,6 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.mongoDataStore = new ArrayList<JSONObject>();
 		this.datumBoxProgressCount=0;
 		this.fileWriter = null;
-		this.preProcessedTweetList = new ArrayList<String>();
 		this.analysisStrategyList = new ArrayList<SentimentStrategy>();
 		this.changeManager = changeManager;
 		this.fetchedTweetsCSV = new File("fetchedTweets.csv");
@@ -134,10 +132,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 			}
 		}
 	}
-	
-	public ArrayList<String> getPreProcessedTweetList() {
-		return preProcessedTweetList;
-	}
+
 	
 	public ArrayList<SentimentStrategy> getAnalysisStrategys() {
 		return this.analysisStrategyList;
@@ -157,7 +152,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 	@Override
 	public void registerObserver(Observer o, String ObserverRef) {
 		this.observerMap.put(ObserverRef, o);
-		System.out.println("Datum view added to observer Map");
+//		System.out.println("Datum view added to observer Map");
 	}
 	
 	public Map<String, Observer> getObservers(){

@@ -109,22 +109,13 @@ public class DatumboxManager implements IDatumBoxManager {
 	}
 	
 	//Create a JSON Object from a JSON style string. Allows for easier processing in the future
-	private static JSONObject stringToJSONObject(String jString) {
+	public JSONObject stringToJSONObject(String jString) {
 
 		String outputKey = jString.substring(2, 8);
-		// System.out.println(jString.substring(2, 8));
-
 		String outputVal = jString.substring(10, 42);
-		// System.out.println(jString.substring(10, 42));
-
 		String statusKey = jString.substring(12, 18);
-		// System.out.println(jString.substring(12, 18));
-
 		String statusVal = jString.substring(20, 21);
-		// System.out.println(jString.substring(20, 21));
-
 		String resultKey = jString.substring(23, 29);
-		// System.out.println(jString.substring(23, 29));
 
 		String resultValue = jString.substring(32, 40);
 		resultValue = resultValue.substring(0, 1).toUpperCase()+resultValue.substring(1);

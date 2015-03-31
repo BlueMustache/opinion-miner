@@ -39,7 +39,7 @@ public class Main {
 		Subject twitterSubject = new ConcreteSubject();
 		twitterSubject = new TwitterDataSubject(twitterSubject,changeManager);
 		//((TwitterDataSubject) twitterSubject).setTopic("#ISIS exclude:retweets"); //FOR TESTING TO CHECK TWEETS HAVE A QUERY
-		
+		System.out.println(twitterSubject.description());
 		RapidMinerSentimentAnalysis rapidMinerAnalysis = new RapidMinerSentimentAnalysis();		//move this to main
 		DatumBoxAnalysis datumBoxAnalysis = new DatumBoxAnalysis();
 		ProcessStrategy processStrategy = new ProcessTweetsStrategy();

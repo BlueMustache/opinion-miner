@@ -123,8 +123,7 @@ public class Controller {
 //			if (e.getActionCommand().equalsIgnoreCase("Evaluate") && ((TwitterDataSubject) subject).getMongoDataStore().size()==0) {
 //				JOptionPane.showMessageDialog(null, "No Twitterdata to evaluate.");
 //			}
-			if (e.getActionCommand().equalsIgnoreCase("Evaluate")) {
-				
+			if (e.getActionCommand().equalsIgnoreCase("Evaluate")) {				
 				System.out.println("Eval view created");
 				mainUI.getTabbedPane().setSelectedIndex(4);
 				mainUI.getTabbedPane().setEnabledAt(3, true);
@@ -143,6 +142,20 @@ public class Controller {
 					mainUI.getTabbedPane().setEnabledAt(5, false);
 					mainUI.getTabbedPane().setEnabledAt(6, false);
 				}
+				try{
+				if(!((TwitterDataSubject) subject).getMongoDataStore().get(0).containsKey("RapidResult")){
+					mainUI.getTabbedPane().setSelectedIndex(1);
+					mainUI.getTabbedPane().setEnabledAt(1, true);
+					mainUI.getTabbedPane().setEnabledAt(3, false);
+					mainUI.getTabbedPane().setEnabledAt(2, false);
+					mainUI.getTabbedPane().setEnabledAt(4, false);
+					mainUI.getTabbedPane().setEnabledAt(5, false);
+					mainUI.getTabbedPane().setEnabledAt(6, false);
+				}
+				} catch (IndexOutOfBoundsException ex) {
+//					JOptionPane.showMessageDialog(null,"Error", "Evaluation.",JOptionPane.ERROR_MESSAGE);
+			}
+				
 			}
 
 		}

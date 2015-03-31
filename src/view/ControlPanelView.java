@@ -37,7 +37,7 @@ public class ControlPanelView extends JPanel implements Observer {
 	private Subject subjectRef; 
 	private String viewRef;
 	
-	public ControlPanelView(final TwitterDataSubject subjectRef, String viewRef) {
+	public ControlPanelView( TwitterDataSubject subjectRef, String viewRef) {
 		// Constructor
 		
 		this.subject = subjectRef;
@@ -56,6 +56,7 @@ public class ControlPanelView extends JPanel implements Observer {
 	@Override
 	public void update(Subject subject) {
 		// TODO Auto-generated method stub	
+		System.out.print("ctrl view updated");
 	}
 	
 	//This is not good practice but works much better

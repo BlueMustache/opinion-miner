@@ -16,6 +16,7 @@ public class ProcessTweetsCommand implements Command {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
+		System.out.print("Processed tweet cmd execute");
 		ProcessStrategy processStrategy = ((TwitterDataSubject) subjectRef).getProcessStrategy();
 		processStrategy.runProcess(this.subjectRef);
 		

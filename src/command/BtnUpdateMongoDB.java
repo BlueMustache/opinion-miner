@@ -30,13 +30,19 @@ public class BtnUpdateMongoDB extends JButton implements Command {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())) {
-			System.out.println("MongoStratgey Execute");
+		System.out.print("Mongo updat btn pressed");
+		try{
+		if (((TwitterDataSubject) subjectRef).getMongoDataStore().get(0).containsKey("RapidResult")) {
 //			JOptionPane.showMessageDialog(null, "Database Update Complete");
 			mongoDBStrategy.runProcess((TwitterDataSubject) this.subjectRef);
+//		}else if(((TwitterDataSubject) this.subjectRef).getDatumBoxProgressCount()==0||((TwitterDataSubject) this.subjectRef).getRapidminerProgressCount()==0){
+//			JOptionPane.showMessageDialog(null, "Error", "No data to update.",JOptionPane.ERROR_MESSAGE);
 		} else {
 			JOptionPane.showMessageDialog(null, "Error", "No data to update.",JOptionPane.ERROR_MESSAGE);
 		}
+		} catch (IndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(null,"Error", "Evaluation.",JOptionPane.ERROR_MESSAGE);
+	}
 	}
 
 }

@@ -44,9 +44,6 @@ public class MongoDB{
 //	
 //	}
 
-	public MongoClient getMongoClient() {
-		return mongoClient;
-	}
 
 	public void setMongoClient(MongoClient mongoClient) {
 		this.mongoClient = mongoClient;

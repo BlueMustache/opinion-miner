@@ -38,12 +38,12 @@ public class UpdateMongoDBStrategy implements ProcessStrategy{
 			DBObject dbObject = (DBObject) JSON.parse(obj.toJSONString());
 			collection.insert(dbObject);
 		}
-		
-		System.out.println("Mongo db Entrys");
-		DBCursor cursorDoc = collection.find();
-		while (cursorDoc.hasNext()) {
-			System.out.println(cursorDoc.next());
-		}
+		//////TEST/////////////
+//		System.out.println("Mongo db Entrys");
+//		DBCursor cursorDoc = collection.find();
+//		while (cursorDoc.hasNext()) {
+//			System.out.println(cursorDoc.next());
+//		}
 		JOptionPane.showMessageDialog(null, "Database Update Complete");
 	}
 

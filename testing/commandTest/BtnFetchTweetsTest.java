@@ -29,46 +29,28 @@ public class BtnFetchTweetsTest {
 	private Subject subjectRef;
 	private SimpleChangeManager changeManager;
 	private TwitterDataSubject twitterSubjectRef;
-	private BtnFetchTweets btnAnalyze;
-	private ArrayList<JSONObject> mongoDataStore;
-	private final PrintStream stdout = System.out;
-	private final ByteArrayOutputStream output = new ByteArrayOutputStream();
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
+	private BtnFetchTweets btnSearch;
 
 	@Before
 	public void setUp() throws Exception {
-		changeManager = new SimpleChangeManager();
-		subjectRef = new ConcreteSubject();
-		twitterSubjectRef = new TwitterDataSubject(subjectRef,changeManager);
-		btnAnalyze = new BtnAnalyseTweets("Analyze",twitterSubjectRef);
-		JSONObject tweet = new JSONObject();
-		tweet.put("unProcessedTweet", "test tweet");
-		mongoDataStore = twitterSubjectRef.getMongoDataStore();
-		mongoDataStore.add(tweet);
-		PrintStream ps = new PrintStream(output);
-		System.setOut(ps);
+		this.changeManager = new SimpleChangeManager();
+		this.subjectRef = new ConcreteSubject();
+		this.twitterSubjectRef = new TwitterDataSubject(subjectRef,changeManager);
+		this.twitterSubjectRef.setTopic("twitter");
+		Thread.sleep(2000);
+		this.btnSearch = new BtnFetchTweets("Search",twitterSubjectRef);
+		Thread.sleep(2000);
+		System.out.println(this.twitterSubjectRef.getTopic());
 	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
 
 
 	@Test
-	public final void testExecute() {
-		btnAnalyze.execute();
-		String str = "Analyse btn Pressed";
-		assertEquals(str, output.toString());
+	public final void testExecute() throws InterruptedException {
+//		this.twitterSubjectRef.setTopic("twitter");
+		Thread.sleep(2000);
+		this.btnSearch.execute();
 
-
+		assertEquals(15, twitterSubjectRef.getTweetCount());
 	}
 	
 }

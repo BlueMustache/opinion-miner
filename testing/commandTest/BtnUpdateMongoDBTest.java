@@ -1,6 +1,6 @@
 package commandTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -17,28 +17,22 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import command.BtnAnalyseTweets;
-import command.BtnEvaluateMongoResults;
 import strategy.DatumBoxAnalysis;
 import strategy.RapidMinerSentimentAnalysis;
 import strategy.SentimentStrategy;
+import command.BtnAnalyseTweets;
+import command.BtnUpdateMongoDB;
 import controller.SimpleChangeManager;
 
-
-
-public class BtnAnalyseTweetsTest {
+public class BtnUpdateMongoDBTest {
 	
 	private Subject subjectRef;
 	private SimpleChangeManager changeManager;
 	private TwitterDataSubject twitterSubjectRef;
-	private  ArrayList<SentimentStrategy> analysisStrategyList;
-	private RapidMinerSentimentAnalysis rapidMinerAnalysis;
-	private DatumBoxAnalysis datumBoxAnalysis;
-	private BtnEvaluateMongoResults btnEval;
+	private BtnUpdateMongoDB btnUpdateDB;
 	private ArrayList<JSONObject> mongoDataStore;
 	private final PrintStream stdout = System.out;
 	private final ByteArrayOutputStream output = new ByteArrayOutputStream();
-	
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -53,7 +47,7 @@ public class BtnAnalyseTweetsTest {
 		changeManager = new SimpleChangeManager();
 		subjectRef = new ConcreteSubject();
 		twitterSubjectRef = new TwitterDataSubject(subjectRef,changeManager);
-		btnEval = new BtnEvaluateMongoResults("Analyze",twitterSubjectRef);
+		btnUpdateDB = new BtnUpdateMongoDB("UpdateDB",twitterSubjectRef);
 		JSONObject tweet = new JSONObject();
 		tweet.put("unProcessedTweet", "test tweet");
 		mongoDataStore = twitterSubjectRef.getMongoDataStore();
@@ -62,16 +56,11 @@ public class BtnAnalyseTweetsTest {
 		System.setOut(ps);
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
-
 
 	@Test
 	public final void testExecute() {
-		btnEval.execute();
-		String str = "Update button pressed";
+		btnUpdateDB.execute();
+		String str = "Mongo updat btn pressed";
 		assertEquals(str, output.toString());
 
 

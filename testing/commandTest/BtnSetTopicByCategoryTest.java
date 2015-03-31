@@ -1,7 +1,10 @@
 package commandTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -17,28 +20,18 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import command.BtnAnalyseTweets;
-import command.BtnEvaluateMongoResults;
-import strategy.DatumBoxAnalysis;
-import strategy.RapidMinerSentimentAnalysis;
-import strategy.SentimentStrategy;
+import command.BtnSetTopicByCategory;
 import controller.SimpleChangeManager;
 
-
-
-public class BtnEvaluateMongoResultsTest {
+public class BtnSetTopicByCategoryTest {
 	
 	private Subject subjectRef;
 	private SimpleChangeManager changeManager;
 	private TwitterDataSubject twitterSubjectRef;
-	private  ArrayList<SentimentStrategy> analysisStrategyList;
-	private RapidMinerSentimentAnalysis rapidMinerAnalysis;
-	private DatumBoxAnalysis datumBoxAnalysis;
-	private BtnEvaluateMongoResults btnEval;
+	private BtnSetTopicByCategory btnTrendSearch;
 	private ArrayList<JSONObject> mongoDataStore;
 	private final PrintStream stdout = System.out;
 	private final ByteArrayOutputStream output = new ByteArrayOutputStream();
-	
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -53,28 +46,31 @@ public class BtnEvaluateMongoResultsTest {
 		changeManager = new SimpleChangeManager();
 		subjectRef = new ConcreteSubject();
 		twitterSubjectRef = new TwitterDataSubject(subjectRef,changeManager);
-		btnEval = new BtnEvaluateMongoResults("Analyze",twitterSubjectRef);
-		JSONObject tweet = new JSONObject();
-		tweet.put("unProcessedTweet", "test tweet");
-		mongoDataStore = twitterSubjectRef.getMongoDataStore();
-		mongoDataStore.add(tweet);
+		btnTrendSearch = new BtnSetTopicByCategory(twitterSubjectRef);
 		PrintStream ps = new PrintStream(output);
 		System.setOut(ps);
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
+	
 
 
 
 	@Test
-	public final void testExecute() {
-		btnEval.execute();
-		String str = "Update button pressed";
-		assertEquals(str, output.toString());
+	public final void testExecute() throws AWTException, InterruptedException {
+		
+//		Robot rob = new Robot();
+//		rob.keyPress(KeyEvent.VK_ENTER);
+//		rob.setAutoWaitForIdle(true);
+		twitterSubjectRef.setTopic("twitter");
+		btnTrendSearch.setText("twitter");
+		btnTrendSearch.execute();
+		String str = "Search btn pressed";
+		assertEquals(15, twitterSubjectRef.getTweetCount());
 
 
 	}
-	
 }

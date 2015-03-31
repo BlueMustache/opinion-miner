@@ -45,8 +45,8 @@ public class BtnFetchTweets extends JButton implements Command {
 	@Override
 	public void execute() {
 		// execute method for this btn
-		System.out.println("Search btn pressed");// for testing if btn is
-		System.out.println("Search topic = "+((TwitterDataSubject) this.subjectRef).getTopic());											// pressed
+		System.out.print("Search btn pressed");// for testing if btn is
+//		System.out.println("Search topic = "+((TwitterDataSubject) this.subjectRef).getTopic());											// pressed
 
 			try {
 				if((!((TwitterDataSubject) this.subjectRef).getTopic().isEmpty())){
@@ -56,7 +56,7 @@ public class BtnFetchTweets extends JButton implements Command {
 
 				int tweetCount = 0;
 				try {
-					Query query = new Query(((TwitterDataSubject) this.subjectRef).getTopic());;
+					Query query = new Query(((TwitterDataSubject) subjectRef).getTopic());;
 					query.lang("en");
 					query.setResultType(Query.MIXED);
 					QueryResult result;
@@ -82,12 +82,12 @@ public class BtnFetchTweets extends JButton implements Command {
 				if(tweetCount==0){
 					JOptionPane.showMessageDialog(null,"No matching Tweets found \n Please search a different topic.", "Error",JOptionPane.ERROR_MESSAGE);
 				}
-				System.out.println("The Tweets Fetched count is : "+ tweetCount); // For// testing
+//				System.out.println("The Tweets Fetched count is : "+ tweetCount); // For// testing
 
 				((TwitterDataSubject) this.subjectRef).reSetProgressCount();
 				((TwitterDataSubject) this.subjectRef).hasChanged("tweetView");
 				((TwitterDataSubject) this.subjectRef).setMongoDataStore(mongoDataStore);
-				System.out.println("The Mongo data count is : "+ mongoDataStore.size());
+//				System.out.println("The Mongo data count is : "+ mongoDataStore.size());
 
 				this.processStrategyCmd.execute();
 				((TwitterDataSubject) this.subjectRef).setTweetStore();

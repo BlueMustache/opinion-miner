@@ -1,44 +1,31 @@
 package commandTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
-
 import model.ConcreteSubject;
 import model.Subject;
 import model.TwitterDataSubject;
-
 import org.json.simple.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import command.BtnAnalyseTweets;
-import command.BtnEvaluateMongoResults;
-import strategy.DatumBoxAnalysis;
-import strategy.RapidMinerSentimentAnalysis;
-import strategy.SentimentStrategy;
 import controller.SimpleChangeManager;
 
-
-
-public class BtnEvaluateMongoResultsTest {
+public class BtnAnalyzeTweetsTest {
 	
 	private Subject subjectRef;
 	private SimpleChangeManager changeManager;
 	private TwitterDataSubject twitterSubjectRef;
-	private  ArrayList<SentimentStrategy> analysisStrategyList;
-	private RapidMinerSentimentAnalysis rapidMinerAnalysis;
-	private DatumBoxAnalysis datumBoxAnalysis;
-	private BtnEvaluateMongoResults btnEval;
+	private BtnAnalyseTweets btnAnalyze;
 	private ArrayList<JSONObject> mongoDataStore;
 	private final PrintStream stdout = System.out;
 	private final ByteArrayOutputStream output = new ByteArrayOutputStream();
-	
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -53,7 +40,7 @@ public class BtnEvaluateMongoResultsTest {
 		changeManager = new SimpleChangeManager();
 		subjectRef = new ConcreteSubject();
 		twitterSubjectRef = new TwitterDataSubject(subjectRef,changeManager);
-		btnEval = new BtnEvaluateMongoResults("Analyze",twitterSubjectRef);
+		btnAnalyze = new BtnAnalyseTweets("Analyze",twitterSubjectRef);
 		JSONObject tweet = new JSONObject();
 		tweet.put("unProcessedTweet", "test tweet");
 		mongoDataStore = twitterSubjectRef.getMongoDataStore();
@@ -70,11 +57,9 @@ public class BtnEvaluateMongoResultsTest {
 
 	@Test
 	public final void testExecute() {
-		btnEval.execute();
-		String str = "Update button pressed";
+		btnAnalyze.execute();
+		String str = "Analyse btn Pressed";
 		assertEquals(str, output.toString());
-
-
 	}
 	
 }

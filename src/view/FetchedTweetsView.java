@@ -64,6 +64,7 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 	@Override
 	public void update(Subject subject) {
 		// TODO Auto-generated method stub
+		System.out.print("fetched tweet view updated");
 		super.revalidate();
 		this.subject = (TwitterDataSubject) subject;
 		// ArrayList<String> tweetList = this.subject.getTweets();
@@ -157,8 +158,8 @@ public class FetchedTweetsView extends JScrollPane implements Observer {
 			this.repaint();
 			i++;
 		}
-		System.out.println("THe text area is running and made " + i
-				+ " panels & Views");
+//		System.out.println("THe text area is running and made " + i
+//				+ " panels & Views");
 
 	}
 

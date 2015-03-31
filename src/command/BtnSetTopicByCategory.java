@@ -21,7 +21,8 @@ public class BtnSetTopicByCategory extends JButton implements Command {
 		// TODO Auto-generated method stub
 		((TwitterDataSubject) this.subjectRef).setTopic(this.getText());
 		fetchTweets.execute();
-		System.out.println("category btn pressed topic set to : "+ ((TwitterDataSubject) this.subjectRef).getTopic());
+		System.out.println("category btn pressed");
+//		System.out.println("category btn pressed topic set to : "+ ((TwitterDataSubject) this.subjectRef).getTopic());
 		
 	}
 

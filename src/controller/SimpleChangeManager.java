@@ -18,6 +18,22 @@ public class SimpleChangeManager implements ChangeManager{
 		
 	}
 
+	public Map<String, Observer> getObserverMap() {
+		return observerMap;
+	}
+
+	public void setObserverMap(Map<String, Observer> observerMap) {
+		this.observerMap = observerMap;
+	}
+
+	public TwitterDataSubject getSubjectRef() {
+		return subjectRef;
+	}
+
+	public void setSubjectRef(TwitterDataSubject subjectRef) {
+		this.subjectRef = subjectRef;
+	}
+
 	public void register(Subject subject) {
 		// TODO Auto-generated method stub
 		this.subjectRef = (TwitterDataSubject) subject;

@@ -36,7 +36,7 @@ public class ConcreteSubject implements Subject {
 	@Override
 	public String description() {
 		// TODO Auto-generated method stub
-		return "concrete subject created";
+		return "concrete subject";
 	}
 
 
