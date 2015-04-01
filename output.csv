@@ -1,16 +1,2 @@
 text,confidence(Negative),confidence(Positive),prediction(Sentiment)
-album rumour debut jayz tidal todai ,0.013939735700955441,1.0,Positive
-tidal wave wash iggi aust nevermind ,0.29161539218729304,1.0,Positive
-game chang live ,0.05918808066722661,1.0,Positive
-tidal liter copi spotifi everyth spotifi ,0.019055186012770998,1.0,Positive
-fuck tidal ,0.23967255969957682,1.0,Positive
-parti twitter thei confirm justin ariana didnt join tidalidek twitter parti ,0.020083358165974386,1.0,Positive
-tidal mean freemium premium debat ,0.08251683907523644,1.0,Positive
-togeth unstopp togeth tidal holi audio compress ,0.019055186012770998,1.0,Positive
-tidal shit sketchi ,0.019055186012770998,1.0,Positive
-lead star rebrand tidal stream servic ,0.019055186012770998,1.0,Positive
-tidal mean freemium premium debat ,0.08251683907523644,1.0,Positive
-tidal flop worri support shit ,0.12799973724350253,1.0,Positive
-digit pandaemonium comment chasindatpap blog post launch tidal stream servic rival ,1.0,0.0,Negative
-aveng team assembl ,-0.009284804656995464,1.0,Positive
-tidal,0.019055186012770998,1.0,Positive
+test tweet ,0.07024642858389904,1.0,Positive
