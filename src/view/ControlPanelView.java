@@ -48,6 +48,7 @@ public class ControlPanelView extends JPanel implements Observer {
 		this.btnFetchTweets = new BtnFetchTweets("Search", subjectRef);	
 		this.btnAnalyze = new BtnAnalyseTweets("Analyze", subjectRef);
 		this.btnEvaluate = new BtnEvaluateMongoResults("Evaluate", subjectRef);
+		this.btnEvaluate.setEnabled(false);
 		this.btnUpdateDB = new BtnUpdateMongoDB("Update Data Set", subjectRef);
 		setBtnLayout(); //Call set layout method to layout the buttons
 		textFieldListner();// Need to try put this in the controller

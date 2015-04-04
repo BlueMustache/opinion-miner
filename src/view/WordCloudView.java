@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import javax.swing.JButton;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,7 +42,7 @@ import model.Subject;
 import model.TwitterDataSubject;
 import controller.Controller.CommandListner;
 
-public class WordCloudView extends JScrollPane implements Observer {
+public class WordCloudView extends JInternalFrame implements Observer {
 
 	private JPanel mainPanel;
 	private Subject subjectRef;
@@ -49,16 +50,6 @@ public class WordCloudView extends JScrollPane implements Observer {
 	ArrayList<String> negativeResults;
 	String[] words;
 	private BufferedReader fileReader = null;
-	private static final String[] WORDS = { "art", "australia", "baby",
-			"beach", "birthday", "blue", "bw", "california", "canada", "canon",
-			"cat", "chicago", "china", "christmas", "city", "dog", "england",
-			"europe", "family", "festival", "flower", "flowers", "food",
-			"france", "friends", "fun", "germany", "holiday", "india", "italy",
-			"japan", "london", "me", "mexico", "music", "nature", "new",
-			"newyork", "night", "nikon", "nyc", "paris", "park", "party",
-			"people", "portrait", "sanfrancisco", "sky", "snow", "spain",
-			"summer", "sunset", "taiwan", "tokyo", "travel", "trip", "uk",
-			"usa", "vacation", "water", "wedding" };
 	private Random random;
 	private Cloud cloud;
 
@@ -72,6 +63,7 @@ public class WordCloudView extends JScrollPane implements Observer {
 
 		this.random = new Random();
 		this.cloud = new Cloud();
+		this.add(mainPanel);
 		this.setVisible(true);
 
 
@@ -115,7 +107,7 @@ public class WordCloudView extends JScrollPane implements Observer {
 		}
 		Dimension d = new Dimension(1000, 600);
 		this.setPreferredSize(d);//setPreferredSize(d);//
-		this.setViewportView(mainPanel);
+//		this.setViewportView(mainPanel);
 		this.revalidate();
 		this.repaint();
 	}
@@ -132,10 +124,10 @@ public class WordCloudView extends JScrollPane implements Observer {
 								// tokenizer.tokenize(txtData.getData());
 		String negTweet = null;
 		for (JSONObject obj : mongoDataStore) {
-//			String sentiment = obj.get("rapidMinerResults").toString();
-//			if (sentiment.equalsIgnoreCase("negative")) {
+			String sentiment = obj.get("datumResults").toString();
+			if (sentiment.equalsIgnoreCase("negative")) {
 				negTweet = negTweet +" " + obj.get("processedTweet").toString();
-//			}
+			}
 		}
 		tokens = tokenizer.tokenize(negTweet);
 //		tokens = tokenizer.tokenize("14' - GOAL! Liverpool 0 United 1. Juan Mata finds the net! #mufclive");

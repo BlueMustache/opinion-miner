@@ -118,11 +118,6 @@ public class Controller {
 					mainUI.getTabbedPane().setEnabledAt(5, false);
 					mainUI.getTabbedPane().setEnabledAt(6, false);
 			}
-			
-			
-//			if (e.getActionCommand().equalsIgnoreCase("Evaluate") && ((TwitterDataSubject) subject).getMongoDataStore().size()==0) {
-//				JOptionPane.showMessageDialog(null, "No Twitterdata to evaluate.");
-//			}
 			if (e.getActionCommand().equalsIgnoreCase("Evaluate")) {				
 				System.out.println("Eval view created");
 				mainUI.getTabbedPane().setSelectedIndex(4);

@@ -47,8 +47,8 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 //		}
 		
 			}else{
-				System.out.println("Update button Error");
-			JOptionPane.showMessageDialog(null,"No Data To Evaluate. First Search For tweets & Analyze", "No Data",JOptionPane.INFORMATION_MESSAGE);
+//				System.out.println("Update button Error");
+//			JOptionPane.showMessageDialog(null,"No Data To Evaluate. First Search For tweets & Analyze", "No Data",JOptionPane.INFORMATION_MESSAGE);
 		}
 			
 		} catch (NullPointerException | IndexOutOfBoundsException e) {
