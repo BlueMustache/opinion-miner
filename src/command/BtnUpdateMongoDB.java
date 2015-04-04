@@ -38,10 +38,10 @@ public class BtnUpdateMongoDB extends JButton implements Command {
 //		}else if(((TwitterDataSubject) this.subjectRef).getDatumBoxProgressCount()==0||((TwitterDataSubject) this.subjectRef).getRapidminerProgressCount()==0){
 //			JOptionPane.showMessageDialog(null, "Error", "No data to update.",JOptionPane.ERROR_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(null, "Error", "No data to update.",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No Data To Update. First Search For tweets & Analyze & Evaluate", "No Data",JOptionPane.INFORMATION_MESSAGE);
 		}
 		} catch (IndexOutOfBoundsException e) {
-			JOptionPane.showMessageDialog(null,"Error", "Evaluation.",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No Data To Update. First Search For tweets & Analyze & Evaluate", "No Data",JOptionPane.INFORMATION_MESSAGE);
 	}
 	}
 

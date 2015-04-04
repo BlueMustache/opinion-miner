@@ -33,7 +33,7 @@ public class BtnAnalyseTweets extends JButton implements Command {
 			}
 		} else {
 			System.out.println("Analyse button Error");
-			JOptionPane.showMessageDialog(null, "Error", "No data to analyze.",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No Data To Analyze. First Search For tweets & Analyze", "No Data",JOptionPane.INFORMATION_MESSAGE);
 		}
 		System.out.print("Analyse btn Pressed");
 	}

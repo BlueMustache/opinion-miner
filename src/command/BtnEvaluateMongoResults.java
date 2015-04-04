@@ -30,7 +30,7 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 		
 		try{
 		
-			if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())){
+			if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())||((TwitterDataSubject) subjectRef).getMongoDataStore().get(0).containsKey("RapidResult")){
 		System.out.print("Update button pressed");
 
 //		System.out.println("Mongo data store size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
@@ -48,12 +48,12 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 		
 			}else{
 				System.out.println("Update button Error");
-			JOptionPane.showMessageDialog(null,"Error", "Evaluation.",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,"No Data To Evaluate. First Search For tweets & Analyze", "No Data",JOptionPane.INFORMATION_MESSAGE);
 		}
 			
-		} catch (NullPointerException e) {
-			JOptionPane.showMessageDialog(null,"Error", "Evaluation.",JOptionPane.ERROR_MESSAGE);
-	}
+		} catch (NullPointerException | IndexOutOfBoundsException e) {
+			JOptionPane.showMessageDialog(null,"No Data To Evaluate. First Search For tweets & Analyze", "No Data",JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 
 }

@@ -2,6 +2,7 @@ package model;
 
 import java.net.UnknownHostException;
 
+import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.WriteConcern;
@@ -14,7 +15,7 @@ import com.mongodb.ServerAddress;
 
 public class MongoDB{
 
-	private MongoClient mongoClient; 
+	private Mongo mongoClient; 
 	private DB database;
 	private DBCollection dataSetColl;
 	
@@ -22,7 +23,7 @@ public class MongoDB{
 		// TODO Auto-generated constructor stub
 		
 		try {
-			this.mongoClient = new MongoClient( "localhost" , 27017 );
+			this.mongoClient = new Mongo( "localhost" , 27017 );
 			// Now connect to your databases
 	         this.database = mongoClient.getDB( "opinionMinerDB" );
 	        // this.dataSetColl = this.database.createCollection("dataSetColl", null);
