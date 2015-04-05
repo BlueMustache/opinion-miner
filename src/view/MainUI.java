@@ -112,7 +112,7 @@ public class MainUI extends JFrame{
 			}
 		});
 		
-		this.setSize(1200, 800);
+		this.setSize(1225, 800);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
@@ -123,7 +123,9 @@ public class MainUI extends JFrame{
 		return tabbedPane;
 	}
 
-
+	public ControlPanelView getCTRLView() {
+		return this.ctrlView;
+	}
 
 	public void setTabbedPane(JTabbedPane tabbedPane) {
 		this.tabbedPane = tabbedPane;

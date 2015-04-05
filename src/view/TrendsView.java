@@ -27,9 +27,10 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import model.Subject;
 import model.TwitterDataSubject;
+import controller.ICommandListner;
 import controller.Controller.CommandListner;
 
-public class TrendsView extends JScrollPane implements Observer {
+public class TrendsView extends JScrollPane implements Observer,ICommandListner {
 
 	private Subject subject;
 	private Twitter twitterAcc;
@@ -128,22 +129,23 @@ public class TrendsView extends JScrollPane implements Observer {
 			btnTrend = new BtnSetTopicByTrend(this.subject);
 			btnTrendList.add(btnTrend);
 			btnTrend.setText(tag.getName());
-			btnTrend.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+			btnTrend.setFont(new Font("Gotham Medium", Font.PLAIN, 14));
 			btnTrend.setForeground(new Color(0, 132, 180));
 			tag.setWeight(randTag);
 			btnTrend.setFont(btnTrend.getFont().deriveFont(
 					(float) tag.getWeight()));
 			btnTrend.setName("trendBtn");
-			Dimension trendPanelDimension = new Dimension(1000, 275);
-			this.trendPanel.setPreferredSize(trendPanelDimension);
+			Dimension trendPanelDimension = new Dimension(1000, 200);
+			trendPanel.setPreferredSize(trendPanelDimension);
 			trendPanel.add(btnTrend);
-			trendPanel.setBorder(new TitledBorder(new LineBorder(new Color(0,
-					132, 180), 4, true), "Trends", TitledBorder.LEFT,
-					TitledBorder.CENTER, new Font("Gotham Medium", Font.PLAIN,
-							20)));
-			trendPanel.setForeground(new Color(0, 132, 180));
+			
 			mainPanel.add(trendPanel);
 		}
+		trendPanel.setBorder(new TitledBorder(new LineBorder(new Color(0,
+				132, 180), 4, true), "Trends", TitledBorder.LEFT,
+				TitledBorder.CENTER, new Font("Gotham Medium", Font.PLAIN,
+						20)));
+		trendPanel.setForeground(new Color(0, 132, 180));
 
 		for (Tag tag : categoryCloud.tags()) {
 			int randTag = random.nextInt((maxTag - minTag) + 1) + minTag;
@@ -151,22 +153,24 @@ public class TrendsView extends JScrollPane implements Observer {
 			btnCategoryList.add(btnCategory);
 			System.out.println("category btn added");
 			btnCategory.setText(tag.getName());
-			btnCategory.setFont(new Font("Comic Sans MS", Font.PLAIN, 14));
+			btnCategory.setFont(new Font("Gotham Medium", Font.PLAIN, 14));
 			btnCategory.setForeground(new Color(0, 132, 180));
 			tag.setWeight(randTag);
 			btnCategory.setFont(btnCategory.getFont().deriveFont(
 					(float) tag.getWeight()));
 			btnCategory.setName("trendBtn");
 			Dimension categoryPanelDimension = new Dimension(1000, 500);
-			this.categoryPanel.setPreferredSize(categoryPanelDimension);
+			categoryPanel.setPreferredSize(categoryPanelDimension);
 			categoryPanel.add(btnCategory);
-			categoryPanel.setBorder(new TitledBorder(new LineBorder(new Color(
-					0, 132, 180), 4, true), "Categorys", TitledBorder.LEFT,
-					TitledBorder.CENTER, new Font("Gotham Medium", Font.PLAIN,
-							20)));
-			categoryPanel.setForeground(new Color(0, 132, 180));
+			
+			
 			mainPanel.add(categoryPanel);
 		}
+		categoryPanel.setBorder(new TitledBorder(new LineBorder(new Color(
+				0, 132, 180), 4, true), "Categorys", TitledBorder.LEFT,
+				TitledBorder.CENTER, new Font("Gotham Medium", Font.PLAIN,
+						20)));
+		categoryPanel.setForeground(new Color(0, 132, 180));
 
 		this.setViewportView(mainPanel);
 		System.out.println("trend btn list size = " + btnTrendList.size());
@@ -193,6 +197,12 @@ public class TrendsView extends JScrollPane implements Observer {
 	public String getObserverRef() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void addCommandListner(CommandListner commandListner) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -39,7 +39,7 @@ public class RapidMinerSentimentAnalysisTest {
 		subjectRef = new ConcreteSubject();
 		this.twitterSubjectRef = new TwitterDataSubject(subjectRef,changeManager);
 		rapidMinerAnalysis = new RapidMinerSentimentAnalysis();
-		this.twitterSubjectRef.reSetProgressCount();
+		this.twitterSubjectRef.clearProgressCount();
 		JSONObject tweet = new JSONObject();
 		tweet.put("processedTweet", "test tweet");
 		this.mongoDataStore = new ArrayList<JSONObject>();

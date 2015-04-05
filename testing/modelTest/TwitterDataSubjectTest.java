@@ -69,7 +69,7 @@ public class TwitterDataSubjectTest {
 		twitterSubjectRef.addSentimentAnalysisStrategy(rapidMinerAnalysis);
 		twitterSubjectRef.addSentimentAnalysisStrategy(datumBoxAnalysis);
 	
-		twitterSubjectRef.reSetProgressCount();
+		twitterSubjectRef.clearProgressCount();
 		twitterSubjectRef.setTopic("test");
 		
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -106,7 +106,7 @@ public class TwitterDataSubjectTest {
 	}
 	@Test
 	public final void testReSetTopic() throws AWTException, InterruptedException {
-		twitterSubjectRef.reSetTopic();
+		twitterSubjectRef.clearTopic();
 		assertEquals(this.twitterSubjectRef.getTopic(), null);
 	}
 	@Test
@@ -132,7 +132,7 @@ public class TwitterDataSubjectTest {
 	}
 	@Test
 	public final void testReSetMongoDataStore() throws AWTException, InterruptedException {
-		twitterSubjectRef.resetMongoDataStore();
+		twitterSubjectRef.clearSubjectDataStore();
 		assertEquals(this.twitterSubjectRef.getMongoDataStore().size(), 0);
 	}
 

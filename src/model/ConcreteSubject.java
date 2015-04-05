@@ -40,11 +40,11 @@ public class ConcreteSubject implements Subject {
 	}
 
 
-	@Override
-	public void addCommandListner(CommandListner commandListner) {
-		// TODO Auto-generated method stub
-		
-	}
+//	@Override
+//	public void addCommandListner(CommandListner commandListner) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 	@Override
 	public void registerObserver(Observer o, String ObserverRef) {

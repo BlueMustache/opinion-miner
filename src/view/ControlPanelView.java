@@ -11,26 +11,32 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import command.BtnAnalyseTweets;
 import command.BtnFetchTweets;
-import command.BtnEvaluateMongoResults;
+import command.BtnEvaluateResults;
 import command.BtnUpdateMongoDB;
+import command.Command;
 import controller.Controller.CommandListner;
 //import controller.Controller.IDocumentListener;
 import model.Subject;
 import model.TwitterDataSubject;
 
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ControlPanelView extends JPanel implements Observer {
 	
 	private TwitterDataSubject subject;
 	private BtnFetchTweets btnFetchTweets;
 	private BtnAnalyseTweets btnAnalyze;
-	private BtnEvaluateMongoResults btnEvaluate;
+	private BtnEvaluateResults btnEvaluate;
 	private BtnUpdateMongoDB btnUpdateDB;
 	private JTextField textField;
 	private JSplitPane splitPane;
@@ -47,9 +53,11 @@ public class ControlPanelView extends JPanel implements Observer {
 		this.splitPane = new JSplitPane();
 		this.btnFetchTweets = new BtnFetchTweets("Search", subjectRef);	
 		this.btnAnalyze = new BtnAnalyseTweets("Analyze", subjectRef);
-		this.btnEvaluate = new BtnEvaluateMongoResults("Evaluate", subjectRef);
-		this.btnEvaluate.setEnabled(false);
+		this.btnEvaluate = new BtnEvaluateResults("Evaluate", subjectRef);
 		this.btnUpdateDB = new BtnUpdateMongoDB("Update Data Set", subjectRef);
+		this.btnEvaluate.setEnabled(false);
+		this.btnUpdateDB.setEnabled(false);
+		
 		setBtnLayout(); //Call set layout method to layout the buttons
 		textFieldListner();// Need to try put this in the controller
 	}
@@ -128,10 +136,21 @@ public class ControlPanelView extends JPanel implements Observer {
 		btnEvaluate.addActionListener(commandListner);
 		btnUpdateDB.addActionListener(commandListner);
 	}
+//	public void activateBtns(String btnName, boolean param){
+//		this.btnEvaluate.setEnabled(param);
+//		this.btnUpdateDB.setEnabled(param);
+//	}
+	public void enableEval(boolean param){
+		this.btnEvaluate.setEnabled(param);
+	}
+	public void enableUpdate(boolean param){
+		this.btnUpdateDB.setEnabled(param);
+	}
 
 	@Override
 	public String getObserverRef() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

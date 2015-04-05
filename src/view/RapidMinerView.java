@@ -128,7 +128,6 @@ public class RapidMinerView extends JScrollPane implements Observer{
 		this.setViewportView(mainPanel);
 		this.revalidate();
 		this.repaint();
-
 		}
 
 		System.out.println("Rapidminer View is running and made "+ tweetCount +" panels & Views");
