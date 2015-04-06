@@ -11,6 +11,7 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 
 import controller.Controller.CommandListner;
+import controller.ICommandListner;
 import controller.SimpleChangeManager;
 import strategy.DatumBoxAnalysis;
 import strategy.ProcessStrategy;
@@ -22,7 +23,7 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 import view.Observer;
 
-public class TwitterDataSubject extends SubjectDecorator {
+public class TwitterDataSubject extends SubjectDecorator implements ICommandListner {
 
 	private ArrayList<Observer> observers;
 	private Map<String, Observer> observerMap;
@@ -62,7 +63,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		return rapidminerProgressCount;
 	}
 	
-	public void reSetProgressCount() {
+	public void clearProgressCount() {
 		this.datumBoxProgressCount=0;
 		this.rapidminerProgressCount=0;
 	}
@@ -83,7 +84,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 		this.topic = topic+" exclude:retweets";
 	}
 	
-	public void reSetTopic() {
+	public void clearTopic() {
 		this.topic = null;
 	}
 
@@ -204,7 +205,7 @@ public class TwitterDataSubject extends SubjectDecorator {
 //		}
 	}
 	
-	public void resetMongoDataStore(){
+	public void clearSubjectDataStore(){
 		this.mongoDataStore.clear();
 	}
 	

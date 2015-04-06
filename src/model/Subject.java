@@ -12,10 +12,7 @@ public interface Subject {
 
 	public void notifyObservers();
 	
-	public String description();//this may be deleted at some stage only here for proff of concept
-
-
-	public void addCommandListner(CommandListner commandListner);
+	public String description();//this may be deleted at some stage only here for proof of concept
 
 	public void registerObserver(Observer o, String ObserverRef);
 }

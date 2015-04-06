@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import command.BtnAnalyseTweets;
-import command.BtnEvaluateMongoResults;
+import command.BtnEvaluateResults;
 import strategy.DatumBoxAnalysis;
 import strategy.RapidMinerSentimentAnalysis;
 import strategy.SentimentStrategy;
@@ -34,7 +34,7 @@ public class BtnEvaluateMongoResultsTest {
 	private  ArrayList<SentimentStrategy> analysisStrategyList;
 	private RapidMinerSentimentAnalysis rapidMinerAnalysis;
 	private DatumBoxAnalysis datumBoxAnalysis;
-	private BtnEvaluateMongoResults btnEval;
+	private BtnEvaluateResults btnEval;
 	private ArrayList<JSONObject> mongoDataStore;
 	private final PrintStream stdout = System.out;
 	private final ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -53,7 +53,7 @@ public class BtnEvaluateMongoResultsTest {
 		changeManager = new SimpleChangeManager();
 		subjectRef = new ConcreteSubject();
 		twitterSubjectRef = new TwitterDataSubject(subjectRef,changeManager);
-		btnEval = new BtnEvaluateMongoResults("Analyze",twitterSubjectRef);
+		btnEval = new BtnEvaluateResults("Analyze",twitterSubjectRef);
 		JSONObject tweet = new JSONObject();
 		tweet.put("unProcessedTweet", "test tweet");
 		mongoDataStore = twitterSubjectRef.getMongoDataStore();

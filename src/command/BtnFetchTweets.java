@@ -51,7 +51,7 @@ public class BtnFetchTweets extends JButton implements Command {
 			try {
 				if((!((TwitterDataSubject) this.subjectRef).getTopic().isEmpty())){
 				ArrayList<String> tweetList = new ArrayList<String>();
-				((TwitterDataSubject) this.subjectRef).resetMongoDataStore();
+				((TwitterDataSubject) this.subjectRef).clearSubjectDataStore();
 				ArrayList<JSONObject> mongoDataStore = ((TwitterDataSubject) this.subjectRef).getMongoDataStore();
 
 				int tweetCount = 0;
@@ -84,14 +84,14 @@ public class BtnFetchTweets extends JButton implements Command {
 				}
 //				System.out.println("The Tweets Fetched count is : "+ tweetCount); // For// testing
 
-				((TwitterDataSubject) this.subjectRef).reSetProgressCount();
+				((TwitterDataSubject) this.subjectRef).clearProgressCount();
 				((TwitterDataSubject) this.subjectRef).hasChanged("tweetView");
 				((TwitterDataSubject) this.subjectRef).setMongoDataStore(mongoDataStore);
 //				System.out.println("The Mongo data count is : "+ mongoDataStore.size());
 
 				this.processStrategyCmd.execute();
 				((TwitterDataSubject) this.subjectRef).setTweetStore();
-				((TwitterDataSubject) this.subjectRef).reSetTopic();
+				((TwitterDataSubject) this.subjectRef).clearTopic();
 				System.out.println("tweet Count = "+ ((TwitterDataSubject) subjectRef).getTweetCount());
 				
 				// ///////////TEST/////////

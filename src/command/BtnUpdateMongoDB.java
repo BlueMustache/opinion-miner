@@ -40,7 +40,7 @@ public class BtnUpdateMongoDB extends JButton implements Command {
 		} else {
 			JOptionPane.showMessageDialog(null, "No Data To Update. First Search For tweets & Analyze & Evaluate", "No Data",JOptionPane.INFORMATION_MESSAGE);
 		}
-		} catch (IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException | com.mongodb.MongoTimeoutException e) {
 			JOptionPane.showMessageDialog(null, "No Data To Update. First Search For tweets & Analyze & Evaluate", "No Data",JOptionPane.INFORMATION_MESSAGE);
 	}
 	}

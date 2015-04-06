@@ -178,9 +178,9 @@ public class EvaluationView extends JScrollPane implements Observer {
 						}
 					}
 					if(!radioBtnlistPos.get(radioActioCount).isSelected()&&!radioBtnlistNeg.get(radioActioCount).isSelected()&&!radioBtnlistNeu.get(radioActioCount).isSelected()){
-						JOptionPane.showMessageDialog(null,"Select re-classifaction before submitting ", "Error",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Select re-classifaction before submitting ", "Error",JOptionPane.INFORMATION_MESSAGE);
 					}else if(radioBtnlistPos.get(radioActioCount).isSelected()||radioBtnlistNeg.get(radioActioCount).isSelected()||radioBtnlistNeu.get(radioActioCount).isSelected()){
-						JOptionPane.showMessageDialog(null, "Results Updated");
+						JOptionPane.showMessageDialog(null, "Results Updated","Success",JOptionPane.INFORMATION_MESSAGE);
 					}
 					
 						

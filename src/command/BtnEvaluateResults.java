@@ -12,11 +12,11 @@ import org.json.simple.JSONObject;
 import model.Subject;
 import model.TwitterDataSubject;
 
-public class BtnEvaluateMongoResults extends JButton implements Command {
+public class BtnEvaluateResults extends JButton implements Command {
 	
 	private Subject subjectRef;
 	
-	public BtnEvaluateMongoResults(String caption, Subject subject) {
+	public BtnEvaluateResults(String caption, Subject subject) {
 		// TODO Auto-generated constructor stub
 		super(caption);
 		this.setFont(new Font("Gotham Medium", Font.PLAIN, 20));
@@ -30,7 +30,7 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 		
 		try{
 		
-			if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())||((TwitterDataSubject) subjectRef).getMongoDataStore().get(0).containsKey("RapidResult")){
+			if (!(((TwitterDataSubject) this.subjectRef).getMongoDataStore().isEmpty())&&((TwitterDataSubject) subjectRef).getMongoDataStore().get(0).containsKey("RapidResult")){
 		System.out.print("Update button pressed");
 
 //		System.out.println("Mongo data store size ="+((TwitterDataSubject)this.subjectRef).getMongoDataStore().size());
@@ -52,6 +52,7 @@ public class BtnEvaluateMongoResults extends JButton implements Command {
 		}
 			
 		} catch (NullPointerException | IndexOutOfBoundsException e) {
+			System.out.println("Eval button Error");
 			JOptionPane.showMessageDialog(null,"No Data To Evaluate. First Search For tweets & Analyze", "No Data",JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
